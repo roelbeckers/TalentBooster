@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create new user{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                format: 'dd-mm-yyyy'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Create new user</h1>
+
+                {{ form_start(form) }}
+
+                    {{ form_row(form.firstname, {
+                        'label': "First Name"
+                    }) }}
+                    {{ form_row(form.lastname, {
+                        'label': "Last Name"
+                    }) }}
+                    {{ form_row(form.email, {
+                        'label': "E-Mail"
+                    }) }}
+                    {{ form_row(form.language) }}
+                    {{ form_row(form.jobtitle, {
+                        'label': "Job Title"
+                    }) }}
+                    {{ form_row(form.team) }}
+                    {{ form_row(form.dateHire, {
+                        'label': "Date Hired"
+                    }) }}
+                    {{ form_row(form.dateLastpromotion, {
+                        'label': "Date Last Promotion"
+                    }) }}
+                    {{ form_row(form.supervisor, {
+                        'label': "Supervisor"
+                    }) }}
+                    {{ form_row(form.accessRole, {
+                        'label': "Access Level"
+                    }) }}
+
+                    <button type="submit" class="btn btn-primary" formnovalidate>Create user</button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
