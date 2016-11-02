@@ -1,0 +1,19 @@
+{# app/Resources/views/Emails/user_create.html.twig #}
+<h3>You did it! You registered!</h3>
+
+Hi {{ name }}! You're successfully registered.
+
+{# example, assuming you have a route named "login" #}
+To login, go to: <a href="{{ url('security_login') }}">TalentBooster</a>.
+Use following information to login:
+<ul>
+    <li>E-mail: {{ email }}</li>
+    <li>Temporary password: {{ password }}</li>
+</ul>
+
+Please change your password immediately via your profile.
+
+Thanks!
+
+{# Makes an absolute URL to the /images/logo.png file #}
+<img src="{{ absolute_url(asset('images/logo-intopeople-baseline.png')) }}">
