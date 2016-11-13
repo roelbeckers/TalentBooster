@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Career{% endblock %}
+
+{% block body %}
+    <h1>My Career</h1>
+
+    {% set i = 0 %}
+
+    <!-- CYCLES WITH NO FORMS AVAILABLE YET -->
+    <table class="table table-striped">
+    {% for cycle in cycles %}
+                <thead>
+                <tr>
+                    <th style="vertical-align: middle;" colspan="4">{{ cycle.name }}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <!-- CDP -->
+                <tr>
+                    <td>CDP</td>
+                    <td>{{ cycle.cdpDateStart|date('d-M-Y') }} until {{ cycle.cdpDateEnd|date('d-M-Y') }}</td>
+                    <td>Not yet available</td>
+                    <td></td>>
+                </tr>
+
+                <!-- Mid-Year -->
+                {% if (cycle.myDateStart != null) %}
+                    <tr>
+                        <td>Mid-Year</td>
+                        <td>{{ cycle.myDateStart|date('d-M-Y') }} until {{ cycle.myDateEnd|date('d-M-Y') }}</td>
+                        <td>Not yet available</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+
+                <!-- Year-End -->
+                <tr>
+                    <td>Year-End</td>
+                    <td>{{ cycle.yeDateStart|date('d-M-Y') }} until {{ cycle.yeDateEnd|date('d-M-Y') }}</td>
+                    <td>Not yet available</td>
+                    <td></td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                </tbody>
+
+    {% endfor %}
+
+
+    <!-- CYCLES WITH FORMS AVAILABLE YET -->
+
+    {% for form in forms %}
+            <thead>
+            <tr>
+                <th style="vertical-align: middle;" colspan="4">{{ form.cycle.name }}</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- CDP -->
+            <tr>
+                <td>CDP</td>
+                <td>{{ form.cycle.cdpDateStart|date('d-M-Y') }} until {{ form.cycle.cdpDateEnd|date('d-M-Y') }}</td>
+                <td>{{ form.cdpStatus }}</td>
+                <!-- AVAILABLE -->          {{ (form.cdpStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
+                <!-- NOT YET AVAILABLE -->  {{ (form.cdpStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+            </tr>
+
+            <!-- Mid-Year -->
+            {% if (form.cycle.myDateStart != null) %}
+                <tr>
+                    <td>Mid-Year</td>
+                    <td>{{ form.cycle.myDateStart|date('d-M-Y') }} until {{ form.cycle.myDateEnd|date('d-M-Y') }}</td>
+                    <td>{{ form.myStatus }}</td>
+                    <!-- AVAILABLE -->          {{ (form.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
+                    <!-- NOT YET AVAILABLE -->  {{ (form.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+                </tr>
+            {% endif %}
+
+            <!-- Year-End -->
+            <tr>
+                <td>Year-End</td>
+                <td>{{ form.cycle.yeDateStart|date('d-M-Y') }} until {{ form.cycle.yeDateEnd|date('d-M-Y') }}</td>
+                <td>{{ form.yeStatus }}</td>
+                <!-- AVAILABLE -->          {{ (form.yeStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
+                <!-- NOT YET AVAILABLE -->  {{ (form.yeStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+            </tr>
+            {% set i = i+1 %}
+            {% if i != forms|length %}
+                <tr><td>&nbsp;</td></tr>
+            {% endif %}
+            </tbody>
+    {% endfor %}
+    </table>
+{% endblock %}

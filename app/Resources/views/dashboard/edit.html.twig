@@ -1,0 +1,21 @@
+{% extends('cycle/formLayout.twig') %}
+
+{% block title %}Update cycle{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Update cycle</h1>
+
+                {{
+                    include('cycle/_form.html.twig', {
+                        'buttonLabel': 'Update cycle',
+                    })
+                }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
