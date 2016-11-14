@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Team{% endblock %}
+
+{% block body %}
+    <h1>My Team</h1>
+
+    <!-- CYCLES WITH FORMS AVAILABLE YET -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th style="border: 0;"><h2>{{ forms[0].cycle.name }}</h2></th>
+            </tr>
+            <tr>
+                <th style="background-color: #EEEEEE; border: none; width: 200px;">Employee</th>
+                <th colspan="2" style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF;">CDP</th>
+                <th colspan="2" style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF;">Year-End</th>
+            </tr>
+            <tr>
+                <th style="background-color: #EEEEEE; border: none;"></th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Action</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for form in forms %}
+
+            <tr>
+                <td>{{ form.user.fullname }}</td>
+
+                <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.cdpStatus }}</td>
+                <td>
+                {% if (form.cdpStatus.id == 3) %}
+                    <a href="{{ path('form_action', {'formProgress': 'cdp', 'id': form.id, 'formAction': 'edit'}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                {% elseif (form.cdpStatus.id == 4) or (form.cdpStatus.id == 5) or (form.cdpStatus.id == 6) or (form.cdpStatus.id == 7) or (form.cdpStatus.id == 8) %}
+                    <a href="{{ path('form_action', {'formProgress': 'cdp', 'id': form.id, 'formAction': 'view'}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                {% else %}
+                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                {% endif %}
+                </td>
+
+                <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.yeStatus }}</td>
+                <td>
+                {% if (form.yeStatus.id == 3) %}
+                    <a href="{{ path('form_action', {'formProgress': 'ye', 'id': form.id, 'formAction': 'edit'}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                {% elseif (form.yeStatus.id == 4) or (form.yeStatus.id == 5) or (form.yeStatus.id == 6) or (form.yeStatus.id == 7) or (form.yeStatus.id == 8) %}
+                    <a href="{{ path('form_action', {'formProgress': 'ye', 'id': form.id, 'formAction': 'view'}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                {% else %}
+                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
