@@ -1,0 +1,11 @@
+{# app/Resources/views/Emails/form_sendToSupervisor.html.twig #}
+Hi {{ toName }},
+
+The status of the {{ formProgress }} of {{ senderName }} just changed to <strong>{{ formStatus }}</strong>.
+Click <a href="{{ formURL }}">here</a> to access it directly.
+
+Kind regards,
+TalentBooster
+
+{# Makes an absolute URL to the /images/logo.png file #}
+<img src="{{ absolute_url(asset('images/emails/logo-intopeople-baseline-emailsig.png')) }}">

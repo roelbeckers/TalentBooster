@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Career{% endblock %}
+
+{% block body %}
+    <h1>My Career</h1>
+
+    <!-- CYCLES WITH FORMS AVAILABLE YET -->
+    <table class="table table-hover">
+    {% for form in forms %}
+            <thead>
+            <tr>
+                <th style="border: 0;"><h2>{{ form.cycle.name }}</h2></th>
+            </tr>
+            <tr>
+                <th>Form</th>
+                <th>Dates</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- CDP -->
+            <tr>
+                <td>CDP</td>
+                <td>{{ form.cycle.cdpDateStart|date('d-M-Y') }} until {{ form.cycle.cdpDateEnd|date('d-M-Y') }}</td>
+                <td>{{ form.cdpStatus }}</td>
+                <td>
+                {% if (form.cdpStatus.id == 1) or (form.cdpStatus.id == 2) or (form.cdpStatus.id == 4) or (form.cdpStatus.id == 7) %}
+                    <a href="{{ path('form_edit', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                {% elseif (form.cdpStatus.id == 3) or (form.cdpStatus.id == 5) or (form.cdpStatus.id == 6) or (form.cdpStatus.id == 8) %}
+                    <a href="{{ path('form_view', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                {% else %}
+                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                {% endif %}
+                </td>
+            </tr>
+
+            <!-- Mid-Year -->
+            {% if (form.cycle.myDateStart != null) %}
+                <tr>
+                    <td>Mid-Year</td>
+                    <td>{{ form.cycle.myDateStart|date('d-M-Y') }} until {{ form.cycle.myDateEnd|date('d-M-Y') }}</td>
+                    <td>{{ form.myStatus }}</td>
+                    <!-- AVAILABLE -->          {{ (form.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
+                    <!-- NOT YET AVAILABLE -->  {{ (form.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+                </tr>
+            {% endif %}
+
+            <!-- Year-End -->
+            <tr>
+                <td>Year-End</td>
+                <td>{{ form.cycle.yeDateStart|date('d-M-Y') }} until {{ form.cycle.yeDateEnd|date('d-M-Y') }}</td>
+                <td>{{ form.yeStatus }}</td>
+                <td>
+                {% if (form.yeStatus.id == 1) or (form.yeStatus.id == 2) or (form.yeStatus.id == 4) or (form.yeStatus.id == 7) %}
+                    <a href="{{ path('form_edit', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                {% elseif (form.yeStatus.id == 3) or (form.yeStatus.id == 5) or (form.yeStatus.id == 6) or (form.yeStatus.id == 8) %}
+                    <a href="{{ path('form_view', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                {% else %}
+                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                {% endif %}
+                </td>
+            </tr>
+            </tbody>
+    {% endfor %}
+    </table>
+{% endblock %}
