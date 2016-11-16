@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="yeRating")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RatingYERepository")
+ * @ORM\Table(name="ratingYE")
  */
-class YERating
+class RatingYE
 {
     /**
      * @ORM\Id
@@ -49,5 +49,10 @@ class YERating
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

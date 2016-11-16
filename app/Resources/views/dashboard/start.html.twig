@@ -1,69 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Career{% endblock %}
+{% block title %}Start here{% endblock %}
 
 {% block body %}
-    <h1>My Career</h1>
+    <!--h1>Start here</h1-->
+    <div class="row" style="text-align: center; padding-top: 40px;">
+        <!-- USER -->
+        {% if ('ROLE_USER' in userType) %}
+            <a href="{{ path('dashboard_employee') }}" class="btn btn-success" style="height: 150px; width: 150px; padding-top: 30px;">
+                <h4><span class="fa fa-user"></span><br><br>My Career</></h4>
+            </a>
+        {% endif %}
 
-    <!-- CYCLES WITH FORMS AVAILABLE YET -->
-    <table class="table table-hover">
-    {% for form in forms %}
-            <thead>
-            <tr>
-                <th style="border: 0;"><h2>{{ form.cycle.name }}</h2></th>
-            </tr>
-            <tr>
-                <th>Form</th>
-                <th>Dates</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
+        <!-- SUPERVISOR -->
+        {% if ('ROLE_SUPERVISOR' in userType) %}
+            <a href="{{ path('dashboard_supervisor') }}" class="btn btn-success" style="height: 150px; width: 150px; padding-top: 30px;">
+                <h4><span class="fa fa-users"></span><br><br>My Team</></h4>
+            </a>
+        {% endif %}
 
-            <!-- CDP -->
-            <tr>
-                <td>CDP</td>
-                <td>{{ form.cycle.cdpDateStart|date('d-M-Y') }} until {{ form.cycle.cdpDateEnd|date('d-M-Y') }}</td>
-                <td>{{ form.cdpStatus }}</td>
-                <td>
-                {% if (form.cdpStatus.id == 1) or (form.cdpStatus.id == 2) or (form.cdpStatus.id == 4) or (form.cdpStatus.id == 7) %}
-                    <a href="{{ path('form_edit', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                {% elseif (form.cdpStatus.id == 3) or (form.cdpStatus.id == 5) or (form.cdpStatus.id == 6) or (form.cdpStatus.id == 8) %}
-                    <a href="{{ path('form_view', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                {% else %}
-                    <span class="btn btn-primary" disabled="disabled">No action</span>
-                {% endif %}
-                </td>
-            </tr>
+        <!-- HR -->
+        {% if ('ROLE_HR' in userType) %}
+            <a href="{{ path('dashboard_hr') }}" class="btn btn-success" style="height: 150px; width: 150px; padding-top: 30px; padding-left: 7px;">
+                <h4><span class="fa fa-users"></span><br><br>My Organisation</></h4>
+            </a>
 
-            <!-- Mid-Year -->
-            {% if (form.cycle.myDateStart != null) %}
-                <tr>
-                    <td>Mid-Year</td>
-                    <td>{{ form.cycle.myDateStart|date('d-M-Y') }} until {{ form.cycle.myDateEnd|date('d-M-Y') }}</td>
-                    <td>{{ form.myStatus }}</td>
-                    <!-- AVAILABLE -->          {{ (form.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
-                    <!-- NOT YET AVAILABLE -->  {{ (form.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
-                </tr>
-            {% endif %}
+            <a href="{{ path('user_list') }}" class="btn btn-primary" style="height: 150px; width: 150px; padding-top: 30px;">
+                <h4><span class="fa fa-user-plus"></span><br><br>Manage Users</></h4>
+            </a>
+        {% endif %}
 
-            <!-- Year-End -->
-            <tr>
-                <td>Year-End</td>
-                <td>{{ form.cycle.yeDateStart|date('d-M-Y') }} until {{ form.cycle.yeDateEnd|date('d-M-Y') }}</td>
-                <td>{{ form.yeStatus }}</td>
-                <td>
-                {% if (form.yeStatus.id == 1) or (form.yeStatus.id == 2) or (form.yeStatus.id == 4) or (form.yeStatus.id == 7) %}
-                    <a href="{{ path('form_edit', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                {% elseif (form.yeStatus.id == 3) or (form.yeStatus.id == 5) or (form.yeStatus.id == 6) or (form.yeStatus.id == 8) %}
-                    <a href="{{ path('form_view', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                {% else %}
-                    <span class="btn btn-primary" disabled="disabled">No action</span>
-                {% endif %}
-                </td>
-            </tr>
-            </tbody>
-    {% endfor %}
-    </table>
+        <a href="{{ path('user_list') }}" class="btn btn-primary" style="height: 150px; width: 150px; padding-top: 20px;">
+            <h4><span class="fa fa-lock"></span><br><br>Change<br>Password</></h4>
+        </a>
+
+    </div>
 {% endblock %}

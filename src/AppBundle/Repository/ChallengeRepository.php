@@ -2,21 +2,21 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Pitfall;
+use AppBundle\Entity\Challenge;
 use Doctrine\ORM\EntityRepository;
 
-class PitfallRepository extends EntityRepository
+class ChallengeRepository extends EntityRepository
 {
     /**
-     * @return Pitfall[]
+     * @return Challenge[]
      */
-    public function findAllEnglishPitfallOrderById()
+    public function findAllEnglishChallengeOrderById()
     {
-        return $this->createQueryBuilder('pitfall')
-            ->where('pitfall.isStandard = :isStandard')
+        return $this->createQueryBuilder('challenge')
+            ->where('challenge.isStandard = :isStandard')
             ->setParameter('isStandard', true)
-            ->andWhere('pitfall.language = :language')
+            ->andWhere('challenge.language = :language')
             ->setParameter('language', '1')
-            ->orderBy('pitfall.name', 'ASC');
+            ->orderBy('challenge.name', 'ASC');
     }
 }

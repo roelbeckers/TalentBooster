@@ -2,15 +2,14 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
- * ORM\Table(name="genus")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CycleRepository")
+ * @ORM\Table(name="cycle")
  */
-class Genus
+class Cycle
 {
     /**
      * @ORM\Id
@@ -21,50 +20,62 @@ class Genus
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=40)
      */
     private $name;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
-     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Date()
+     * @ORM\Column(type="date")
      */
-    private $subFamily;
+    private $cdpDateStart;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Range(min=0, minMessage="Negative species! Come on...");
-     * @ORM\Column(type="integer")
+     * @Assert\Date()
+     * @ORM\Column(type="date")
      */
-    private $speciesCount;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $funFact;
+    private $cdpDateEnd;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPublished = true;
+    private $cdpAutoMail = true;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $myDateStart;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $myDateEnd;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $myAutoMail = true;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
-    private $firstDiscoveredAt;
+    private $yeDateStart;
 
     /**
-     * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
-     * @ORM\OrderBy({"createdAt" = "DESC"})
+     * @Assert\NotBlank()
+     * @ORM\Column(type="date")
      */
-    private $notes;
+    private $yeDateEnd;
 
-    public function __construct()
-    {
-        $this->notes = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $yeAutoMail = true;
+
+    // GETTERS & SETTERS
 
     /**
      * @return mixed
@@ -74,84 +85,234 @@ class Genus
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param mixed $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
     /**
-     * @return SubFamily
+     * @return mixed
      */
-    public function getSubFamily()
+    public function getCdpDateStart()
     {
-        return $this->subFamily;
-    }
-
-    public function setSubFamily(SubFamily $subFamily = null)
-    {
-        $this->subFamily = $subFamily;
-    }
-
-    public function getSpeciesCount()
-    {
-        return $this->speciesCount;
-    }
-
-    public function setSpeciesCount($speciesCount)
-    {
-        $this->speciesCount = $speciesCount;
-    }
-
-    public function getFunFact()
-    {
-        return $this->funFact;
-    }
-
-    public function setFunFact($funFact)
-    {
-        $this->funFact = $funFact;
-    }
-
-    public function getUpdatedAt()
-    {
-        return new \DateTime('-'.rand(0, 100).' days');
-    }
-
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
+        return $this->cdpDateStart;
     }
 
     /**
-     * @return ArrayCollection|GenusNote[]
+     * @param mixed $cdpDateStart
      */
-    public function getNotes()
+    public function setCdpDateStart($cdpDateStart)
     {
-        return $this->notes;
-    }
-
-    public function getFirstDiscoveredAt()
-    {
-        return $this->firstDiscoveredAt;
-    }
-
-    public function setFirstDiscoveredAt(\DateTime $firstDiscoveredAt = null)
-    {
-        $this->firstDiscoveredAt = $firstDiscoveredAt;
+        $this->cdpDateStart = $cdpDateStart;
     }
 
     /**
      * @return mixed
      */
-    public function getIsPublished()
+    public function getCdpDateEnd()
     {
-        return $this->isPublished;
+        return $this->cdpDateEnd;
+    }
+
+    /**
+     * @param mixed $cdpDateEnd
+     */
+    public function setCdpDateEnd($cdpDateEnd)
+    {
+        $this->cdpDateEnd = $cdpDateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCdpAutoMail()
+    {
+        return $this->cdpAutoMail;
+    }
+
+    /**
+     * @param mixed $cdpAutoMail
+     */
+    public function setCdpAutoMail($cdpAutoMail)
+    {
+        $this->cdpAutoMail = $cdpAutoMail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyDateStart()
+    {
+        return $this->myDateStart;
+    }
+
+    /**
+     * @param mixed $myDateStart
+     */
+    public function setMyDateStart($myDateStart)
+    {
+        $this->myDateStart = $myDateStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyDateEnd()
+    {
+        return $this->myDateEnd;
+    }
+
+    /**
+     * @param mixed $myDateEnd
+     */
+    public function setMyDateEnd($myDateEnd)
+    {
+        $this->myDateEnd = $myDateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyAutoMail()
+    {
+        return $this->myAutoMail;
+    }
+
+    /**
+     * @param mixed $myAutoMail
+     */
+    public function setMyAutoMail($myAutoMail)
+    {
+        $this->myAutoMail = $myAutoMail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYeDateStart()
+    {
+        return $this->yeDateStart;
+    }
+
+    /**
+     * @param mixed $yeDateStart
+     */
+    public function setYeDateStart($yeDateStart)
+    {
+        $this->yeDateStart = $yeDateStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYeDateEnd()
+    {
+        return $this->yeDateEnd;
+    }
+
+    /**
+     * @param mixed $yeDateEnd
+     */
+    public function setYeDateEnd($yeDateEnd)
+    {
+        $this->yeDateEnd = $yeDateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYeAutoMail()
+    {
+        return $this->yeAutoMail;
+    }
+
+    /**
+     * @param mixed $yeAutoMail
+     */
+    public function setYeAutoMail($yeAutoMail)
+    {
+        $this->yeAutoMail = $yeAutoMail;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
     }
 
 
+    // VALIDATION CONSTRAINTS
+
+    /**
+     * @Assert\IsTrue(message = "cycle.cdp.dateend.greaterthan.datestart")
+     */
+    public function isCDPDateEndGreaterThanCDPDateStart()
+    {
+        return $this->cdpDateEnd > $this->cdpDateStart;
+    }
+
+    /**
+     * @Assert\IsTrue(message = "cycle.my.dateend.greaterthan.datestart")
+     */
+    public function isMYDateEndGreaterThanMYDateStart()
+    {
+        if ($this->myDateStart) {
+            $checkDate = $this->myDateEnd > $this->myDateStart;
+        }
+        else {
+            $checkDate = true;
+        }
+
+        return $checkDate;
+    }
+
+    /**
+     * @Assert\IsTrue(message = "cycle.ye.dateend.greaterthan.datestart")
+     */
+    public function isYEDateEndGreaterThanYEDateStart()
+    {
+        return $this->yeDateEnd > $this->yeDateStart;
+    }
+
+    /**
+     * @Assert\IsTrue(message = "cycle.my.datestart.greaterthan.cdp.dateend")
+     */
+    public function isMYDateStartGreaterThanCDPDateEnd()
+    {
+        if ($this->myDateStart) {
+            $checkDate = $this->myDateStart > $this->cdpDateEnd;
+        }
+        else {
+            $checkDate = true;
+        }
+
+        return $checkDate;
+
+    }
+
+    /**
+     * @Assert\IsTrue(message = "cycle.ye.datestart.greaterthan.my.dateend")
+     */
+    public function isYEDateStartGreaterThanMYDateEndOrCDPDateEnd()
+    {
+        if ($this->myDateEnd) {
+            $checkDate = $this->yeDateStart > $this->myDateEnd;
+        }
+        else {
+            $checkDate = $this->yeDateStart > $this->cdpDateEnd;
+        }
+
+        return $checkDate;
+
+    }
 }

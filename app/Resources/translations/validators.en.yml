@@ -1,0 +1,6 @@
+"This value should not be blank.": "This field should not be blank!"
+cycle.cdp.dateend.greaterthan.datestart: "CDP End Date needs to be greater than CDP Start Date."
+cycle.my.dateend.greaterthan.datestart: "Mid-Year End Date needs to be greater than Mid-Year Start Date."
+cycle.ye.dateend.greaterthan.datestart: "Year-End End Date needs to be greater than Year-End Start Date."
+cycle.my.datestart.greaterthan.cdp.dateend: "Mid-Year Start Date needs to be greater than CDP End Date."
+cycle.ye.datestart.greaterthan.my.dateend: "Year-End Start Date needs to be greater than CDP and Mid-Year End Date."

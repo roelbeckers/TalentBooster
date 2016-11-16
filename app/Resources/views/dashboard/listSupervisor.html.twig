@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>My Team</h1>
+    <a href="{{ app.request.headers.get('referer') }}"><span class="fa fa-arrow-circle-left"></span> Return to previous page</a><br><br>
 
     <!-- CYCLES WITH FORMS AVAILABLE YET -->
     <table class="table table-hover">
@@ -34,9 +35,9 @@
                 <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.cdpStatus }}</td>
                 <td>
                 {% if (form.cdpStatus.id == 3) %}
-                    <a href="{{ path('form_action', {'formProgress': 'cdp', 'id': form.id, 'formAction': 'edit'}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                    <a href="{{ path('form_edit', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
                 {% elseif (form.cdpStatus.id == 4) or (form.cdpStatus.id == 5) or (form.cdpStatus.id == 6) or (form.cdpStatus.id == 7) or (form.cdpStatus.id == 8) %}
-                    <a href="{{ path('form_action', {'formProgress': 'cdp', 'id': form.id, 'formAction': 'view'}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                    <a href="{{ path('form_view', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
                 {% else %}
                     <span class="btn btn-primary" disabled="disabled">No action</span>
                 {% endif %}
@@ -45,9 +46,9 @@
                 <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.yeStatus }}</td>
                 <td>
                 {% if (form.yeStatus.id == 3) %}
-                    <a href="{{ path('form_action', {'formProgress': 'ye', 'id': form.id, 'formAction': 'edit'}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                    <a href="{{ path('form_edit', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
                 {% elseif (form.yeStatus.id == 4) or (form.yeStatus.id == 5) or (form.yeStatus.id == 6) or (form.yeStatus.id == 7) or (form.yeStatus.id == 8) %}
-                    <a href="{{ path('form_action', {'formProgress': 'ye', 'id': form.id, 'formAction': 'view'}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                    <a href="{{ path('form_view', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
                 {% else %}
                     <span class="btn btn-primary" disabled="disabled">No action</span>
                 {% endif %}

@@ -2,21 +2,44 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Genus;
+use AppBundle\Entity\Form;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
-class GenusRepository extends EntityRepository
+class UserRepository extends EntityRepository
 {
     /**
-     * @return Genus[]
+     * @return User[]
      */
-    public function findAllPublishedOrderedByRecentlyActive()
+    public function findAllSupervisorsOrderedByFirstname()
     {
-        return $this->createQueryBuilder('genus')
-            ->andWhere('genus.isPublished = :isPublished')
-            ->setParameter('isPublished', true)
-            ->leftJoin('genus.notes', 'genus_note')
-            ->orderBy('genus_note.createdAt', 'DESC')
+        return $this->createQueryBuilder('user')
+            ->where('user.roles LIKE :roleSupervisor')
+            ->setParameter('roleSupervisor', '%SUPERVISOR%')
+            ->orderBy('user.firstname', 'ASC');
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsersOrderedByFirstname()
+    {
+        return $this->createQueryBuilder('user')
+            ->orderBy('user.firstname', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function checkSupervisorAccessToCDP(User $currentUser, Form $cdp)
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.id = :cdpUser')
+            ->setParameter('cdpUser', $cdp->getUser())
+            ->andWhere('user.supervisor = :currentUser')
+            ->setParameter('currentUser', $currentUser)
             ->getQuery()
             ->execute();
     }

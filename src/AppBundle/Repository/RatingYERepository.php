@@ -2,18 +2,17 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\RatingYE;
 use Doctrine\ORM\EntityRepository;
 
-class FormRepository extends EntityRepository
+class RatingYERepository extends EntityRepository
 {
     /**
-     * @return RatingMY[]
+     * @return RatingYE[]
      */
-    public function findAllRatingMYOrderById()
+    public function findAllRatingYEOrderById()
     {
-        return $this->createQueryBuilder('ratingMY')
-            ->orderBy('ratingMY.id')
-            ->getQuery()
-            ->execute();
+        return $this->createQueryBuilder('ratingYE')
+            ->orderBy('ratingYE.id', 'ASC');
     }
 }

@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="coreQuality")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ChallengeRepository")
+ * @ORM\Table(name="challenge")
  */
-class Pitfall
+class Challenge
 {
     /**
      * @ORM\Id
@@ -30,7 +30,7 @@ class Pitfall
     private $isStandard = true;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $language;
 
@@ -93,6 +93,9 @@ class Pitfall
         $this->language = $language;
     }
 
-
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
 }

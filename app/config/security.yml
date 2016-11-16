@@ -2,10 +2,19 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
+    encoders:
+        AppBundle\Entity\User: bcrypt
+
+
+    role_hierarchy:
+        ROLE_SUPERVISOR:    ROLE_USER
+        ROLE_HR:            ROLE_SUPERVISOR
+        ROLE_SUPER_ADMIN:   [ROLE_HR, ROLE_ALLOWED_TO_SWITCH]
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        our_users:
+            entity: { class: AppBundle\Entity\User, property: email }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +23,16 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/
+            anonymous: true
+            guard:
+                authenticators:
+                    - app.security.login_form.authenticator
+
+            logout:
+                path: /logout
+
+            switch_user: ~
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +40,6 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+         # - { path: ^/user, roles: ROLE_HR }

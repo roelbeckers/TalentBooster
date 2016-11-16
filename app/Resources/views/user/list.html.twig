@@ -1,24 +1,47 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Users overview{% endblock %}
+
 {% block body %}
-    <table class="table table-striped">
+    <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px; margin-right: 20px;">
+        <a href="{{ path('user_create') }}" class="btn btn-primary pull-right"><span class="fa fa-user-plus"></span> Create user</a>
+    </div>
+
+    <h1>Users overview</h1>
+    <a href="{{ app.request.headers.get('referer') }}"><span class="fa fa-arrow-circle-left"></span> Return to previous page</a><br><br><br><br>
+
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Genus</th>
-                <th># of species</th>
-                <th>Last updated</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">First Name</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Last Name</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Supervisor</th>
             </tr>
         </thead>
         <tbody>
-            {% for genus in genuses %}
+            {% for user in users %}
                 <tr>
                     <td>
-                        <a href="{{ path('genus_show', {'genusName': genus.name}) }}">
-                            {{ genus.name }}
+                        <a href="{{ path('user_edit', {'id': user.id}) }}">
+                            {{ user.firstname }}
                         </a>
                     </td>
-                    <td>{{ genus.speciesCount }}</td>
-                    <td>{{ genus.updatedAt|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}">
+                            {{ user.lastname }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if (user.supervisor) %}
+                            {% if (user.supervisor == user) %}
+                                -
+                            {% else %}
+                                {{ user.supervisor.firstname }} {{ user.supervisor.lastname }}
+                            {% endif %}
+                        {% else %}
+                            No Supervisor selected
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

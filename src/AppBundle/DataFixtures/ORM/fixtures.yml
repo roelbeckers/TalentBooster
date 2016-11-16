@@ -1,0 +1,115 @@
+AppBundle\Entity\User:
+    user1:
+        email: roel@ebeck.be
+        plainPassword: Mijn2zonen!
+        date_lastpromotion: <(new \DateTime('1900-01-01'))>
+        date_hire: <(new \DateTime('1900-01-01'))>
+        roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER', 'ROLE_SUPER_ADMIN']
+        enabled: true
+        supervisor: '@user1'
+        firstname: Roel
+        lastname: Beckers
+        language: en
+        jobtitle: TalentBooster Developer
+        team: IntoPeople bvba
+    user{2..10}:
+        # use some fake data for this
+        email: test+<current()>@ebeck.be
+        plainPassword: talentbooster
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER']
+        enabled: true
+        supervisor: '@user*'
+        firstname: <firstName()>
+        lastname: <lastName()>
+        language: en
+        jobtitle: <word()>
+        team: <word()>
+
+AppBundle\Entity\Cycle:
+    cycle1:
+        name: 2016
+        cdpDateStart: <(new \DateTime('2016-08-01'))>
+        cdpDateEnd: <(new \DateTime('2016-09-01'))>
+        cdpAutoMail: true
+        yeDateStart: <(new \DateTime('2016-11-15'))>
+        yeDateEnd: <(new \DateTime('2016-12-15'))>
+        yeAutoMail: true
+
+    cycle2:
+        name: 2017
+        cdpDateStart: <(new \DateTime('2017-01-05'))>
+        cdpDateEnd: <(new \DateTime('2017-02-05'))>
+        cdpAutoMail: true
+        myDateStart: <(new \DateTime('2017-06-01'))>
+        myDateEnd: <(new \DateTime('2017-07-01'))>
+        myAutoMail: true
+        yeDateStart: <(new \DateTime('2017-11-01'))>
+        yeDateEnd: <(new \DateTime('2017-12-01'))>
+        yeAutoMail: true
+
+    # cycle_{1..3}:
+        # use some fake data for this
+        # name: <firstName()>
+        # cdpDateStart: <dateTimeBetween('-12 months', '-11 months')>
+        # cdpDateEnd: <dateTimeBetween('-10 months', '-9 months')>
+        # cdpAutoMail: true
+        # myDateStart: <dateTimeBetween('-8 months', '-7 months')>
+        # myDateEnd: <dateTimeBetween('-6 months', '-5 months')>
+        # myAutoMail: true
+        # yeDateStart: <dateTimeBetween('-4 months', '-3 months')>
+        # yeDateEnd: <dateTimeBetween('-2 months', 'now')>
+        # yeAutoMail: true
+
+AppBundle\Entity\FormStatus:
+    formStatus1:
+        status: Available
+    formStatus2:
+        status: In Progress
+    formStatus3:
+        status: Sent to Supervisor
+    formStatus4:
+        status: Sent back by Supervisor
+    formStatus5:
+        status: Sent to HR
+    formStatus6:
+        status: On Hold
+    formStatus7:
+        status: Sent back by HR
+    formStatus8:
+        status: Completed
+    formStatus9:
+        status: Not yet available
+
+AppBundle\Entity\Form:
+    form1:
+        cycle: '@cycle1'
+        user: '@user1'
+        cdpStatus: '@formStatus1'
+        myStatus: '@formStatus9'
+        yeStatus: '@formStatus9'
+    form2:
+        cycle: '@cycle1'
+        user: '@user2'
+        cdpStatus: '@formStatus9'
+        myStatus: '@formStatus9'
+        yeStatus: '@formStatus9'
+
+AppBundle\Entity\RatingYE:
+    ratingye1:
+        name: Meet No Expectations
+    ratingye2:
+        name: Meet Some Expectations
+    ratingye3:
+        name: Meet Expectations
+    ratingye4:
+        name: Exceeds Expectations
+    ratingye5:
+        name: Substantially Exceeds Expectations
+
+AppBundle\Entity\RatingMY:
+    ratingmy1:
+        name: On Track
+    ratingmy2:
+        name: Not On Track

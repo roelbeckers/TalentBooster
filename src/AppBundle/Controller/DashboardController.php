@@ -9,87 +9,90 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Cycle;
-use AppBundle\Form\CycleFormType;
-use AppBundle\Form\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
-
-class CycleController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * @Route("/cycle/create", name="cycle_create")
+     * @Route("/dashboard/employee", name="dashboard_employee")
+     * @Security("is_granted('ROLE_USER')")
      */
-    public function createAction(Request $request)
-    {
-        $form = $this->createForm(CycleFormType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Cycle $cycle */
-            $cycle = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cycle);
-            $em->flush();
-
-            $this->addFlash(
-                'success',
-                'Cycle '. $cycle->getName() .' created.'
-            );
-
-            return $this->redirectToRoute('cycle_list');
-        }
-
-        return $this->render('cycle/create.html.twig', [
-            'cycleForm' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/cycle/list", name="cycle_list")
-     */
-    public function listAction()
+    public function listEmployeeAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $cycles = $em->getRepository('AppBundle:Cycle')
-            ->findAll();
+        /*$cycles = $em->getRepository('AppBundle:Cycle')
+            ->findAllCyclesNotStartedOrderedByCDPStartDate();*/
 
-        return $this->render('cycle/list.html.twig', [
-            'cycles' => $cycles
+        $forms = $em->getRepository('AppBundle:Form')
+            ->findAllFormsForCurrentUser($this->getUser());
+
+        return $this->render('dashboard/listEmployee.html.twig', [
+            'forms' => $forms
+            //'cycles' => $cycles
         ]);
-
     }
 
     /**
-     * @Route("/cycle/{id}/edit", name="cycle_edit")
+     * @Route("/dashboard/supervisor", name="dashboard_supervisor")
+     * @Security("is_granted('ROLE_SUPERVISOR')")
      */
-    public function editAction(Request $request, Cycle $cycle)
+    public function listSupervisorAction()
     {
-        $form = $this->createForm(CycleFormType::class, $cycle );
+        $em = $this->getDoctrine()->getManager();
 
+        $forms = $em->getRepository('AppBundle:Form')
+            ->findAllFormsOfEmployeesForSupervisor($this->getUser());
 
-        // only handles data on POST
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cycle = $form->getData();
+        //dump($users);die;
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cycle);
-            $em->flush();
-
-            $this->addFlash(
-                'success',
-                sprintf('Cycle %s updated.', $cycle->getName())
-            );
-
-            return $this->redirectToRoute('cycle_list');
-        }
-
-        return $this->render('cycle/edit.html.twig', [
-            'cycleForm' => $form->createView()
+        return $this->render('dashboard/listSupervisor.html.twig', [
+            'forms' => $forms
+            //'cycles' => $cycles
         ]);
     }
+
+    /**
+     * @Route("/dashboard/hr", name="dashboard_hr")
+     * @Security("is_granted('ROLE_HR')")
+     */
+    public function listHRAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $forms = $em->getRepository('AppBundle:Form')
+            ->findAll();
+
+        //dump($users);die;
+
+        return $this->render('dashboard/listHR.html.twig', [
+            'forms' => $forms
+            //'cycles' => $cycles
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/start", name="dashboard_start")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function startAction()
+    {
+        if (in_array('ROLE_HR', $this->getUser()->getRoles())) $userType = 'hr';
+        elseif (in_array('ROLE_SUPERVISOR', $this->getUser()->getRoles())) $userType = 'supervisor';
+        elseif (in_array('ROLE_USER', $this->getUser()->getRoles())) $userType = 'user';
+        else $userType = 'invalid';
+
+        if ($userType == 'invalid'){
+            throw $this->createNotFoundException('Invalid user detected!');
+        }
+        else {
+            return $this->render('dashboard/start.html.twig', [
+                    'userType' => $this->getUser()->getRoles()
+                ]
+            );
+        }
+    }
+
 }

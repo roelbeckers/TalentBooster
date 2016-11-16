@@ -2,29 +2,31 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Cycle;
 use Doctrine\ORM\EntityRepository;
 
-class UserRepository extends EntityRepository
+class CycleRepository extends EntityRepository
 {
     /**
-     * @return User[]
+     * @return Cycle[]
      */
-    public function findAllSupervisorsOrderedByFirstname()
+    public function findAllCyclesOrderedByCDPStartDate()
     {
-        return $this->createQueryBuilder('user')
-            ->where('user.roles LIKE :roleSupervisor')
-            ->setParameter('roleSupervisor', '%SUPERVISOR%')
-            ->orderBy('user.firstname', 'ASC');
+        return $this->createQueryBuilder('cycle')
+            ->orderBy('cycle.cdpDateStart', 'DESC')
+            ->getQuery()
+            ->execute();
     }
 
     /**
-     * @return User[]
+     * @return Cycle[]
      */
-    public function findAllUsersOrderedByFirstname()
+    public function findAllCyclesNotStartedOrderedByCDPStartDate()
     {
-        return $this->createQueryBuilder('user')
-            ->orderBy('user.firstname', 'ASC')
+        return $this->createQueryBuilder('cycle')
+            ->where('cycle.cdpDateStart > :currentDate')
+            ->setParameter('currentDate', new \DateTime())
+            ->orderBy('cycle.cdpDateStart', 'DESC')
             ->getQuery()
             ->execute();
     }

@@ -2,17 +2,21 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\RatingYE;
+use AppBundle\Entity\CoreQuality;
 use Doctrine\ORM\EntityRepository;
 
-class RatingYERepository extends EntityRepository
+class CoreQualityRepository extends EntityRepository
 {
     /**
-     * @return RatingYE[]
+     * @return CoreQuality[]
      */
-    public function findAllRatingYEOrderById()
+    public function findAllEnglishCoreQualityOrderById()
     {
-        return $this->createQueryBuilder('ratingYE')
-            ->orderBy('ratingYE.id', 'ASC')
+        return $this->createQueryBuilder('coreQuality')
+            ->where('coreQuality.isStandard = :isStandard')
+            ->setParameter('isStandard', true)
+            ->andWhere('coreQuality.language = :language')
+            ->setParameter('language', '1')
+            ->orderBy('coreQuality.name', 'ASC');
     }
 }

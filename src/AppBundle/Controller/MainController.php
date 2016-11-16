@@ -1,15 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roebeckers
- * Date: 18/10/2016
- * Time: 10:48 PM
- */
 
 namespace AppBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MainController
+class MainController extends Controller
 {
-
+    public function homepageAction()
+    {
+        //return $this->render('main/homepage.html.twig');
+        return $this->redirectToRoute('security_login');
+    }
 }

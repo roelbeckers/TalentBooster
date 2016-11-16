@@ -13,8 +13,6 @@ class RatingMYRepository extends EntityRepository
     public function findAllRatingMYOrderById()
     {
         return $this->createQueryBuilder('ratingMY')
-            ->orderBy('ratingMY.id')
-            ->getQuery()
-            ->execute();
+            ->orderBy('ratingMY.id', 'ASC');
     }
 }

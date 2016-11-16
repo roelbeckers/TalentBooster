@@ -1,32 +1,57 @@
-{{ form_start(userForm) }}
-    {{ form_row(userForm.firstname, {
-        'label': "First Name"
+{{ form_start(cycleForm) }}
+    {{form_errors(cycleForm)}}
+    <p>&nbsp;</p>
+    {{ form_row(cycleForm.name, {
+        'label': "Cycle Name"
     }) }}
-    {{ form_row(userForm.lastname, {
-        'label': "Last Name"
+
+
+    <hr><p>&nbsp;</p>
+    <h2>CDP</h2>
+
+    {{ form_row(cycleForm.cdpDateStart, {
+        'label': "CDP Start Date"
     }) }}
-    {{ form_row(userForm.email, {
-        'label': "E-Mail"
+    {{ form_row(cycleForm.cdpDateEnd, {
+        'label': "CDP End Date"
     }) }}
-    {{ form_row(userForm.language) }}
-    {{ form_row(userForm.jobtitle, {
-        'label': "Job Title"
+    {{ form_row(cycleForm.cdpAutoMail, {
+        'label': "Automatically inform employees by mail on CDP start date"
     }) }}
-    {{ form_row(userForm.team) }}
-    {{ form_row(userForm.dateHire, {
-        'label': "Date Hired"
+
+
+    <hr><p>&nbsp;</p>
+    <div class="panel-warning" id="">
+    <h2>Mid-Year</h2>
+
+    {{ form_row(cycleForm.myDateStart, {
+        'label': "Mid-Year Start Date"
     }) }}
-    {{ form_row(userForm.dateLastpromotion, {
-        'label': "Date Last Promotion"
+    {{ form_row(cycleForm.myDateEnd, {
+        'label': "Mid-Year End Date"
     }) }}
-    {{ form_row(userForm.supervisor, {
-        'label': "Supervisor"
+    {{ form_row(cycleForm.myAutoMail, {
+        'label': "Automatically inform employees by mail on Mid-Year start date"
     }) }}
-    {{ form_row(userForm.roles, {
-        'label': "Access Level"
+    </div>
+
+    <hr><p>&nbsp;</p>
+    <h2>Year-End</h2>
+
+    {{ form_row(cycleForm.yeDateStart, {
+        'label': "Year-End Start Date"
     }) }}
+    {{ form_row(cycleForm.yeDateEnd, {
+        'label': "Year-End End Date"
+    }) }}
+    {{ form_row(cycleForm.yeAutoMail, {
+        'label': "Automatically inform employees by mail on Year-End start date"
+    }) }}
+
+
+    <hr><p>&nbsp;</p>
 
 <button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonLabel }}</button>
 &nbsp;&nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
 
-{{ form_end(userForm) }}
+{{ form_end(cycleForm) }}

@@ -1,0 +1,32 @@
+{{ form_start(userForm) }}
+    {{ form_row(userForm.firstname, {
+        'label': "First Name"
+    }) }}
+    {{ form_row(userForm.lastname, {
+        'label': "Last Name"
+    }) }}
+    {{ form_row(userForm.email, {
+        'label': "E-Mail"
+    }) }}
+    {{ form_row(userForm.language) }}
+    {{ form_row(userForm.jobtitle, {
+        'label': "Job Title"
+    }) }}
+    {{ form_row(userForm.team) }}
+    {{ form_row(userForm.dateHire, {
+        'label': "Date Hired"
+    }) }}
+    {{ form_row(userForm.dateLastpromotion, {
+        'label': "Date Last Promotion"
+    }) }}
+    {{ form_row(userForm.supervisor, {
+        'label': "Supervisor"
+    }) }}
+    {{ form_row(userForm.roles, {
+        'label': "Access Level"
+    }) }}
+
+<button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonLabel }}</button>
+&nbsp;&nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
+
+{{ form_end(userForm) }}

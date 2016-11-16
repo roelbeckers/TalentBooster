@@ -2,21 +2,21 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\CoreQuality;
+use AppBundle\Entity\Pitfall;
 use Doctrine\ORM\EntityRepository;
 
-class CoreQualityRepository extends EntityRepository
+class PitfallRepository extends EntityRepository
 {
     /**
-     * @return CoreQuality[]
+     * @return Pitfall[]
      */
-    public function findAllEnglishCoreQualityOrderById()
+    public function findAllEnglishPitfallOrderById()
     {
-        return $this->createQueryBuilder('coreQuality')
-            ->where('coreQuality.isStandard = :isStandard')
+        return $this->createQueryBuilder('pitfall')
+            ->where('pitfall.isStandard = :isStandard')
             ->setParameter('isStandard', true)
-            ->andWhere('coreQuality.language = :language')
+            ->andWhere('pitfall.language = :language')
             ->setParameter('language', '1')
-            ->orderBy('coreQuality.name', 'ASC');
+            ->orderBy('pitfall.name', 'ASC');
     }
 }
