@@ -52,7 +52,7 @@ class UserController extends Controller
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('TalentBooster: New user created')
-                ->setFrom('talentbooster@ebeck.be')
+                ->setFrom(array('noreply@talentbooster.io' => 'TalentBooster'))
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(

@@ -215,7 +215,7 @@ class FormController extends Controller
                 if (!is_null($subject)) {
                     $message = \Swift_Message::newInstance()
                         ->setSubject($subject)
-                        ->setFrom('talentbooster@ebeck.be')
+                		->setFrom(array('noreply@talentbooster.io' => 'TalentBooster'))
                         ->setTo($toEmail)
                         ->setBody(
                             $this->renderView(
