@@ -32,13 +32,13 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=60)
      */
     private $firstname;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=60)
      */
     private $lastname;
 
@@ -57,13 +57,13 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=60)
      */
     private $jobtitle;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=60)
      */
     private $team;
 
