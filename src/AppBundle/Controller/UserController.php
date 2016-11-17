@@ -98,8 +98,6 @@ class UserController extends Controller
         $users = $em->getRepository('AppBundle:User')
             ->findAllUsersOrderedByFirstname();
 
-        //dump($users);die;
-
         return $this->render('user/list.html.twig', [
             'users' => $users
         ]);

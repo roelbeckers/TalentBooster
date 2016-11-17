@@ -16,6 +16,8 @@ class UserRepository extends EntityRepository
         return $this->createQueryBuilder('user')
             ->where('user.roles LIKE :roleSupervisor')
             ->setParameter('roleSupervisor', '%SUPERVISOR%')
+            ->andWhere('user.roles NOT LIKE :roleSuperAdmin')
+            ->setParameter('roleSuperAdmin', '%SUPER_ADMIN%')
             ->orderBy('user.firstname', 'ASC');
     }
 
@@ -24,10 +26,18 @@ class UserRepository extends EntityRepository
      */
     public function findAllUsersOrderedByFirstname()
     {
-        return $this->createQueryBuilder('user')
-            ->orderBy('user.firstname', 'ASC')
-            ->getQuery()
-            ->execute();
+        $qb = $this->createQueryBuilder('user')
+            ->where('user.roles NOT LIKE :roleSuperAdmin')
+            ->setParameter('roleSuperAdmin', '%SUPER_ADMIN%')
+            ->orderBy('user.firstname', 'ASC');
+            //->getQuery()
+            //->execute();
+
+        $query = $qb->getQuery();
+
+        //var_dump($query->getDQL());die;
+
+        return $query->execute();
     }
 
     /**
