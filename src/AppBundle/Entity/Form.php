@@ -47,12 +47,12 @@ class Form
     private $cdpFeedbackDate;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $cdpFeedbackSupervisor;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $cdpFeedbackHR;
 
@@ -72,12 +72,12 @@ class Form
     private $myFeedbackDate;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $myFeedbackSupervisor;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $myFeedbackHR;
 
@@ -103,12 +103,12 @@ class Form
     private $yeFeedbackDate;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $yeFeedbackSupervisor;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $yeFeedbackHR;
 
@@ -1059,12 +1059,12 @@ class Form
     // OTHER COMMENTS
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $careerObjectives;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $additionalInfo;
 
