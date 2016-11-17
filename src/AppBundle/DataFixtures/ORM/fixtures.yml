@@ -2,8 +2,8 @@ AppBundle\Entity\User:
     user1:
         email: roel@ebeck.be
         plainPassword: Mijn2zonen!
-        date_lastpromotion: <(new \DateTime('1900-01-01'))>
-        date_hire: <(new \DateTime('1900-01-01'))>
+        date_lastpromotion: <(new \DateTime('1981-08-15'))>
+        date_hire: <(new \DateTime('1981-08-15'))>
         roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER', 'ROLE_SUPER_ADMIN']
         enabled: true
         supervisor: '@user1'
@@ -12,42 +12,55 @@ AppBundle\Entity\User:
         language: en
         jobtitle: TalentBooster Developer
         team: IntoPeople bvba
-    user{2..10}:
-        # use some fake data for this
-        email: test+<current()>@ebeck.be
-        plainPassword: talentbooster
-        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
-        date_hire: <dateTimeBetween('-240 months', '-6 months')>
-        roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER']
+    user2:
+        email: queenie@intopeople.be
+        plainPassword: Qfinity02
+        date_lastpromotion: <(new \DateTime('1978-08-16'))>
+        date_hire: <(new \DateTime('1978-08-16'))>
+        roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER', 'ROLE_SUPER_ADMIN']
         enabled: true
-        supervisor: '@user*'
-        firstname: <firstName()>
-        lastname: <lastName()>
+        supervisor: '@user2'
+        firstname: Queenie
+        lastname: Dirkx
         language: en
-        jobtitle: <word()>
-        team: <word()>
+        jobtitle: TalentBooster Owner
+        team: IntoPeople bvba
+    #user{2..10}:
+        # use some fake data for this
+        #email: test+<current()>@ebeck.be
+        #plainPassword: talentbooster
+        #date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        #date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        #roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER']
+        #enabled: true
+        #supervisor: '@user*'
+        #firstname: <firstName()>
+        #lastname: <lastName()>
+        #language: en
+        #jobtitle: <word()>
+        #team: <word()>
 
-AppBundle\Entity\Cycle:
-    cycle1:
-        name: 2016
-        cdpDateStart: <(new \DateTime('2016-08-01'))>
-        cdpDateEnd: <(new \DateTime('2016-09-01'))>
-        cdpAutoMail: true
-        yeDateStart: <(new \DateTime('2016-11-15'))>
-        yeDateEnd: <(new \DateTime('2016-12-15'))>
-        yeAutoMail: true
+#AppBundle\Entity\Cycle:
+    #cycle1:
+        #name: 2016
+        #cdpDateStart: <(new \DateTime('2016-08-01'))>
+        #cdpDateEnd: <(new \DateTime('2016-09-01'))>
+        #cdpAutoMail: true
+        #yeDateStart: <(new \DateTime('2016-11-15'))>
+        #yeDateEnd: <(new \DateTime('2016-12-15'))>
+        #yeAutoMail: true
 
-    cycle2:
-        name: 2017
-        cdpDateStart: <(new \DateTime('2017-01-05'))>
-        cdpDateEnd: <(new \DateTime('2017-02-05'))>
-        cdpAutoMail: true
-        myDateStart: <(new \DateTime('2017-06-01'))>
-        myDateEnd: <(new \DateTime('2017-07-01'))>
-        myAutoMail: true
-        yeDateStart: <(new \DateTime('2017-11-01'))>
-        yeDateEnd: <(new \DateTime('2017-12-01'))>
-        yeAutoMail: true
+    #cycle2:
+        #name: 2017
+        #cdpDateStart: <(new \DateTime('2017-01-05'))>
+        #cdpDateEnd: <(new \DateTime('2017-02-05'))>
+        #cdpAutoMail: true
+        #myDateStart: <(new \DateTime('2017-06-01'))>
+        #myDateEnd: <(new \DateTime('2017-07-01'))>
+        #myAutoMail: true
+        #yeDateStart: <(new \DateTime('2017-11-01'))>
+        #yeDateEnd: <(new \DateTime('2017-12-01'))>
+        #yeAutoMail: true
 
     # cycle_{1..3}:
         # use some fake data for this
@@ -82,23 +95,23 @@ AppBundle\Entity\FormStatus:
     formStatus9:
         status: Not yet available
 
-AppBundle\Entity\Form:
-    form1:
-        cycle: '@cycle1'
-        user: '@user1'
-        cdpStatus: '@formStatus1'
-        myStatus: '@formStatus9'
-        yeStatus: '@formStatus9'
-    form2:
-        cycle: '@cycle1'
-        user: '@user2'
-        cdpStatus: '@formStatus9'
-        myStatus: '@formStatus9'
-        yeStatus: '@formStatus9'
+#AppBundle\Entity\Form:
+    #form1:
+        #cycle: '@cycle1'
+        #user: '@user1'
+        #cdpStatus: '@formStatus1'
+        #myStatus: '@formStatus9'
+        #yeStatus: '@formStatus9'
+    #form2:
+        #cycle: '@cycle1'
+        #user: '@user2'
+        #cdpStatus: '@formStatus9'
+        #myStatus: '@formStatus9'
+        #yeStatus: '@formStatus9'
 
 AppBundle\Entity\RatingYE:
     ratingye1:
-        name: Meet No Expectations
+        name: Meet None Expectations
     ratingye2:
         name: Meet Some Expectations
     ratingye3:
