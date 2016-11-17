@@ -79,20 +79,21 @@ class DashboardController extends Controller
      */
     public function startAction()
     {
-        if (in_array('ROLE_HR', $this->getUser()->getRoles())) $userType = 'hr';
+        /*if (in_array('ROLE_HR', $this->getUser()->getRoles())) $userType = 'hr';
         elseif (in_array('ROLE_SUPERVISOR', $this->getUser()->getRoles())) $userType = 'supervisor';
         elseif (in_array('ROLE_USER', $this->getUser()->getRoles())) $userType = 'user';
-        else $userType = 'invalid';
+        else $userType = 'invalid';*/
 
-        if ($userType == 'invalid'){
+        /*if ($userType == 'invalid'){
             throw $this->createNotFoundException('Invalid user detected!');
         }
-        else {
+        else {*/
             return $this->render('dashboard/start.html.twig', [
-                    'userType' => $this->getUser()->getRoles()
+                    'userType' => $this->getUser()->getRoles(),
+                    'userId'   => $this->getUser()->getId()
                 ]
             );
-        }
+        //}
     }
 
 }
