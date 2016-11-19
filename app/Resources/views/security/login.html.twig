@@ -12,12 +12,22 @@
                     </div>
                 {% endif %}
 
+                <div class="alert alert-info">
+                    Users may experience problems logging into their account, using the initial password they've received last week.<br>
+                    To solve this, please reset your password, using the <a href="{{ path('security_resetpassword') }}">Forgot password?</a> link below.<br><br>
+                    When the issue persists, please contact <a href="mailto:support@talentbooster.io">support@talentbooster.io</a>.
+                </div>
+
+                <p>&nbsp;</p>
                 {{ form_start(form) }}
 
-                    {{ form_row(form._username) }}
+                    {{ form_row(form._username, {
+                        'label': 'E-mail address'
+                    }) }}
                     {{ form_row(form._password) }}
 
                 <button type="submit" class="btn btn-success"><span class="fa fa-lock"> Login</span></button>
+                &nbsp;&nbsp;<a href="{{ path('security_resetpassword') }}">Forgot password?</a>
                 &nbsp;
                 {{ form_end(form) }}
 

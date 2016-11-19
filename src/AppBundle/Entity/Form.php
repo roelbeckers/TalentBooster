@@ -35,7 +35,6 @@ class Form
     // CDP SPECIFIC
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
      */
     private $cdpStatus;
@@ -60,7 +59,6 @@ class Form
     // MID-YEAR SPECIFIC
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
      */
     private $myStatus;
@@ -91,7 +89,6 @@ class Form
     // YEAR-END SPECIFIC
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
      */
     private $yeStatus;
@@ -151,55 +148,46 @@ class Form
     private $sa1CoreQualityDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pitfall")
      */
     private $sa1Pitfall;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1PitfallDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
      */
     private $sa1Challenge;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1ChallengeDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa1FeedbackYE;
@@ -208,67 +196,56 @@ class Form
     // SELF ASSESSMENT 2
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa2CoreQuality;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2CoreQualityDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pitfall")
      */
     private $sa2Pitfall;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2PitfallDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
      */
     private $sa2Challenge;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2ChallengeDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2FeedbackYE;
@@ -278,67 +255,56 @@ class Form
     // SELF ASSESSMENT 3
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa3CoreQuality;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3CoreQualityDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pitfall")
      */
     private $sa3Pitfall;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3PitfallDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
      */
     private $sa3Challenge;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3ChallengeDesc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa3FeedbackYE;
@@ -393,13 +359,11 @@ class Form
     private $sa4Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa4FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa4FeedbackYE;
@@ -454,13 +418,11 @@ class Form
     private $sa5Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa5FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa5FeedbackYE;
@@ -470,37 +432,31 @@ class Form
     // TASKS AND RESPONSIBILITIES 1
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1FeedbackYE;
@@ -509,37 +465,31 @@ class Form
     // TASKS AND RESPONSIBILITIES 2
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr2FeedbackYE;
@@ -548,37 +498,31 @@ class Form
     // TASKS AND RESPONSIBILITIES 3
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3FeedbackYE;
@@ -607,13 +551,11 @@ class Form
     private $tr4Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr4FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr4FeedbackYE;
@@ -642,13 +584,11 @@ class Form
     private $tr5Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr5FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr5FeedbackYE;
@@ -657,37 +597,31 @@ class Form
     // SKILLS AND COMPETENCIES 1
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc1FeedbackYE;
@@ -696,37 +630,31 @@ class Form
     // SKILLS AND COMPETENCIES 2
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2FeedbackYE;
@@ -735,37 +663,31 @@ class Form
     // SKILLS AND COMPETENCIES 3
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc3FeedbackYE;
@@ -794,13 +716,11 @@ class Form
     private $sc4Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc4FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc4FeedbackYE;
@@ -829,13 +749,11 @@ class Form
     private $sc5Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc5FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc5FeedbackYE;
@@ -844,43 +762,36 @@ class Form
     // ORGANIZATION COMPETENCIES 1
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $oc1WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1Desc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc1FeedbackYE;
@@ -889,43 +800,36 @@ class Form
     // ORGANIZATION COMPETENCIES 2
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $oc2WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2Desc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2FeedbackYE;
@@ -934,43 +838,36 @@ class Form
     // ORGANIZATION COMPETENCIES 3
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $oc3WhatWhy;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3Desc;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3How;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3Success;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc3FeedbackYE;
@@ -1004,13 +901,11 @@ class Form
     private $oc4Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc4FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc4FeedbackYE;
@@ -1044,13 +939,11 @@ class Form
     private $oc5Needs;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc5FeedbackMY;
 
     /**
-     * Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc5FeedbackYE;

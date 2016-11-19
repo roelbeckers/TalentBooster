@@ -37,9 +37,10 @@ class UserController extends Controller
                 $user->setSupervisor($user);
             }
 
-            //$plainPassword = random_int(1000000000,9999999999);
-            $plainPassword = md5(uniqid(rand(), true));
+            $plainPassword = random_int(1000000000,9999999999);
+            //$plainPassword = md5(uniqid(rand(), true));
             $user->setPlainPassword($plainPassword);
+            $user->setEmail(strtolower($user->getEmail()));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

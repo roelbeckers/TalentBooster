@@ -32,8 +32,20 @@
         </header>
 
         <div class="main-content" style="padding-left: 20px; padding-right: 20px;">
+            {%  for msg in app.session.flashBag.get('info') %}
+                <div class="alert alert-info">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+
             {%  for msg in app.session.flashBag.get('success') %}
                 <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+
+            {%  for msg in app.session.flashBag.get('error') %}
+                <div class="alert alert-danger">
                     {{ msg }}
                 </div>
             {% endfor %}
