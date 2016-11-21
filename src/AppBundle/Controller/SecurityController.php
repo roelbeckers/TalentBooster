@@ -123,7 +123,7 @@ class SecurityController extends Controller
                     ->setTo($user->getEmail())
                     ->setBody(
                         $this->renderView(
-                            'emails/security_resetpassword.twig.html.twig',
+                            'emails/security_resetpassword.html.twig',
                             array(
                                 'name' => $user->getFirstname(),
                                 'email' => $user->getEmail(),

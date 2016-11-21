@@ -45,12 +45,13 @@ monolog:
         #    level:  info
 
 swiftmailer:
-    delivery_address: roel@ebeck.be
-    delivery_whitelist:
+     delivery_address: roel@ebeck.be
+     delivery_whitelist:
            # all email addresses matching these regexes will be delivered
            # like normal, as well as being sent to dev@example.com
            - '/@intopeople\.be$/'
            - '/@intopeople\.io$/'
+           - '/^roelbeckers@icloud\.com$/'
     transport:  '%mailer_transport%'
     username:   '%mailer_user%'
     password:   '%mailer_password%'
