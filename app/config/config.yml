@@ -74,9 +74,9 @@ doctrine_cache:
 
 swiftmailer:
     spool:
-        # type: file
-        # path: '%kernel.root_dir%/spool'
-        { type: memory }
+      type: file
+      path: '%kernel.root_dir%/spool'
+      # { type: memory }
     transport:  '%mailer_transport%'
     host:       '%mailer_host%'
     port:       '%mailer_port%'
