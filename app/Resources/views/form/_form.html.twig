@@ -11,39 +11,41 @@
             <table class="table">
                 <tr>
                     <th width="150" style="border: none; background-color: #EEEEEE;">Name:</th>
-                    <td width="250" style="border: none;">{{ formData.user.fullname }}</td>
+                    <td width="250" style="border: none;">{{ formUser.fullname }}</td>
                     <th width="150" style="border: none; background-color: #EEEEEE;">Team:</th>
-                    <td width="250" style="border: none;">{{ formData.user.team }}</td>
+                    <td width="250" style="border: none;">{{ formUser.team }}</td>
                 </tr>
                 <tr>
                     <th style="border: none; background-color: #EEEEEE;">Supervisor:</th>
-                    <td style="border: none;">{{ formData.user.supervisor.fullname }}</td>
+                    <td style="border: none;">{{ formUser.supervisor.fullname }}</td>
                     <th style="border: none; background-color: #EEEEEE;">Job Title:</th>
-                    <td style="border: none;">{{ formData.user.jobtitle }}</td>
+                    <td style="border: none;">{{ formUser.jobtitle }}</td>
                 </tr>
                 <tr>
                     <th style="border: none; background-color: #EEEEEE;">Date discussion:</th>
                     <td style="border: none;">
                         {% if (formProgress == 'cdp') %}
-                            {{ formData.cdpFeedbackDate|date('d-M-Y') }}
+                            {{ formDataCdp.cdpFeedbackDate|date('d-M-Y') }}
                         {% elseif (formProgress == 'my') %}
-                            {{ formData.myFeedbackDate|date('d-M-Y') }}
+                            {{ formDataMy.myFeedbackDate|date('d-M-Y') }}
                         {% elseif (formProgress == 'ye') %}
-                            {% if ((userType == 'user') and (formAction == 'edit')) %}
+                            {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
                                 {{ form_widget(formForm.yeFeedbackDate) }}
                             {% else %}
-                                {{ formData.yeFeedbackDate|date('d-M-Y') }}
+                                {{ formDataYe.yeFeedbackDate|date('d-M-Y') }}
                             {% endif %}
                         {% endif %}
                     </td>
                     <th style="border: none; background-color: #EEEEEE;">Status:</th>
                     <td style="border: none;">
                         {% if (formProgress == 'cdp') %}
-                            {{ formData.cdpStatus }}
+                            {{ formDataCdp.cdpStatus }}
                         {% elseif (formProgress == 'my') %}
-                            {{ formData.myStatus }}
-                        {% elseif (formProgress == 'ye') %}
-                            {{ formData.yeStatus }}
+                            {{ formDataMy.myStatus }}
+                        {% elseif ((formProgress == 'ye') and (formAction != "create")) %}
+                            {{ formDataYe.yeStatus }}
+                        {% else %}
+                            Available
                         {% endif %}
                     </td>
                 </tr>
@@ -63,30 +65,34 @@
                 <p>
                     {% if (userType == 'user') %}
                         {% if (formAction == 'view') %}
-                            {% if ((formData.cdpStatus.id == '5') or (formData.cdpStatus.id == '6') or (formData.cdpStatus.id == '8')) %}
-                                {{ formData.cdpFeedbackSupervisor }}
+                            {% if ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6') or (formDataCdp.cdpStatus.id == '8')) %}
+                                {{ formDataCdp.cdpFeedbackSupervisor }}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
                                 </script>
                             {% endif %}
                         {% elseif (formAction == 'edit') %}
-                            {% if (((formData.cdpStatus.id == '2') or (formData.cdpStatus.id == '4') or (formData.cdpStatus.id == '7') or (formData.cdpStatus.id == '8')) and (formData.cdpFeedbackSupervisor != '')) %}
-                                {{ formData.cdpFeedbackSupervisor }}
+                            {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '4') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackSupervisor != '')) %}
+                                {{ formDataCdp.cdpFeedbackSupervisor }}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
                                 </script>
                             {% endif %}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
+                            </script>
                         {% endif %}
                     {% elseif (userType == 'supervisor') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and (formData.cdpStatus.id == '3')) %}
+                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and (formDataCdp.cdpStatus.id == '3')) %}
                             {{ form_widget(formForm.cdpFeedbackSupervisor) }}
                         {% else %}
-                            {{ formData.cdpFeedbackSupervisor }}
+                            {{ formDataCdp.cdpFeedbackSupervisor }}
                         {% endif %}
                     {% elseif (userType == 'hr') %}
-                        {{ formData.cdpFeedbackSupervisor }}
+                        {{ formDataCdp.cdpFeedbackSupervisor }}
                     {% endif %}
                 </p>
 
@@ -103,29 +109,33 @@
                 <p>
                     {% if (userType == 'user') %}
                         {% if (formAction == 'view') %}
-                            {% if (formData.cdpStatus.id == '8') %}
-                                {{ formData.cdpFeedbackHR }}
+                            {% if (formDataCdp.cdpStatus.id == '8') %}
+                                {{ formDataCdp.cdpFeedbackHR }}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('cdpFeedbackHR').style.display = 'none';
                                 </script>
                             {% endif %}
                         {% elseif (formAction == 'edit') %}
-                            {% if (((formData.cdpStatus.id == '2') or (formData.cdpStatus.id == '7') or (formData.cdpStatus.id == '8')) and (formData.cdpFeedbackHR != '')) %}
-                                {{ formData.cdpFeedbackHR }}
+                            {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackHR != '')) %}
+                                {{ formDataCdp.cdpFeedbackHR }}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('cdpFeedbackHR').style.display = 'none';
                                 </script>
                             {% endif %}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('cdpFeedbackHR').style.display = 'none';
+                            </script>
                         {% endif %}
                     {% elseif (userType == 'supervisor') %}
-                        {{ formData.cdpFeedbackHR }}
+                        {{ formDataCdp.cdpFeedbackHR }}
                     {% elseif (userType == 'hr') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and ((formData.cdpStatus.id == '5') or (formData.cdpStatus.id == '6'))) %}
+                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6'))) %}
                             {{ form_widget(formForm.cdpFeedbackHR) }}
                         {% else %}
-                            {{ formData.cdpFeedbackHR }}
+                            {{ formDataCdp.cdpFeedbackHR }}
                         {% endif %}
                     {% endif %}
                 </p>
@@ -134,85 +144,95 @@
     </div>
 
 
-    <!-- YEAR-END FEEDBACK -->
-    <div id="yeFeedback" class="row" style="padding-top: 40px;">
-        <!-- YEAR-END FEEDBACK SUPERVISOR -->
-        <div id="yeFeedbackSupervisor">
-            <div class="col-md-6">
-                <h3>Year-End Feedback Supervisor</h3>
-                <hr>
+    {% if (formProgress == 'ye') %}
+        <!-- YEAR-END FEEDBACK -->
+        <div id="yeFeedback" class="row" style="padding-top: 40px;">
+            <!-- YEAR-END FEEDBACK SUPERVISOR -->
+            <div id="yeFeedbackSupervisor">
+                <div class="col-md-6">
+                    <h3>Year-End Feedback Supervisor</h3>
+                    <hr>
 
-                <p>
-                    {% if (userType == 'user') %}
-                        {% if (formAction == 'view') %}
-                            {% if ((formData.yeStatus.id == '5') or (formData.yeStatus.id == '6') or (formData.yeStatus.id == '8')) %}
-                                {{ formData.yeFeedbackSupervisor }}
+                    <p>
+                        {% if (userType == 'user') %}
+                            {% if (formAction == 'view') %}
+                                {% if ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6') or (formDataYe.yeStatus.id == '8')) %}
+                                    {{ formDataYe.yeFeedbackSupervisor }}
+                                {% else %}
+                                    <script type="text/javascript">
+                                        document.getElementById('yeFeedbackSupervisor').style.display = 'none';
+                                    </script>
+                                {% endif %}
+                            {% elseif (formAction == 'edit') %}
+                                {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '4') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackSupervisor != '')) %}
+                                    {{ formDataYe.yeFeedbackSupervisor }}
+                                {% else %}
+                                    <script type="text/javascript">
+                                        document.getElementById('yeFeedbackSupervisor').style.display = 'none';
+                                    </script>
+                                {% endif %}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('yeFeedbackSupervisor').style.display = 'none';
                                 </script>
                             {% endif %}
-                        {% elseif (formAction == 'edit') %}
-                            {% if (((formData.yeStatus.id == '2') or (formData.yeStatus.id == '4') or (formData.yeStatus.id == '7')) and (formData.yeFeedbackSupervisor != '')) %}
-                                {{ formData.yeFeedbackSupervisor }}
+                        {% elseif (userType == 'supervisor') %}
+                            {% if ((formAction == 'edit') and (formProgress == 'ye') and (formDataYe.yeStatus.id == '3')) %}
+                                {{ form_widget(formForm.yeFeedbackSupervisor) }}
                             {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('yeFeedbackSupervisor').style.display = 'none';
-                                </script>
+                                {{ formDataYe.yeFeedbackSupervisor }}
                             {% endif %}
+                        {% elseif (userType == 'hr') %}
+                            {{ formDataYe.yeFeedbackSupervisor }}
                         {% endif %}
-                    {% elseif (userType == 'supervisor') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'ye') and (formData.yeStatus.id == '3')) %}
-                            {{ form_widget(formForm.yeFeedbackSupervisor) }}
-                        {% else %}
-                            {{ formData.yeFeedbackSupervisor }}
-                        {% endif %}
-                    {% elseif (userType == 'hr') %}
-                        {{ formData.yeFeedbackSupervisor }}
-                    {% endif %}
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
 
 
-        <!-- YEAR-END FEEDBACK HR -->
-        <div id="yeFeedbackHR">
-            <div class="col-md-6">
-                <h3>Year-End Feedback HR</h3>
-                <hr>
+            <!-- YEAR-END FEEDBACK HR -->
+            <div id="yeFeedbackHR">
+                <div class="col-md-6">
+                    <h3>Year-End Feedback HR</h3>
+                    <hr>
 
-                <p>
-                    {% if (userType == 'user') %}
-                        {% if (formAction == 'view') %}
-                            {% if (formData.yeStatus.id == '8') %}
-                                {{ formData.yeFeedbackHR }}
+                    <p>
+                        {% if (userType == 'user') %}
+                            {% if (formAction == 'view') %}
+                                {% if (formDataYe.yeStatus.id == '8') %}
+                                    {{ formDataYe.yeFeedbackHR }}
+                                {% else %}
+                                    <script type="text/javascript">
+                                        document.getElementById('yeFeedbackHR').style.display = 'none';
+                                    </script>
+                                {% endif %}
+                            {% elseif (formAction == 'edit') %}
+                                {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackHR != '')) %}
+                                    {{ formDataYe.yeFeedbackHR }}
+                                {% else %}
+                                    <script type="text/javascript">
+                                        document.getElementById('yeFeedbackHR').style.display = 'none';
+                                    </script>
+                                {% endif %}
                             {% else %}
                                 <script type="text/javascript">
                                     document.getElementById('yeFeedbackHR').style.display = 'none';
                                 </script>
                             {% endif %}
-                        {% elseif (formAction == 'edit') %}
-                            {% if (((formData.yeStatus.id == '2') or (formData.yeStatus.id == '7')) and (formData.yeFeedbackHR != '')) %}
-                                {{ formData.yeFeedbackHR }}
+                        {% elseif (userType == 'supervisor') %}
+                            {{ formDataYe.yeFeedbackHR }}
+                        {% elseif (userType == 'hr') %}
+                            {% if ((formAction == 'edit') and (formProgress == 'ye') and ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6'))) %}
+                                {{ form_widget(formForm.yeFeedbackHR) }}
                             {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('yeFeedbackHR').style.display = 'none';
-                                </script>
+                                {{ formDataYe.yeFeedbackHR }}
                             {% endif %}
                         {% endif %}
-                    {% elseif (userType == 'supervisor') %}
-                        {{ formData.yeFeedbackHR }}
-                    {% elseif (userType == 'hr') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'ye') and ((formData.yeStatus.id == '5') or (formData.yeStatus.id == '6'))) %}
-                            {{ form_widget(formForm.yeFeedbackHR) }}
-                        {% else %}
-                            {{ formData.yeFeedbackHR }}
-                        {% endif %}
-                    {% endif %}
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <!-- SET SOME DEFAULTS -->
     {% set column4or5 = '25%' %}
@@ -252,35 +272,35 @@
                     {% endif %}
                 </tr>
                     <!-- SELF ASSESSMENT 1 -->
-                    {% if (formData.sa1Challenge != null) %}
+                    {% if (formDataCdp.sa1Challenge != null) %}
                         <tr>
                             <td>
-                                <strong>{{ formData.sa1CoreQuality.name }}</strong><br><br>
-                                {{ formData.sa1CoreQualityDesc }}
+                                <strong>{{ formDataCdp.sa1CoreQuality.name }}</strong><br><br>
+                                {{ formDataCdp.sa1CoreQualityDesc }}
                                 </td>
                             <td>
-                                <strong>{{ formData.sa1Pitfall.name }}</strong><br><br>
-                                {{ formData.sa1PitfallDesc }}
+                                <strong>{{ formDataCdp.sa1Pitfall.name }}</strong><br><br>
+                                {{ formDataCdp.sa1PitfallDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa1Challenge.name }}</strong><br><br>
-                                {{ formData.sa1ChallengeDesc }}
+                                <strong>{{ formDataCdp.sa1Challenge.name }}</strong><br><br>
+                                {{ formDataCdp.sa1ChallengeDesc }}
                             </td>
                             <td>
-                                {{ formData.sa1How }}<br><br>
+                                {{ formDataCdp.sa1How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa1Success }}<br><br>
+                                {{ formDataCdp.sa1Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa1Needs }}<br><br>
+                                {{ formDataCdp.sa1Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
                                         {{ form_widget(formForm.sa1FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sa1FeedbackYE }}
+                                        {{ formDataYe.sa1FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -288,35 +308,35 @@
                     {% endif %}
 
                     <!-- SELF ASSESSMENT 2 -->
-                    {% if (formData.sa2Challenge != null) %}
+                    {% if (formDataCdp.sa2Challenge != null) %}
                         <tr>
                             <td>
-                                <strong>{{ formData.sa2CoreQuality.name }}</strong><br><br>
-                                {{ formData.sa2CoreQualityDesc }}
+                                <strong>{{ formDataCdp.sa2CoreQuality.name }}</strong><br><br>
+                                {{ formDataCdp.sa2CoreQualityDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa2Pitfall.name }}</strong><br><br>
-                                {{ formData.sa2PitfallDesc }}
+                                <strong>{{ formDataCdp.sa2Pitfall.name }}</strong><br><br>
+                                {{ formDataCdp.sa2PitfallDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa2Challenge.name }}</strong><br><br>
-                                {{ formData.sa2ChallengeDesc }}
+                                <strong>{{ formDataCdp.sa2Challenge.name }}</strong><br><br>
+                                {{ formDataCdp.sa2ChallengeDesc }}
                             </td>
                             <td>
-                                {{ formData.sa2How }}<br><br>
+                                {{ formDataCdp.sa2How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa2Success }}<br><br>
+                                {{ formDataCdp.sa2Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa2Needs }}<br><br>
+                                {{ formDataCdp.sa2Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sa2FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sa2FeedbackYE }}
+                                        {{ formDataYe.sa2FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -324,35 +344,35 @@
                     {% endif %}
 
                     <!-- SELF ASSESSMENT 3 -->
-                    {% if (formData.sa3Challenge != null) %}
+                    {% if (formDataCdp.sa3Challenge != null) %}
                         <tr>
                             <td>
-                                <strong>{{ formData.sa3CoreQuality.name }}</strong><br><br>
-                                {{ formData.sa3CoreQualityDesc }}
+                                <strong>{{ formDataCdp.sa3CoreQuality.name }}</strong><br><br>
+                                {{ formDataCdp.sa3CoreQualityDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa3Pitfall.name }}</strong><br><br>
-                                {{ formData.sa3PitfallDesc }}
+                                <strong>{{ formDataCdp.sa3Pitfall.name }}</strong><br><br>
+                                {{ formDataCdp.sa3PitfallDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa3Challenge.name }}</strong><br><br>
-                                {{ formData.sa3ChallengeDesc }}
+                                <strong>{{ formDataCdp.sa3Challenge.name }}</strong><br><br>
+                                {{ formDataCdp.sa3ChallengeDesc }}
                             </td>
                             <td>
-                                {{ formData.sa3How }}<br><br>
+                                {{ formDataCdp.sa3How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa3Success }}<br><br>
+                                {{ formDataCdp.sa3Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa3Needs }}<br><br>
+                                {{ formDataCdp.sa3Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sa3FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sa3FeedbackYE }}
+                                        {{ formDataYe.sa3FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -360,35 +380,35 @@
                     {% endif %}
 
                     <!-- SELF ASSESSMENT 4 -->
-                    {% if (formData.sa4Challenge != null) %}
+                    {% if (formDataCdp.sa4Challenge != null) %}
                         <tr>
                             <td>
-                                <strong>{{ formData.sa4CoreQuality.name }}</strong><br><br>
-                                {{ formData.sa4CoreQualityDesc }}
+                                <strong>{{ formDataCdp.sa4CoreQuality.name }}</strong><br><br>
+                                {{ formDataCdp.sa4CoreQualityDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa4Pitfall.name }}</strong><br><br>
-                                {{ formData.sa4PitfallDesc }}
+                                <strong>{{ formDataCdp.sa4Pitfall.name }}</strong><br><br>
+                                {{ formDataCdp.sa4PitfallDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa4Challenge.name }}</strong><br><br>
-                                {{ formData.sa4ChallengeDesc }}
+                                <strong>{{ formDataCdp.sa4Challenge.name }}</strong><br><br>
+                                {{ formDataCdp.sa4ChallengeDesc }}
                             </td>
                             <td>
-                                {{ formData.sa4How }}<br><br>
+                                {{ formDataCdp.sa4How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa4Success }}<br><br>
+                                {{ formDataCdp.sa4Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa4Needs }}<br><br>
+                                {{ formDataCdp.sa4Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sa4FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sa4FeedbackYE }}
+                                        {{ formDataYe.sa4FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -396,35 +416,35 @@
                     {% endif %}
 
                     <!-- SELF ASSESSMENT 5 -->
-                    {% if (formData.sa5Challenge != null) %}
+                    {% if (formDataCdp.sa5Challenge != null) %}
                         <tr>
                             <td>
-                                <strong>{{ formData.sa5CoreQuality.name }}</strong><br><br>
-                                {{ formData.sa5CoreQualityDesc }}
+                                <strong>{{ formDataCdp.sa5CoreQuality.name }}</strong><br><br>
+                                {{ formDataCdp.sa5CoreQualityDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa5Pitfall.name }}</strong><br><br>
-                                {{ formData.sa5PitfallDesc }}
+                                <strong>{{ formDataCdp.sa5Pitfall.name }}</strong><br><br>
+                                {{ formDataCdp.sa5PitfallDesc }}
                             </td>
                             <td>
-                                <strong>{{ formData.sa5Challenge.name }}</strong><br><br>
-                                {{ formData.sa5ChallengeDesc }}
+                                <strong>{{ formDataCdp.sa5Challenge.name }}</strong><br><br>
+                                {{ formDataCdp.sa5ChallengeDesc }}
                             </td>
                             <td>
-                                {{ formData.sa5How }}<br><br>
+                                {{ formDataCdp.sa5How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa5Success }}<br><br>
+                                {{ formDataCdp.sa5Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sa5Needs }}<br><br>
+                                {{ formDataCdp.sa5Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sa5FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sa5FeedbackYE }}
+                                        {{ formDataYe.sa5FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -458,26 +478,26 @@
 
                 </tr>
                     <!-- TASKS AND RESPONSIBILITIES 1 -->
-                    {% if (formData.tr1WhatWhy != null) %}
+                    {% if (formDataCdp.tr1WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.tr1WhatWhy }}
+                                {{ formDataCdp.tr1WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.tr1How }}<br><br>
+                                {{ formDataCdp.tr1How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr1Success }}<br><br>
+                                {{ formDataCdp.tr1Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr1Needs }}<br><br>
+                                {{ formDataCdp.tr1Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr1FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.tr1FeedbackYE }}
+                                        {{ formDataYe.tr1FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -485,26 +505,26 @@
                     {% endif %}
 
                     <!-- TASKS AND RESPONSIBILITIES 2 -->
-                    {% if (formData.tr2WhatWhy != null) %}
+                    {% if (formDataCdp.tr2WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.tr2WhatWhy }}
+                                {{ formDataCdp.tr2WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.tr2How }}<br><br>
+                                {{ formDataCdp.tr2How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr2Success }}<br><br>
+                                {{ formDataCdp.tr2Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr2Needs }}<br><br>
+                                {{ formDataCdp.tr2Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr2FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.tr2FeedbackYE }}
+                                        {{ formDataYe.tr2FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -512,26 +532,26 @@
                     {% endif %}
 
                     <!-- TASKS AND RESPONSIBILITIES 3 -->
-                    {% if (formData.tr3WhatWhy != null) %}
+                    {% if (formDataCdp.tr3WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.tr3WhatWhy }}
+                                {{ formDataCdp.tr3WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.tr3How }}<br><br>
+                                {{ formDataCdp.tr3How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr3Success }}<br><br>
+                                {{ formDataCdp.tr3Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr3Needs }}<br><br>
+                                {{ formDataCdp.tr3Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr3FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.tr3FeedbackYE }}
+                                        {{ formDataYe.tr3FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -539,26 +559,26 @@
                     {% endif %}
 
                     <!-- TASKS AND RESPONSIBILITIES 4 -->
-                    {% if (formData.tr4WhatWhy != null) %}
+                    {% if (formDataCdp.tr4WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.tr4WhatWhy }}
+                                {{ formDataCdp.tr4WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.tr4How }}<br><br>
+                                {{ formDataCdp.tr4How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr4Success }}<br><br>
+                                {{ formDataCdp.tr4Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr4Needs }}<br><br>
+                                {{ formDataCdp.tr4Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr4FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.tr4FeedbackYE }}
+                                        {{ formDataYe.tr4FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -566,26 +586,26 @@
                     {% endif %}
 
                     <!-- TASKS AND RESPONSIBILITIES 5 -->
-                    {% if (formData.tr5WhatWhy != null) %}
+                    {% if (formDataCdp.tr5WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.tr5WhatWhy }}
+                                {{ formDataCdp.tr5WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.tr5How }}<br><br>
+                                {{ formDataCdp.tr5How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr5Success }}<br><br>
+                                {{ formDataCdp.tr5Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.tr5Needs }}<br><br>
+                                {{ formDataCdp.tr5Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr5FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.tr5FeedbackYE }}
+                                        {{ formDataYe.tr5FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -610,26 +630,26 @@
 
                 </tr>
                     <!-- SKILLS AND COMPETENCIES 1 -->
-                    {% if (formData.sc1WhatWhy != null) %}
+                    {% if (formDataCdp.sc1WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.sc1WhatWhy }}
+                                {{ formDataCdp.sc1WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.sc1How }}<br><br>
+                                {{ formDataCdp.sc1How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc1Success }}<br><br>
+                                {{ formDataCdp.sc1Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc1Needs }}<br><br>
+                                {{ formDataCdp.sc1Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc1FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sc1FeedbackYE }}
+                                        {{ formDataYe.sc1FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -637,26 +657,26 @@
                     {% endif %}
 
                     <!-- SKILLS AND COMPETENCIES 2 -->
-                    {% if (formData.sc2WhatWhy != null) %}
+                    {% if (formDataCdp.sc2WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.sc2WhatWhy }}
+                                {{ formDataCdp.sc2WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.sc2How }}<br><br>
+                                {{ formDataCdp.sc2How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc2Success }}<br><br>
+                                {{ formDataCdp.sc2Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc2Needs }}<br><br>
+                                {{ formDataCdp.sc2Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc2FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sc2FeedbackYE }}
+                                        {{ formDataYe.sc2FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -664,26 +684,26 @@
                     {% endif %}
 
                     <!-- SKILLS AND COMPETENCIES 3 -->
-                    {% if (formData.sc3WhatWhy != null) %}
+                    {% if (formDataCdp.sc3WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.sc3WhatWhy }}
+                                {{ formDataCdp.sc3WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.sc3How }}<br><br>
+                                {{ formDataCdp.sc3How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc3Success }}<br><br>
+                                {{ formDataCdp.sc3Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc3Needs }}<br><br>
+                                {{ formDataCdp.sc3Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc3FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sc3FeedbackYE }}
+                                        {{ formDataYe.sc3FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -691,26 +711,26 @@
                     {% endif %}
 
                     <!-- SKILLS AND COMPETENCIES 4 -->
-                    {% if (formData.sc4WhatWhy != null) %}
+                    {% if (formDataCdp.sc4WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.sc4WhatWhy }}
+                                {{ formDataCdp.sc4WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.sc4How }}<br><br>
+                                {{ formDataCdp.sc4How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc4Success }}<br><br>
+                                {{ formDataCdp.sc4Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc4Needs }}<br><br>
+                                {{ formDataCdp.sc4Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc4FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sc4FeedbackYE }}
+                                        {{ formDataYe.sc4FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -718,26 +738,26 @@
                     {% endif %}
 
                     <!-- SKILLS AND COMPETENCIES 5 -->
-                    {% if (formData.sc5WhatWhy != null) %}
+                    {% if (formDataCdp.sc5WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.sc5WhatWhy }}
+                                {{ formDataCdp.sc5WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.sc5How }}<br><br>
+                                {{ formDataCdp.sc5How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc5Success }}<br><br>
+                                {{ formDataCdp.sc5Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.sc5Needs }}<br><br>
+                                {{ formDataCdp.sc5Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc5FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.sc5FeedbackYE }}
+                                        {{ formDataYe.sc5FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -761,29 +781,29 @@
                     {% endif %}
                 </tr>
                     <!-- ORGANIZATION COMPETENCIES 1 -->
-                    {% if (formData.oc1WhatWhy != null) %}
+                    {% if (formDataCdp.oc1WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.oc1WhatWhy }}
+                                {{ formDataCdp.oc1WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.oc1Desc }}
+                                {{ formDataCdp.oc1Desc }}
                             </td>
                             <td>
-                                {{ formData.oc1How }}<br><br>
+                                {{ formDataCdp.oc1How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc1Success }}<br><br>
+                                {{ formDataCdp.oc1Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc1Needs }}<br><br>
+                                {{ formDataCdp.oc1Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc1FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.oc1FeedbackYE }}
+                                        {{ formDataYe.oc1FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -791,29 +811,29 @@
                     {% endif %}
 
                     <!-- ORGANIZATION COMPETENCIES 2 -->
-                    {% if (formData.oc2WhatWhy != null) %}
+                    {% if (formDataCdp.oc2WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.oc2WhatWhy }}
+                                {{ formDataCdp.oc2WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.oc2Desc }}
+                                {{ formDataCdp.oc2Desc }}
                             </td>
                             <td>
-                                {{ formData.oc2How }}<br><br>
+                                {{ formDataCdp.oc2How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc2Success }}<br><br>
+                                {{ formDataCdp.oc2Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc2Needs }}<br><br>
+                                {{ formDataCdp.oc2Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc2FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.oc2FeedbackYE }}
+                                        {{ formDataYe.oc2FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -821,29 +841,29 @@
                     {% endif %}
 
                     <!-- ORGANIZATION COMPETENCIES 3 -->
-                    {% if (formData.oc3WhatWhy != null) %}
+                    {% if (formDataCdp.oc3WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.oc3WhatWhy }}
+                                {{ formDataCdp.oc3WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.oc3Desc }}
+                                {{ formDataCdp.oc3Desc }}
                             </td>
                             <td>
-                                {{ formData.oc3How }}<br><br>
+                                {{ formDataCdp.oc3How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc3Success }}<br><br>
+                                {{ formDataCdp.oc3Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc3Needs }}<br><br>
+                                {{ formDataCdp.oc3Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc3FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.oc3FeedbackYE }}
+                                        {{ formDataYe.oc3FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -851,29 +871,29 @@
                     {% endif %}
 
                     <!-- ORGANIZATION COMPETENCIES 4 -->
-                    {% if (formData.oc4WhatWhy != null) %}
+                    {% if (formDataCdp.oc4WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.oc4WhatWhy }}
+                                {{ formDataCdp.oc4WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.oc4Desc }}
+                                {{ formDataCdp.oc4Desc }}
                             </td>
                             <td>
-                                {{ formData.oc4How }}<br><br>
+                                {{ formDataCdp.oc4How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc4Success }}<br><br>
+                                {{ formDataCdp.oc4Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc4Needs }}<br><br>
+                                {{ formDataCdp.oc4Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc4FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.oc4FeedbackYE }}
+                                        {{ formDataYe.oc4FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -881,29 +901,29 @@
                     {% endif %}
 
                     <!-- ORGANIZATION COMPETENCIES 5 -->
-                    {% if (formData.oc5WhatWhy != null) %}
+                    {% if (formDataCdp.oc5WhatWhy != null) %}
                         <tr>
                             <td>
-                                {{ formData.oc5WhatWhy }}
+                                {{ formDataCdp.oc5WhatWhy }}
                             </td>
                             <td>
-                                {{ formData.oc5Desc }}
+                                {{ formDataCdp.oc5Desc }}
                             </td>
                             <td>
-                                {{ formData.oc5How }}<br><br>
+                                {{ formDataCdp.oc5How }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc5Success }}<br><br>
+                                {{ formDataCdp.oc5Success }}<br><br>
                             </td>
                             <td>
-                                {{ formData.oc5Needs }}<br><br>
+                                {{ formDataCdp.oc5Needs }}<br><br>
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc5FeedbackYE) }}
                                     {% else %}
-                                        {{ formData.oc5FeedbackYE }}
+                                        {{ formDataYe.oc5FeedbackYE }}
                                     {% endif %}
                                 {% endif %}
                             </td>
@@ -924,7 +944,7 @@
                 <hr>
 
                 <p>
-                    {{ formData.careerObjectives }}
+                    {{ formDataCdp.careerObjectives }}
                 </p>
             </div>
         </div>
@@ -937,7 +957,7 @@
                 <hr>
 
                 <p>
-                    {{ formData.additionalInfo }}
+                    {{ formDataCdp.additionalInfo }}
                 </p>
             </div>
         </div>
@@ -955,38 +975,38 @@
                     {% if ((userType == 'user') or (userType == 'hr')) %}
                         <tr><th style="border: none; background-color: #EEEEEE;">Share strengths and development needs for your supervisor from your point of view.</th></tr>
                         <tr><td style="border: none; padding-bottom: 30px;">
-                                {% if ((userType == 'user') and (formAction == 'edit')) %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                     {{ form_widget(formForm.yeQ1) }}
-                                {% elseif (userType == 'hr') %}
-                                    {{ formData.yeQ1 }}
+                                {% elseif ((userType == 'user') or (userType == 'hr')) %}
+                                    {{ formDataYe.yeQ1 }}
                                 {% endif %}
                             </td></tr>
                     {% endif %}
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for your team.</th></tr>
                     <tr><td style="border: none; padding-bottom: 30px;">
-                            {% if ((userType == 'user') and (formAction == 'edit')) %}
+                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ2) }}
                             {% else %}
-                                {{ formData.yeQ2 }}
+                                {{ formDataYe.yeQ2 }}
                             {% endif %}
                         </td></tr>
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for the other teams.</th></tr>
                     <tr><td style="border: none; padding-bottom: 30px;">
-                            {% if ((userType == 'user') and (formAction == 'edit')) %}
+                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ3) }}
                             {% else %}
-                                {{ formData.yeQ3 }}
+                                {{ formDataYe.yeQ3 }}
                             {% endif %}
                         </td></tr>
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share feedback for Move Intermodal in terms of working environment, health and safety, available tools and gear, etc.</th></tr>
                     <tr><td style="border: none;">
-                            {% if ((userType == 'user') and (formAction == 'edit')) %}
+                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ4) }}
                             {% else %}
-                                {{ formData.yeQ4 }}
+                                {{ formDataYe.yeQ4 }}
                             {% endif %}
                         </td></tr>
                 </table>
@@ -994,29 +1014,39 @@
         </div>
     {% endif %}
 
+
     <!-- YEAR-END RATING -->
-    {% if ((formProgress == 'ye') and ((userType == 'supervisor') or (userType == 'hr'))) %}
+    {% if (formProgress == 'ye') %}
         <!-- YEAR-END RATING -->
         <div id="yeRating" class="row" style="padding-top: 40px;">
                 <div class="col-md-6">
                     <h3>Year-End Rating</h3>
-                    <span style="font-style: italic;">Select the Year-End rating for this employee</span>
-                    <hr>
+                    {% if ((userType == 'user') and (formAction == 'view') and (formDataYe.yeStatus.id == '8')) %}
+                        <hr>
+                        {{ formDataYe.yeRating }}
+                    {% elseif ((userType == 'supervisor') or (userType == 'hr')) %}
+                        <span style="font-style: italic;">Select the Year-End rating for this employee</span>
+                        <hr>
 
-                    <p>
-                        {% if (formAction == 'view') %}
-                            {{ formData.yeRating }}
-                        {% else %}
-                            {{ form_widget(formForm.yeRating) }}
-                        {% endif %}
-                    </p>
+                        <p>
+                            {% if (formAction == 'view') %}
+                                {{ formDataYe.yeRating }}
+                            {% else %}
+                                {{ form_widget(formForm.yeRating) }}
+                            {% endif %}
+                        </p>
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('yeRating').style.display = 'none';
+                        </script>
+                    {% endif %}
                 </div>
         </div>
     {% endif %}
 
     <div class="row" style="padding-top: 40px;"></div>
 
-{% if (formAction == 'edit') %}
+{% if ((formAction == 'edit') or (formAction == "create")) %}
     {% if (userType == 'user') %}
         {{ form_widget(formForm.btnSendToSupervisor, {'attr': {'class': 'btn btn-primary'}}) }}<br><br>
         {{ form_widget(formForm.btnSave, {'attr': {'class': 'btn btn-primary'}}) }}

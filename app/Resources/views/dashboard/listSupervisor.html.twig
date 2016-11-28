@@ -27,34 +27,48 @@
         </thead>
         <tbody>
 
-        {% for form in forms %}
+        {% for user in users %}
+            {% for form in forms %}
+                {% if user == form.user %}
+                    <tr>
+                        <td>{{ user.fullname }}</td>
 
-            <tr>
-                <td>{{ form.user.fullname }}</td>
+                        {% if (form.formCdp != null) %}
+                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.formCdp.cdpStatus }}</td>
+                            <td>
+                                {% if (form.formCdp.cdpStatus.id == 3) %}
+                                    <a href="{{ path('cdp_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                {% elseif (form.formCdp.cdpStatus.id == 4) or (form.formCdp.cdpStatus.id == 5) or (form.formCdp.cdpStatus.id == 6) or (form.formCdp.cdpStatus.id == 7) or (form.formCdp.cdpStatus.id == 8) %}
+                                    <a href="{{ path('cdp_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                {% else %}
+                                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                                {% endif %}
+                            </td>
+                        {% else %}
+                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
+                            <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                        {% endif %}
 
-                <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.cdpStatus }}</td>
-                <td>
-                {% if (form.cdpStatus.id == 3) %}
-                    <a href="{{ path('form_edit', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                {% elseif (form.cdpStatus.id == 4) or (form.cdpStatus.id == 5) or (form.cdpStatus.id == 6) or (form.cdpStatus.id == 7) or (form.cdpStatus.id == 8) %}
-                    <a href="{{ path('form_view', {'formProgress': 'cdp', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                {% else %}
-                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                        {% if (form.formYe != null) %}
+                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.formYe.yeStatus }}</td>
+                            <td>
+                                {% if (form.formYe.yeStatus.id == 3) %}
+                                    <a href="{{ path('ye_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                {% elseif (form.formYe.yeStatus.id == 4) or (form.formYe.yeStatus.id == 5) or (form.formYe.yeStatus.id == 6) or (form.formYe.yeStatus.id == 7) or (form.formYe.yeStatus.id == 8) %}
+                                    <a href="{{ path('ye_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                {% else %}
+                                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                                {% endif %}
+                            </td>
+                        {% else %}
+                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
+                            <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                        {% endif %}
+                    </tr>
                 {% endif %}
-                </td>
-
-                <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.yeStatus }}</td>
-                <td>
-                {% if (form.yeStatus.id == 3) %}
-                    <a href="{{ path('form_edit', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                {% elseif (form.yeStatus.id == 4) or (form.yeStatus.id == 5) or (form.yeStatus.id == 6) or (form.yeStatus.id == 7) or (form.yeStatus.id == 8) %}
-                    <a href="{{ path('form_view', {'formProgress': 'ye', 'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                {% else %}
-                    <span class="btn btn-primary" disabled="disabled">No action</span>
-                {% endif %}
-                </td>
-            </tr>
+            {% endfor %}
         {% endfor %}
+
         </tbody>
     </table>
 {% endblock %}

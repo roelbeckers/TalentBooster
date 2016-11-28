@@ -31,8 +31,10 @@ class FormController extends Controller
     {
         // CHECK ACCESS TO CDP AS USER
         $em = $this->getDoctrine()->getManager();
-        $userCheck = $em->getRepository('AppBundle:Form')
-            ->checkUserAccessToCDP($this->getUser(), $id);
+        $userCheck = $em->getRepository('AppBundle:FormTable')
+            ->checkUserAccessToForms($this->getUser(), $id);
+
+        dump($userCheck);die;
 
         // CHECK ACCESS TO CDP AS SUPERVISOR
         $supervisorCheck = $em->getRepository('AppBundle:User')
@@ -220,7 +222,7 @@ class FormController extends Controller
                         ->setBody(
                             $this->renderView(
                             // app/Resources/views/emails/user_create.html.twig
-                                'emails/form_sendToSupervisor.html.twig',
+                                'form_sendOnStatusChange.html.twig',
                                 array(
                                     'actionName' => $actionName,
                                     'toName' => $toName,

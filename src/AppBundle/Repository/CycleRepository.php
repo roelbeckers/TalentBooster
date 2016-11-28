@@ -10,6 +10,24 @@ class CycleRepository extends EntityRepository
     /**
      * @return Cycle[]
      */
+    public function findActiveCycle()
+    {
+        $qb = $this->createQueryBuilder('cycle')
+            ->orWhere('cycle.cdpDateStart < :currentDate AND cycle.cdpDateEnd > :currentDate')
+            ->orWhere('cycle.myDateStart < :currentDate AND cycle.myDateEnd > :currentDate')
+            ->orWhere('cycle.yeDateStart < :currentDate AND cycle.yeDateEnd > :currentDate')
+            ->setParameter('currentDate', new \DateTime());
+
+        $query = $qb->getQuery();
+
+        //var_dump($query->getDQL());die;
+
+        return $query->execute();
+    }
+
+    /**
+     * @return Cycle[]
+     */
     public function findAllCyclesOrderedByCDPStartDate()
     {
         return $this->createQueryBuilder('cycle')

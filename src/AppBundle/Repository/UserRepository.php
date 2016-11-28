@@ -53,4 +53,32 @@ class UserRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsersForSupervisor(User $currentUser)
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.supervisor = :currentUser')
+            ->setParameter('currentUser', $currentUser)
+            ->andWhere('user.roles LIKE :userRole')
+            ->setParameter('userRole', '%ROLE_USER%')
+            ->orderBy('user.firstname', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsersForHR()
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.roles LIKE :userRole')
+            ->setParameter('userRole', '%ROLE_USER%')
+            ->orderBy('user.firstname', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
 }

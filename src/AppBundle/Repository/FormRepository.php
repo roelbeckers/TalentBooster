@@ -50,17 +50,4 @@ class FormRepository extends EntityRepository
             ->execute();
     }
 
-    /**
-     * @return Form[]
-     */
-    public function checkUserAccessToCDP(User $currentUser, Form $formId)
-    {
-        return $this->createQueryBuilder('cdp')
-            ->where('cdp.id = :formId')
-            ->setParameter('formId', $formId)
-            ->andWhere('cdp.user = :currentUser')
-            ->setParameter('currentUser', $currentUser)
-            ->getQuery()
-            ->execute();
-    }
 }

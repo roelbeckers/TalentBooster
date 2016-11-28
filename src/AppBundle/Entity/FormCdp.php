@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FormRepository")
- * @ORM\Table(name="form")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FormCdpRepository")
+ * @ORM\Table(name="formCdp")
  */
-class Form
+class FormCdp
 {
     // GENERAL
 
@@ -20,19 +20,6 @@ class Form
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cycle")
-     */
-    private $cycle;
-
-    /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     */
-    private $user;
-
-
-    // CDP SPECIFIC
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
@@ -55,84 +42,6 @@ class Form
      */
     private $cdpFeedbackHR;
 
-
-    // MID-YEAR SPECIFIC
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
-     */
-    private $myStatus;
-
-    /**
-     * @Assert\Date()
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $myFeedbackDate;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $myFeedbackSupervisor;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $myFeedbackHR;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\RatingMy")
-     */
-    private $myRating;
-
-
-
-    // YEAR-END SPECIFIC
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
-     */
-    private $yeStatus;
-
-    /**
-     * @Assert\Date()
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $yeFeedbackDate;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeFeedbackSupervisor;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeFeedbackHR;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeQ1;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeQ2;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeQ3;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $yeQ4;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\RatingYe")
-     */
-    private $yeRating;
 
 
     // SELF ASSESSMENT 1
@@ -182,16 +91,6 @@ class Form
      */
     private $sa1Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa1FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa1FeedbackYE;
-
 
     // SELF ASSESSMENT 2
 
@@ -239,17 +138,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa2Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa2FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa2FeedbackYE;
-
 
 
     // SELF ASSESSMENT 3
@@ -299,17 +187,6 @@ class Form
      */
     private $sa3Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa3FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa3FeedbackYE;
-
-
 
     // SELF ASSESSMENT 4
 
@@ -357,17 +234,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $sa4Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa4FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa4FeedbackYE;
-
 
 
     // SELF ASSESSMENT 5
@@ -417,17 +283,6 @@ class Form
      */
     private $sa5Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa5FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sa5FeedbackYE;
-
-
 
     // TASKS AND RESPONSIBILITIES 1
 
@@ -450,16 +305,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr1Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr1FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr1FeedbackYE;
 
 
     // TASKS AND RESPONSIBILITIES 2
@@ -484,16 +329,6 @@ class Form
      */
     private $tr2Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr2FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr2FeedbackYE;
-
 
     // TASKS AND RESPONSIBILITIES 3
 
@@ -516,16 +351,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr3Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr3FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr3FeedbackYE;
 
 
     // TASKS AND RESPONSIBILITIES 4
@@ -550,16 +375,6 @@ class Form
      */
     private $tr4Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr4FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr4FeedbackYE;
-
 
     // TASKS AND RESPONSIBILITIES 5
 
@@ -582,16 +397,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $tr5Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr5FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $tr5FeedbackYE;
 
 
     // SKILLS AND COMPETENCIES 1
@@ -616,16 +421,6 @@ class Form
      */
     private $sc1Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc1FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc1FeedbackYE;
-
 
     // SKILLS AND COMPETENCIES 2
 
@@ -648,16 +443,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc2Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc2FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc2FeedbackYE;
 
 
     // SKILLS AND COMPETENCIES 3
@@ -682,16 +467,6 @@ class Form
      */
     private $sc3Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc3FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc3FeedbackYE;
-
 
     // SKILLS AND COMPETENCIES 4
 
@@ -715,16 +490,6 @@ class Form
      */
     private $sc4Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc4FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc4FeedbackYE;
-
 
     // SKILLS AND COMPETENCIES 5
 
@@ -747,16 +512,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $sc5Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc5FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sc5FeedbackYE;
 
 
     // ORGANIZATION COMPETENCIES 1
@@ -786,16 +541,6 @@ class Form
      */
     private $oc1Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc1FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc1FeedbackYE;
-
 
     // ORGANIZATION COMPETENCIES 2
 
@@ -823,16 +568,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc2Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc2FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc2FeedbackYE;
 
 
     // ORGANIZATION COMPETENCIES 3
@@ -862,16 +597,6 @@ class Form
      */
     private $oc3Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc3FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc3FeedbackYE;
-
 
     // ORGANIZATION COMPETENCIES 4
 
@@ -899,16 +624,6 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $oc4Needs;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc4FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc4FeedbackYE;
 
 
     // ORGANIZATION COMPETENCIES 5
@@ -938,16 +653,6 @@ class Form
      */
     private $oc5Needs;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc5FeedbackMY;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $oc5FeedbackYE;
-
 
     // OTHER COMMENTS
 
@@ -960,6 +665,7 @@ class Form
      * @ORM\Column(type="text", nullable=true)
      */
     private $additionalInfo;
+
 
 
 
@@ -976,17 +682,33 @@ class Form
     /**
      * @return mixed
      */
+    public function getCycle()
+    {
+        return $this->cycle;
+    }
+
+    /**
+     * @param mixed $cycle
+     */
+    public function setCycle($cycle)
+    {
+        $this->cycle = $cycle;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getUser()
     {
         return $this->user;
     }
 
     /**
-     * @return mixed
+     * @param mixed $user
      */
-    public function getCycle()
+    public function setUser($user)
     {
-        return $this->cycle;
+        $this->user = $user;
     }
 
     /**
@@ -1003,38 +725,6 @@ class Form
     public function setCdpStatus($cdpStatus)
     {
         $this->cdpStatus = $cdpStatus;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyStatus()
-    {
-        return $this->myStatus;
-    }
-
-    /**
-     * @param mixed $myStatus
-     */
-    public function setMyStatus($myStatus)
-    {
-        $this->myStatus = $myStatus;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeStatus()
-    {
-        return $this->yeStatus;
-    }
-
-    /**
-     * @param mixed $yeStatus
-     */
-    public function setYeStatus($yeStatus)
-    {
-        $this->yeStatus = $yeStatus;
     }
 
     /**
@@ -1083,102 +773,6 @@ class Form
     public function setCdpFeedbackHR($cdpFeedbackHR)
     {
         $this->cdpFeedbackHR = $cdpFeedbackHR;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyFeedbackDate()
-    {
-        return $this->myFeedbackDate;
-    }
-
-    /**
-     * @param mixed $myFeedbackDate
-     */
-    public function setMyFeedbackDate($myFeedbackDate)
-    {
-        $this->myFeedbackDate = $myFeedbackDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyFeedbackSupervisor()
-    {
-        return $this->myFeedbackSupervisor;
-    }
-
-    /**
-     * @param mixed $myFeedbackSupervisor
-     */
-    public function setMyFeedbackSupervisor($myFeedbackSupervisor)
-    {
-        $this->myFeedbackSupervisor = $myFeedbackSupervisor;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyFeedbackHR()
-    {
-        return $this->myFeedbackHR;
-    }
-
-    /**
-     * @param mixed $myFeedbackHR
-     */
-    public function setMyFeedbackHR($myFeedbackHR)
-    {
-        $this->myFeedbackHR = $myFeedbackHR;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeFeedbackDate()
-    {
-        return $this->yeFeedbackDate;
-    }
-
-    /**
-     * @param mixed $yeFeedbackDate
-     */
-    public function setYeFeedbackDate($yeFeedbackDate)
-    {
-        $this->yeFeedbackDate = $yeFeedbackDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeFeedbackSupervisor()
-    {
-        return $this->yeFeedbackSupervisor;
-    }
-
-    /**
-     * @param mixed $yeFeedbackSupervisor
-     */
-    public function setYeFeedbackSupervisor($yeFeedbackSupervisor)
-    {
-        $this->yeFeedbackSupervisor = $yeFeedbackSupervisor;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeFeedbackHR()
-    {
-        return $this->yeFeedbackHR;
-    }
-
-    /**
-     * @param mixed $yeFeedbackHR
-     */
-    public function setYeFeedbackHR($yeFeedbackHR)
-    {
-        $this->yeFeedbackHR = $yeFeedbackHR;
     }
 
     /**
@@ -1723,6 +1317,38 @@ class Form
     public function setSa4How($sa4How)
     {
         $this->sa4How = $sa4How;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSa4Success()
+    {
+        return $this->sa4Success;
+    }
+
+    /**
+     * @param mixed $sa4Success
+     */
+    public function setSa4Success($sa4Success)
+    {
+        $this->sa4Success = $sa4Success;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSa4Needs()
+    {
+        return $this->sa4Needs;
+    }
+
+    /**
+     * @param mixed $sa4Needs
+     */
+    public function setSa4Needs($sa4Needs)
+    {
+        $this->sa4Needs = $sa4Needs;
     }
 
     /**
@@ -2912,726 +2538,6 @@ class Form
     /**
      * @return mixed
      */
-    public function getYeQ1()
-    {
-        return $this->yeQ1;
-    }
-
-    /**
-     * @param mixed $yeQ1
-     */
-    public function setYeQ1($yeQ1)
-    {
-        $this->yeQ1 = $yeQ1;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeQ2()
-    {
-        return $this->yeQ2;
-    }
-
-    /**
-     * @param mixed $yeQ2
-     */
-    public function setYeQ2($yeQ2)
-    {
-        $this->yeQ2 = $yeQ2;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeQ3()
-    {
-        return $this->yeQ3;
-    }
-
-    /**
-     * @param mixed $yeQ3
-     */
-    public function setYeQ3($yeQ3)
-    {
-        $this->yeQ3 = $yeQ3;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeQ4()
-    {
-        return $this->yeQ4;
-    }
-
-    /**
-     * @param mixed $yeQ4
-     */
-    public function setYeQ4($yeQ4)
-    {
-        $this->yeQ4 = $yeQ4;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYeRating()
-    {
-        return $this->yeRating;
-    }
-
-    /**
-     * @param mixed $yeRating
-     */
-    public function setYeRating($yeRating)
-    {
-        $this->yeRating = $yeRating;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa1FeedbackMY()
-    {
-        return $this->sa1FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sa1FeedbackMY
-     */
-    public function setSa1FeedbackMY($sa1FeedbackMY)
-    {
-        $this->sa1FeedbackMY = $sa1FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa1FeedbackYE()
-    {
-        return $this->sa1FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sa1FeedbackYE
-     */
-    public function setSa1FeedbackYE($sa1FeedbackYE)
-    {
-        $this->sa1FeedbackYE = $sa1FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa2FeedbackMY()
-    {
-        return $this->sa2FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sa2FeedbackMY
-     */
-    public function setSa2FeedbackMY($sa2FeedbackMY)
-    {
-        $this->sa2FeedbackMY = $sa2FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa2FeedbackYE()
-    {
-        return $this->sa2FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sa2FeedbackYE
-     */
-    public function setSa2FeedbackYE($sa2FeedbackYE)
-    {
-        $this->sa2FeedbackYE = $sa2FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa3FeedbackMY()
-    {
-        return $this->sa3FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sa3FeedbackMY
-     */
-    public function setSa3FeedbackMY($sa3FeedbackMY)
-    {
-        $this->sa3FeedbackMY = $sa3FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa3FeedbackYE()
-    {
-        return $this->sa3FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sa3FeedbackYE
-     */
-    public function setSa3FeedbackYE($sa3FeedbackYE)
-    {
-        $this->sa3FeedbackYE = $sa3FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa4FeedbackMY()
-    {
-        return $this->sa4FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sa4FeedbackMY
-     */
-    public function setSa4FeedbackMY($sa4FeedbackMY)
-    {
-        $this->sa4FeedbackMY = $sa4FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa4FeedbackYE()
-    {
-        return $this->sa4FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sa4FeedbackYE
-     */
-    public function setSa4FeedbackYE($sa4FeedbackYE)
-    {
-        $this->sa4FeedbackYE = $sa4FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa5FeedbackMY()
-    {
-        return $this->sa5FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sa5FeedbackMY
-     */
-    public function setSa5FeedbackMY($sa5FeedbackMY)
-    {
-        $this->sa5FeedbackMY = $sa5FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa5FeedbackYE()
-    {
-        return $this->sa5FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sa5FeedbackYE
-     */
-    public function setSa5FeedbackYE($sa5FeedbackYE)
-    {
-        $this->sa5FeedbackYE = $sa5FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr1FeedbackMY()
-    {
-        return $this->tr1FeedbackMY;
-    }
-
-    /**
-     * @param mixed $tr1FeedbackMY
-     */
-    public function setTr1FeedbackMY($tr1FeedbackMY)
-    {
-        $this->tr1FeedbackMY = $tr1FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr1FeedbackYE()
-    {
-        return $this->tr1FeedbackYE;
-    }
-
-    /**
-     * @param mixed $tr1FeedbackYE
-     */
-    public function setTr1FeedbackYE($tr1FeedbackYE)
-    {
-        $this->tr1FeedbackYE = $tr1FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr2FeedbackMY()
-    {
-        return $this->tr2FeedbackMY;
-    }
-
-    /**
-     * @param mixed $tr2FeedbackMY
-     */
-    public function setTr2FeedbackMY($tr2FeedbackMY)
-    {
-        $this->tr2FeedbackMY = $tr2FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr2FeedbackYE()
-    {
-        return $this->tr2FeedbackYE;
-    }
-
-    /**
-     * @param mixed $tr2FeedbackYE
-     */
-    public function setTr2FeedbackYE($tr2FeedbackYE)
-    {
-        $this->tr2FeedbackYE = $tr2FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr3FeedbackMY()
-    {
-        return $this->tr3FeedbackMY;
-    }
-
-    /**
-     * @param mixed $tr3FeedbackMY
-     */
-    public function setTr3FeedbackMY($tr3FeedbackMY)
-    {
-        $this->tr3FeedbackMY = $tr3FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr3FeedbackYE()
-    {
-        return $this->tr3FeedbackYE;
-    }
-
-    /**
-     * @param mixed $tr3FeedbackYE
-     */
-    public function setTr3FeedbackYE($tr3FeedbackYE)
-    {
-        $this->tr3FeedbackYE = $tr3FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr4FeedbackMY()
-    {
-        return $this->tr4FeedbackMY;
-    }
-
-    /**
-     * @param mixed $tr4FeedbackMY
-     */
-    public function setTr4FeedbackMY($tr4FeedbackMY)
-    {
-        $this->tr4FeedbackMY = $tr4FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr4FeedbackYE()
-    {
-        return $this->tr4FeedbackYE;
-    }
-
-    /**
-     * @param mixed $tr4FeedbackYE
-     */
-    public function setTr4FeedbackYE($tr4FeedbackYE)
-    {
-        $this->tr4FeedbackYE = $tr4FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr5FeedbackMY()
-    {
-        return $this->tr5FeedbackMY;
-    }
-
-    /**
-     * @param mixed $tr5FeedbackMY
-     */
-    public function setTr5FeedbackMY($tr5FeedbackMY)
-    {
-        $this->tr5FeedbackMY = $tr5FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTr5FeedbackYE()
-    {
-        return $this->tr5FeedbackYE;
-    }
-
-    /**
-     * @param mixed $tr5FeedbackYE
-     */
-    public function setTr5FeedbackYE($tr5FeedbackYE)
-    {
-        $this->tr5FeedbackYE = $tr5FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc1FeedbackMY()
-    {
-        return $this->sc1FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sc1FeedbackMY
-     */
-    public function setSc1FeedbackMY($sc1FeedbackMY)
-    {
-        $this->sc1FeedbackMY = $sc1FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc1FeedbackYE()
-    {
-        return $this->sc1FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sc1FeedbackYE
-     */
-    public function setSc1FeedbackYE($sc1FeedbackYE)
-    {
-        $this->sc1FeedbackYE = $sc1FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc2FeedbackMY()
-    {
-        return $this->sc2FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sc2FeedbackMY
-     */
-    public function setSc2FeedbackMY($sc2FeedbackMY)
-    {
-        $this->sc2FeedbackMY = $sc2FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc2FeedbackYE()
-    {
-        return $this->sc2FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sc2FeedbackYE
-     */
-    public function setSc2FeedbackYE($sc2FeedbackYE)
-    {
-        $this->sc2FeedbackYE = $sc2FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc3FeedbackMY()
-    {
-        return $this->sc3FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sc3FeedbackMY
-     */
-    public function setSc3FeedbackMY($sc3FeedbackMY)
-    {
-        $this->sc3FeedbackMY = $sc3FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc3FeedbackYE()
-    {
-        return $this->sc3FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sc3FeedbackYE
-     */
-    public function setSc3FeedbackYE($sc3FeedbackYE)
-    {
-        $this->sc3FeedbackYE = $sc3FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc4FeedbackMY()
-    {
-        return $this->sc4FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sc4FeedbackMY
-     */
-    public function setSc4FeedbackMY($sc4FeedbackMY)
-    {
-        $this->sc4FeedbackMY = $sc4FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc4FeedbackYE()
-    {
-        return $this->sc4FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sc4FeedbackYE
-     */
-    public function setSc4FeedbackYE($sc4FeedbackYE)
-    {
-        $this->sc4FeedbackYE = $sc4FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc5FeedbackMY()
-    {
-        return $this->sc5FeedbackMY;
-    }
-
-    /**
-     * @param mixed $sc5FeedbackMY
-     */
-    public function setSc5FeedbackMY($sc5FeedbackMY)
-    {
-        $this->sc5FeedbackMY = $sc5FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSc5FeedbackYE()
-    {
-        return $this->sc5FeedbackYE;
-    }
-
-    /**
-     * @param mixed $sc5FeedbackYE
-     */
-    public function setSc5FeedbackYE($sc5FeedbackYE)
-    {
-        $this->sc5FeedbackYE = $sc5FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc1FeedbackMY()
-    {
-        return $this->oc1FeedbackMY;
-    }
-
-    /**
-     * @param mixed $oc1FeedbackMY
-     */
-    public function setOc1FeedbackMY($oc1FeedbackMY)
-    {
-        $this->oc1FeedbackMY = $oc1FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc1FeedbackYE()
-    {
-        return $this->oc1FeedbackYE;
-    }
-
-    /**
-     * @param mixed $oc1FeedbackYE
-     */
-    public function setOc1FeedbackYE($oc1FeedbackYE)
-    {
-        $this->oc1FeedbackYE = $oc1FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc2FeedbackMY()
-    {
-        return $this->oc2FeedbackMY;
-    }
-
-    /**
-     * @param mixed $oc2FeedbackMY
-     */
-    public function setOc2FeedbackMY($oc2FeedbackMY)
-    {
-        $this->oc2FeedbackMY = $oc2FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc2FeedbackYE()
-    {
-        return $this->oc2FeedbackYE;
-    }
-
-    /**
-     * @param mixed $oc2FeedbackYE
-     */
-    public function setOc2FeedbackYE($oc2FeedbackYE)
-    {
-        $this->oc2FeedbackYE = $oc2FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc3FeedbackMY()
-    {
-        return $this->oc3FeedbackMY;
-    }
-
-    /**
-     * @param mixed $oc3FeedbackMY
-     */
-    public function setOc3FeedbackMY($oc3FeedbackMY)
-    {
-        $this->oc3FeedbackMY = $oc3FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc3FeedbackYE()
-    {
-        return $this->oc3FeedbackYE;
-    }
-
-    /**
-     * @param mixed $oc3FeedbackYE
-     */
-    public function setOc3FeedbackYE($oc3FeedbackYE)
-    {
-        $this->oc3FeedbackYE = $oc3FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc4FeedbackMY()
-    {
-        return $this->oc4FeedbackMY;
-    }
-
-    /**
-     * @param mixed $oc4FeedbackMY
-     */
-    public function setOc4FeedbackMY($oc4FeedbackMY)
-    {
-        $this->oc4FeedbackMY = $oc4FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc4FeedbackYE()
-    {
-        return $this->oc4FeedbackYE;
-    }
-
-    /**
-     * @param mixed $oc4FeedbackYE
-     */
-    public function setOc4FeedbackYE($oc4FeedbackYE)
-    {
-        $this->oc4FeedbackYE = $oc4FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc5FeedbackMY()
-    {
-        return $this->oc5FeedbackMY;
-    }
-
-    /**
-     * @param mixed $oc5FeedbackMY
-     */
-    public function setOc5FeedbackMY($oc5FeedbackMY)
-    {
-        $this->oc5FeedbackMY = $oc5FeedbackMY;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOc5FeedbackYE()
-    {
-        return $this->oc5FeedbackYE;
-    }
-
-    /**
-     * @param mixed $oc5FeedbackYE
-     */
-    public function setOc5FeedbackYE($oc5FeedbackYE)
-    {
-        $this->oc5FeedbackYE = $oc5FeedbackYE;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCareerObjectives()
     {
         return $this->careerObjectives;
@@ -3659,53 +2565,5 @@ class Form
     public function setAdditionalInfo($additionalInfo)
     {
         $this->additionalInfo = $additionalInfo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa4Success()
-    {
-        return $this->sa4Success;
-    }
-
-    /**
-     * @param mixed $sa4Success
-     */
-    public function setSa4Success($sa4Success)
-    {
-        $this->sa4Success = $sa4Success;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSa4Needs()
-    {
-        return $this->sa4Needs;
-    }
-
-    /**
-     * @param mixed $sa4Needs
-     */
-    public function setSa4Needs($sa4Needs)
-    {
-        $this->sa4Needs = $sa4Needs;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyRating()
-    {
-        return $this->myRating;
-    }
-
-    /**
-     * @param mixed $myRating
-     */
-    public function setMyRating($myRating)
-    {
-        $this->myRating = $myRating;
     }
 }

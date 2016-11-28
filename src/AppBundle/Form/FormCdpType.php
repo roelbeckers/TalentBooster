@@ -4,8 +4,9 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Form;
 use AppBundle\Entity\FormCdp;
+use AppBundle\Entity\FormYe;
 use AppBundle\Entity\RatingYe;
-use AppBundle\Repository\RatingYERepository;
+use AppBundle\Repository\RatingYeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -15,13 +16,14 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FormFormType extends AbstractType
+class FormCdpType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->formParam = $options['formParam'];
+        //$formData = $options['formData'];
 
-        if (($this->formParam['formProgress'] == 'ye') and (($this->formParam['formAction'] == 'edit') or ($this->formParam['formAction'] == 'create')) and ($this->formParam['userType'] == 'user')){
+        if (($this->formParam['userType'] == 'user') and (($this->formParam['formAction'] == 'edit') or ($this->formParam['formAction'] == 'create'))){
             $builder
                 // YEAR-END SPECIFIC
                 ->add('yeFeedbackDate', DateType::class, [
@@ -72,58 +74,53 @@ class FormFormType extends AbstractType
                 ;
 
                 $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
-                    $formData = $event->getData();
+                    //$formData = $event->getData();
                     //dump($formData);die;
+                    $form = $event->getForm();
 
-                    if ($formData) {
-                        dump('here');die;
-                        $form = $event->getForm();
-
-                        // SELF ASSESSMENT
-                        if ($formData->getSa4CoreQuality() != null) {
-                            $form->add('sa4FeedbackYE');
-                        }
-                        if ($formData->getSa4CoreQuality() != null) {
-                            $form->add('sa4FeedbackYE');
-                        }
-
-                        // TASKS AND RESPONSIBILITIES
-                        if ($formData->getTr4WhatWhy() != null) {
-                            $form->add('tr4FeedbackYE');
-                        }
-                        if ($formData->getTr5WhatWhy() != null) {
-                            $form->add('tr5FeedbackYE');
-                        }
-
-                        // SKILLS AND COMPETENCIES
-                        if ($formData->getSc4WhatWhy() != null) {
-                            $form->add('sc4FeedbackYE');
-                        }
-                        if ($formData->getSc5WhatWhy() != null) {
-                            $form->add('sc5FeedbackYE');
-                        }
-
-                        // ORGANIZATIONAL COMPETENCIES
-                        if ($formData->getOc4WhatWhy() != null) {
-                            $form->add('oc4FeedbackYE');
-                        }
-                        if ($formData->getOc5WhatWhy() != null) {
-                            $form->add('oc5FeedbackYE');
-                        }
+                    // SELF ASSESSMENT
+                    if ($formData->getSa4CoreQuality() != null) {
+                        $form->add('sa4FeedbackYE');
                     }
-                })
-            ;
+                    if ($formData->getSa5CoreQuality() != null) {
+                        $form->add('sa5FeedbackYE');
+                    }
+
+                    // TASKS AND RESPONSIBILITIES
+                    if ($formData->getTr4WhatWhy() != null) {
+                        $form->add('tr4FeedbackYE');
+                    }
+                    if ($formData->getTr5WhatWhy() != null) {
+                        $form->add('tr5FeedbackYE');
+                    }
+
+                    // SKILLS AND COMPETENCIES
+                    if ($formData->getSc4WhatWhy() != null) {
+                        $form->add('sc4FeedbackYE');
+                    }
+                    if ($formData->getSc5WhatWhy() != null) {
+                        $form->add('sc5FeedbackYE');
+                    }
+
+                    // ORGANIZATIONAL COMPETENCIES
+                    if ($formData->getOc4WhatWhy() != null) {
+                        $form->add('oc4FeedbackYE');
+                    }
+                    if ($formData->getOc5WhatWhy() != null) {
+                        $form->add('oc5FeedbackYE');
+                    }
+            });
         }
 
-        if (($this->formParam['formProgress'] == 'ye') and ($this->formParam['formAction'] == 'edit') and ($this->formParam['userType'] == 'supervisor')){
+        if (($this->formParam['userType'] == 'supervisor') and ($this->formParam['formAction'] == 'edit')){
             $builder
                 // YEAR-END SPECIFIC
                 ->add('yeFeedbackSupervisor')
                 ->add('yeRating', EntityType::class, [
-                    'class' => RatingYE::class,
+                    'class' => RatingYe::class,
                     'placeholder' => 'Select a status',
-                    'query_builder' => function(RatingYERepository $repo){
-                        return $repo->findAllRatingYEOrderById();
+                    'query_builder' => function(RatingYeRepository $repo){
+                        return $repo->findAllRatingYeOrderById();
                     }
                 ])
 
@@ -149,15 +146,15 @@ class FormFormType extends AbstractType
             ;
         }
 
-        if (($this->formParam['formProgress'] == 'ye') and ($this->formParam['formAction'] == 'edit') and ($this->formParam['userType'] == 'hr')){
+        if (($this->formParam['userType'] == 'hr') and (($this->formParam['formAction'] == 'edit') or ($this->formParam['formAction'] == 'create'))){
             $builder
                 // YEAR-END SPECIFIC
                 ->add('yeFeedbackHR')
                 ->add('yeRating', EntityType::class, [
-                    'class' => RatingYE::class,
+                    'class' => RatingYe::class,
                     'placeholder' => 'Select a status',
-                    'query_builder' => function(RatingYERepository $repo){
-                        return $repo->findAllRatingYEOrderById();
+                    'query_builder' => function(RatingYeRepository $repo){
+                        return $repo->findAllRatingYeOrderById();
                     }
                 ])
 
@@ -191,12 +188,10 @@ class FormFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
-
         $resolver->setDefaults([
             'data_class' => FormCdp::class,
             'formParam'  => null,
-            //'validation_groups' => ['Default', 'Registration']
+            //'formData'   => null,
         ]);
     }
 }

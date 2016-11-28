@@ -25,30 +25,30 @@ AppBundle\Entity\User:
         language: en
         jobtitle: TalentBooster Owner
         team: IntoPeople bvba
-    #user{2..10}:
+    user{2..10}:
         # use some fake data for this
-        #email: test+<current()>@ebeck.be
-        #plainPassword: talentbooster
-        #date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
-        #date_hire: <dateTimeBetween('-240 months', '-6 months')>
-        #roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER']
-        #enabled: true
-        #supervisor: '@user*'
-        #firstname: <firstName()>
-        #lastname: <lastName()>
-        #language: en
-        #jobtitle: <word()>
-        #team: <word()>
+        email: test+<current()>@talentbooster.io
+        plainPassword: talentbooster
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_HR', 'ROLE_SUPERVISOR', 'ROLE_USER']
+        enabled: true
+        supervisor: '@user*'
+        firstname: <firstName()>
+        lastname: <lastName()>
+        language: en
+        jobtitle: <word()>
+        team: <word()>
 
-#AppBundle\Entity\Cycle:
-    #cycle1:
-        #name: 2016
-        #cdpDateStart: <(new \DateTime('2016-08-01'))>
-        #cdpDateEnd: <(new \DateTime('2016-09-01'))>
-        #cdpAutoMail: true
-        #yeDateStart: <(new \DateTime('2016-11-15'))>
-        #yeDateEnd: <(new \DateTime('2016-12-15'))>
-        #yeAutoMail: true
+AppBundle\Entity\Cycle:
+    cycle1:
+        name: 2016
+        cdpDateStart: <(new \DateTime('2016-08-01'))>
+        cdpDateEnd: <(new \DateTime('2016-09-01'))>
+        cdpAutoMail: true
+        yeDateStart: <(new \DateTime('2016-11-15'))>
+        yeDateEnd: <(new \DateTime('2016-12-15'))>
+        yeAutoMail: true
 
     #cycle2:
         #name: 2017
@@ -109,7 +109,7 @@ AppBundle\Entity\FormStatus:
         #myStatus: '@formStatus9'
         #yeStatus: '@formStatus9'
 
-AppBundle\Entity\RatingYE:
+AppBundle\Entity\RatingYe:
     ratingye1:
         name: Meet None Expectations
     ratingye2:
@@ -121,7 +121,7 @@ AppBundle\Entity\RatingYE:
     ratingye5:
         name: Substantially Exceeds Expectations
 
-AppBundle\Entity\RatingMY:
+AppBundle\Entity\RatingMy:
     ratingmy1:
         name: On Track
     ratingmy2:

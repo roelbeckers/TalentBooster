@@ -9,29 +9,30 @@
 namespace AppBundle\Controller;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class DashboardController extends Controller
 {
     /**
-     * @Route("/dashboard/employee", name="dashboard_employee")
+     * @Route("/dashboard/employee", name="dashboard_user")
      * @Security("is_granted('ROLE_USER')")
      */
     public function listEmployeeAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        /*$cycles = $em->getRepository('AppBundle:Cycle')
-            ->findAllCyclesNotStartedOrderedByCDPStartDate();*/
+        $cycle = $em->getRepository('AppBundle:Cycle')
+            ->findActiveCycle();
 
-        $forms = $em->getRepository('AppBundle:Form')
-            ->findAllFormsForCurrentUser($this->getUser());
+        $forms = $em->getRepository('AppBundle:FormTable')
+            ->findFormsforCurrentUserInActiveCycle($this->getUser(), $cycle[0]);
 
         return $this->render('dashboard/listEmployee.html.twig', [
             'forms' => $forms
-            //'cycles' => $cycles
         ]);
     }
 
@@ -43,14 +44,21 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $forms = $em->getRepository('AppBundle:Form')
-            ->findAllFormsOfEmployeesForSupervisor($this->getUser());
+        // FIND ACTIVE CYCLE
+        $cycle = $em->getRepository('AppBundle:Cycle')
+            ->findActiveCycle();
 
-        //dump($users);die;
+        // FIND USERS FOR SUPERVISOR
+        $users = $em->getRepository('AppBundle:User')
+            ->findAllUsersForSupervisor($this->getUser());
+
+        // FIND FORMS FOR USERS OF SUPERVISOR IN CURRENT CYCLE
+        $forms = $em->getRepository('AppBundle:FormTable')
+            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($users, $cycle[0]);
 
         return $this->render('dashboard/listSupervisor.html.twig', [
+            'users' => $users,
             'forms' => $forms
-            //'cycles' => $cycles
         ]);
     }
 
@@ -62,14 +70,26 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $forms = $em->getRepository('AppBundle:Form')
-            ->findAll();
+        //$forms = $em->getRepository('AppBundle:Form')
+        //    ->findAll();
 
         //dump($users);die;
 
+        // FIND ACTIVE CYCLE
+        $cycle = $em->getRepository('AppBundle:Cycle')
+            ->findActiveCycle();
+
+        // FIND ALL USERS WITH ROLE_USER
+        $users = $em->getRepository('AppBundle:User')
+            ->findAllUsersForHR();
+
+        // FIND FORMS FOR USERS IN CURRENT CYCLE
+        $forms = $em->getRepository('AppBundle:FormTable')
+            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($users, $cycle[0]);
+
         return $this->render('dashboard/listHR.html.twig', [
+            'users' => $users,
             'forms' => $forms
-            //'cycles' => $cycles
         ]);
     }
 

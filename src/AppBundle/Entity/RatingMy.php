@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RatingYERepository")
- * @ORM\Table(name="ratingYE")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RatingMyRepository")
+ * @ORM\Table(name="ratingMy")
  */
-class RatingYE
+class RatingMy
 {
     /**
      * @ORM\Id

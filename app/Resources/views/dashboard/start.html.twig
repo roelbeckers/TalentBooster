@@ -7,7 +7,7 @@
     <div class="row" style="text-align: center; padding-top: 40px;">
         <!-- USER -->
         {% if ('ROLE_USER' in userType) %}
-            <a href="{{ path('dashboard_employee') }}" class="btn btn-success" style="height: 150px; width: 150px; padding-top: 30px;">
+            <a href="{{ path('dashboard_user') }}" class="btn btn-success" style="height: 150px; width: 150px; padding-top: 30px;">
                 <h4><span class="fa fa-user"></span><br><br>My Career</></h4>
             </a>
         {% endif %}
