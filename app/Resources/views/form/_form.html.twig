@@ -72,7 +72,7 @@
                                     document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
                                 </script>
                             {% endif %}
-                        {% elseif (formAction == 'edit') %}
+                        {% elseif ((formAction == 'edit') or (formAction == 'create')) %}
                             {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '4') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackSupervisor != '')) %}
                                 {{ formDataCdp.cdpFeedbackSupervisor }}
                             {% else %}
@@ -116,7 +116,7 @@
                                     document.getElementById('cdpFeedbackHR').style.display = 'none';
                                 </script>
                             {% endif %}
-                        {% elseif (formAction == 'edit') %}
+                        {% elseif ((formAction == 'edit') or (formAction == 'create')) %}
                             {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackHR != '')) %}
                                 {{ formDataCdp.cdpFeedbackHR }}
                             {% else %}
