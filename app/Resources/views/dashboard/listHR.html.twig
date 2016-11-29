@@ -65,17 +65,6 @@
                             <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
                         {% endif %}
                     </tr>
-                {% else %}
-                    <tr>
-                        <td>{{ user.fullname }}</td>
-
-                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
-                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
-
-                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
-                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
-                    </tr>
-
                 {% endif %}
             {% endfor %}
         {% endfor %}
