@@ -109,6 +109,7 @@ class FormYeController extends Controller
                     'formAction'    => 'create',
                     'formProgress'  => $formProgress,
                     'userType'      => $userType,
+                    'isPdf'         => 'false',
                 ]
             );
         }
@@ -301,6 +302,7 @@ class FormYeController extends Controller
                     'formAction'    => 'view',
                     'formProgress'  => $formProgress,
                     'userType'      => $userType,
+                    'isPdf'         => 'false',
                 ]
             );
         }
@@ -399,6 +401,7 @@ class FormYeController extends Controller
                     'formAction'    => 'edit',
                     'formProgress'  => $formProgress,
                     'userType'      => $userType,
+                    'isPdf'         => 'false',
                 ]
             );
         }

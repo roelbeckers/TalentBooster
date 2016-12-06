@@ -38,8 +38,10 @@
                             <td>
                                 {% if ((form.formCdp.cdpStatus.id == 5) or (form.formCdp.cdpStatus.id == 6)) %}
                                     <a href="{{ path('cdp_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                    <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
                                 {% elseif (form.formCdp.cdpStatus.id == 3) or (form.formCdp.cdpStatus.id == 4) or (form.formCdp.cdpStatus.id == 7) or (form.formCdp.cdpStatus.id == 8) %}
                                     <a href="{{ path('cdp_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                    <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
                                 {% else %}
                                     <span class="btn btn-primary" disabled="disabled">No action</span>
                                 {% endif %}
@@ -54,8 +56,10 @@
                             <td>
                                 {% if ((form.formYe.yeStatus.id == 5) or (form.formYe.yeStatus.id == 6)) %}
                                     <a href="{{ path('ye_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                    <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
                                 {% elseif (form.formYe.yeStatus.id == 3) or (form.formYe.yeStatus.id == 4) or (form.formYe.yeStatus.id == 7) or (form.formYe.yeStatus.id == 8) %}
                                     <a href="{{ path('ye_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                    <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
                                 {% else %}
                                     <span class="btn btn-primary" disabled="disabled">No action</span>
                                 {% endif %}

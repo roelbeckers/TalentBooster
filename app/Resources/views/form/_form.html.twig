@@ -53,7 +53,6 @@
         </div>
     </div>
 
-
     <!-- CDP FEEDBACK -->
     <div id="cdpFeedback" class="row" style="padding-top: 40px;">
         <!-- CDP FEEDBACK SUPERVISOR -->
@@ -1065,8 +1064,10 @@
 
     {% endif %}
 {% else %}
-    <br><br>
-    <a href="{{ app.request.headers.get('referer') }}"><span class="fa fa-arrow-circle-left"></span> Return to previous page</a>
+    {% if (isPdf == 'false') %}
+        <br><br>
+        <a href="{{ app.request.headers.get('referer') }}"><span class="fa fa-arrow-circle-left"></span> Return to previous page</a>
+    {% endif %}
 {% endif %}
 
 {{ form_end(formForm) }}
