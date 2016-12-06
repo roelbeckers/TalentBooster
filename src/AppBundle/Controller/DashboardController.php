@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DashboardController extends Controller
 {
@@ -38,7 +39,7 @@ class DashboardController extends Controller
      * @Route("/dashboard/supervisor", name="dashboard_supervisor")
      * @Security("is_granted('ROLE_SUPERVISOR')")
      */
-    public function listSupervisorAction()
+    public function listSupervisorAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -47,15 +48,25 @@ class DashboardController extends Controller
             ->findActiveCycle();
 
         // FIND USERS FOR SUPERVISOR
-        $users = $em->getRepository('AppBundle:User')
+        $usersQuery = $em->getRepository('AppBundle:User')
             ->findAllUsersForSupervisor($this->getUser());
+        //dump($usersQuery->getQuery()->execute());die;
 
         // FIND FORMS FOR USERS OF SUPERVISOR IN CURRENT CYCLE
         $forms = $em->getRepository('AppBundle:FormTable')
-            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($users, $cycle[0]);
+            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle[0]);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $usersQuery, /* query NOT result */
+            $request->query->getInt('page', 1), /* current page number */
+            20, /* limit of records per page */
+            array('defaultSortFieldName' => 'user.firstname', 'defaultSortDirection' => 'asc')
+        );
 
         return $this->render('dashboard/listSupervisor.html.twig', [
-            'users' => $users,
+            //'users' => $users,
+            'pagination'    => $pagination,
             'forms' => $forms
         ]);
     }
@@ -64,30 +75,35 @@ class DashboardController extends Controller
      * @Route("/dashboard/hr", name="dashboard_hr")
      * @Security("is_granted('ROLE_HR')")
      */
-    public function listHRAction()
+    public function listHRAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        //$forms = $em->getRepository('AppBundle:Form')
-        //    ->findAll();
-
-        //dump($users);die;
 
         // FIND ACTIVE CYCLE
         $cycle = $em->getRepository('AppBundle:Cycle')
             ->findActiveCycle();
 
         // FIND ALL USERS WITH ROLE_USER
-        $users = $em->getRepository('AppBundle:User')
+        $usersQuery = $em->getRepository('AppBundle:User')
             ->findAllUsersForHR();
 
         // FIND FORMS FOR USERS IN CURRENT CYCLE
         $forms = $em->getRepository('AppBundle:FormTable')
-            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($users, $cycle[0]);
+            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle[0]);
+
+        // CONFIGURE PAGINATOR
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $usersQuery, /* query NOT result */
+            $request->query->getInt('page', 1), /* current page number */
+            20, /* limit of records per page */
+            array('defaultSortFieldName' => 'user.firstname', 'defaultSortDirection' => 'asc')
+        );
 
         return $this->render('dashboard/listHR.html.twig', [
-            'users' => $users,
-            'forms' => $forms
+            //'users' => $users,
+            'pagination'    => $pagination,
+            'forms'         => $forms
         ]);
     }
 

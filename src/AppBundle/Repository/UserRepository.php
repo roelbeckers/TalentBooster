@@ -63,10 +63,10 @@ class UserRepository extends EntityRepository
             ->where('user.supervisor = :currentUser')
             ->setParameter('currentUser', $currentUser)
             ->andWhere('user.roles LIKE :userRole')
-            ->setParameter('userRole', '%ROLE_USER%')
-            ->orderBy('user.firstname', 'ASC')
-            ->getQuery()
-            ->execute();
+            ->setParameter('userRole', '%ROLE_USER%');
+            //->orderBy('user.firstname', 'ASC');
+            //->getQuery()
+            //->execute();
     }
 
     /**
@@ -76,9 +76,9 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('user')
             ->where('user.roles LIKE :userRole')
-            ->setParameter('userRole', '%ROLE_USER%')
-            ->orderBy('user.firstname', 'ASC')
-            ->getQuery()
-            ->execute();
+            ->setParameter('userRole', '%ROLE_USER%');
+            //->orderBy('user.firstname', 'ASC');
+            //->getQuery();
+            //->execute();
     }
 }

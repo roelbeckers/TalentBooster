@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>My Career</h1>
-    <a href="{{ app.request.headers.get('referer') }}"><span class="fa fa-arrow-circle-left"></span> Return to previous page</a><br><br>
+    <a href="{{ path('dashboard_start') }}"><span class="fa fa-arrow-circle-left"></span> Return to dashboard</a><br><br>
 
     <!-- CYCLES WITH FORMS AVAILABLE YET -->
     <table class="table table-hover">
