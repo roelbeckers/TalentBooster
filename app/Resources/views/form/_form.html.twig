@@ -971,43 +971,49 @@
                 <hr>
 
                 <table class="table">
-                    {% if ((userType == 'user') or (userType == 'hr')) %}
-                        <tr><th style="border: none; background-color: #EEEEEE;">Share strengths and development needs for your supervisor from your point of view.</th></tr>
-                        <tr><td style="border: none; padding-bottom: 30px;">
-                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                    {{ form_widget(formForm.yeQ1) }}
-                                {% elseif ((userType == 'user') or (userType == 'hr')) %}
-                                    {{ formDataYe.yeQ1 }}
-                                {% endif %}
-                            </td></tr>
-                    {% endif %}
+                    <tr><th style="border: none; background-color: #EEEEEE;">Share strengths and development needs for your supervisor from your point of view.</th></tr>
+                    <tr>
+                        <td style="border: none; padding-bottom: 30px;">
+                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                {{ form_widget(formForm.yeQ1) }}
+                            {% else %}
+                                {{ formDataYe.yeQ1 }}
+                            {% endif %}
+                        </td>
+                    </tr>
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for your team.</th></tr>
-                    <tr><td style="border: none; padding-bottom: 30px;">
+                    <tr>
+                        <td style="border: none; padding-bottom: 30px;">
                             {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ2) }}
                             {% else %}
                                 {{ formDataYe.yeQ2 }}
                             {% endif %}
-                        </td></tr>
+                        </td>
+                    </tr>
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for the other teams.</th></tr>
-                    <tr><td style="border: none; padding-bottom: 30px;">
+                    <tr>
+                        <td style="border: none; padding-bottom: 30px;">
                             {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ3) }}
                             {% else %}
                                 {{ formDataYe.yeQ3 }}
                             {% endif %}
-                        </td></tr>
+                        </td>
+                    </tr>
 
                     <tr><th style="border: none; background-color: #EEEEEE;">Share feedback for Move Intermodal in terms of working environment, health and safety, available tools and gear, etc.</th></tr>
-                    <tr><td style="border: none;">
+                    <tr>
+                        <td style="border: none;">
                             {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                 {{ form_widget(formForm.yeQ4) }}
                             {% else %}
                                 {{ formDataYe.yeQ4 }}
                             {% endif %}
-                        </td></tr>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
