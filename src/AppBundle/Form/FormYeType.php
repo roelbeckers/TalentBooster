@@ -118,7 +118,7 @@ class FormYeType extends AbstractType
                 ->add('yeFeedbackSupervisor')
                 ->add('yeRating', EntityType::class, [
                     'class' => RatingYe::class,
-                    'placeholder' => 'Select a status',
+                    //'placeholder' => 'Select a status',
                     'query_builder' => function(RatingYeRepository $repo){
                         return $repo->findAllRatingYeOrderById();
                     }
@@ -152,7 +152,7 @@ class FormYeType extends AbstractType
                 ->add('yeFeedbackHR')
                 ->add('yeRating', EntityType::class, [
                     'class' => RatingYe::class,
-                    'placeholder' => 'Select a status',
+                    //'placeholder' => 'Select a status',
                     'query_builder' => function(RatingYeRepository $repo){
                         return $repo->findAllRatingYeOrderById();
                     }
