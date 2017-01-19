@@ -29,6 +29,7 @@ class UserRepository extends EntityRepository
         $qb = $this->createQueryBuilder('user')
             ->where('user.roles NOT LIKE :roleSuperAdmin')
             ->setParameter('roleSuperAdmin', '%SUPER_ADMIN%')
+            ->andWhere('user.enabled = true')
             ->orderBy('user.firstname', 'ASC');
             //->getQuery()
             //->execute();
@@ -63,7 +64,8 @@ class UserRepository extends EntityRepository
             ->where('user.supervisor = :currentUser')
             ->setParameter('currentUser', $currentUser)
             ->andWhere('user.roles LIKE :userRole')
-            ->setParameter('userRole', '%ROLE_USER%');
+            ->setParameter('userRole', '%ROLE_USER%')
+            ->andWhere('user.enabled = true');
             //->orderBy('user.firstname', 'ASC');
             //->getQuery()
             //->execute();
@@ -76,7 +78,8 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('user')
             ->where('user.roles LIKE :userRole')
-            ->setParameter('userRole', '%ROLE_USER%');
+            ->setParameter('userRole', '%ROLE_USER%')
+            ->andWhere('user.enabled = true');
             //->orderBy('user.firstname', 'ASC');
             //->getQuery();
             //->execute();

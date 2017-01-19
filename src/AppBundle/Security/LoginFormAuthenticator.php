@@ -80,7 +80,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         return $this->em->getRepository('AppBundle:User')
             ->findOneBy([
-                'email' => $username
+                'email' => $username,
+                'enabled' => true
             ]);
         // if not null, this triggers checkCredentials()
     }
