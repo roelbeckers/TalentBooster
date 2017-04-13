@@ -57,6 +57,7 @@ class UserFormType extends AbstractType
                 'choices' => [
                     'Employee' => 'ROLE_USER',
                     'Supervisor' => 'ROLE_SUPERVISOR',
+                    'Board Member' => 'ROLE_BOARD',
                     'HR Administrator' => 'ROLE_HR',
                 ],
                 //'data' => [

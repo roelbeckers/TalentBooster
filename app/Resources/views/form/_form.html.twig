@@ -90,7 +90,7 @@
                         {% else %}
                             {{ formDataCdp.cdpFeedbackSupervisor }}
                         {% endif %}
-                    {% elseif (userType == 'hr') %}
+                    {% elseif (userType == 'board' or userType == 'hr') %}
                         {{ formDataCdp.cdpFeedbackSupervisor }}
                     {% endif %}
                 </p>
@@ -130,7 +130,7 @@
                         {% endif %}
                     {% elseif (userType == 'supervisor') %}
                         {{ formDataCdp.cdpFeedbackHR }}
-                    {% elseif (userType == 'hr') %}
+                    {% elseif (userType == 'board' or userType == 'hr') %}
                         {% if ((formAction == 'edit') and (formProgress == 'cdp') and ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6'))) %}
                             {{ form_widget(formForm.cdpFeedbackHR) }}
                         {% else %}
@@ -181,7 +181,7 @@
                             {% else %}
                                 {{ formDataYe.yeFeedbackSupervisor }}
                             {% endif %}
-                        {% elseif (userType == 'hr') %}
+                        {% elseif (userType == 'board' or userType == 'hr') %}
                             {{ formDataYe.yeFeedbackSupervisor }}
                         {% endif %}
                     </p>
@@ -220,7 +220,7 @@
                             {% endif %}
                         {% elseif (userType == 'supervisor') %}
                             {{ formDataYe.yeFeedbackHR }}
-                        {% elseif (userType == 'hr') %}
+                        {% elseif (userType == 'board' or userType == 'hr') %}
                             {% if ((formAction == 'edit') and (formProgress == 'ye') and ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6'))) %}
                                 {{ form_widget(formForm.yeFeedbackHR) }}
                             {% else %}
@@ -1061,13 +1061,15 @@
         &nbsp;&nbsp;{{ form_widget(formForm.btnSendBackToEmployee, {'attr': {'class': 'btn btn-primary'}}) }}<br><br>
         {{ form_widget(formForm.btnSave, {'attr': {'class': 'btn btn-primary'}}) }}
         &nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
+    {% elseif (userType == 'board') %}
+        {{ form_widget(formForm.btnSave, {'attr': {'class': 'btn btn-primary'}}) }}
+        &nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
     {% elseif (userType == 'hr') %}
         {{ form_widget(formForm.btnCompleted, {'attr': {'class': 'btn btn-primary'}}) }}
         &nbsp;&nbsp;{{ form_widget(formForm.btnSendBackToEmployee, {'attr': {'class': 'btn btn-primary'}}) }}<br><br>
         {{ form_widget(formForm.btnSave, {'attr': {'class': 'btn btn-primary'}}) }}
         &nbsp;&nbsp;{{ form_widget(formForm.btnOnHold, {'attr': {'class': 'btn btn-primary'}}) }}
         &nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
-
     {% endif %}
 {% else %}
     {% if (isPdf == 'false') %}

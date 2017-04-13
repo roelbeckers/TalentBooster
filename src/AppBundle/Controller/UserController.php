@@ -42,6 +42,8 @@ class UserController extends Controller
             $user->setPlainPassword($plainPassword);
             $user->setEmail(strtolower($user->getEmail()));
 
+            dump($user);die;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -111,11 +113,11 @@ class UserController extends Controller
     {
         $form = $this->createForm(UserFormType::class, $user);
 
-
         // only handles data on POST
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            //dump($user);die;
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

@@ -26,7 +26,13 @@
         'label': "Access Level"
     }) }}
 
-<button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonLabel }}</button>
+<button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonCreateUpdate }}</button>
+
+{% if (buttonArchive != 'donotshow') %}
+    <br><br>
+    <button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-archive"></span> {{ buttonArchive }}</button>
+{% endif %}
+
 &nbsp;&nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>
 
 {{ form_end(userForm) }}

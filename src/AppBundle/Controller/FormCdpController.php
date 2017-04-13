@@ -124,7 +124,7 @@ class FormCdpController extends Controller
         $formProgress = 'cdp';
 
         // CHECK ACCESS TO YE AS USERTYPE
-        if ($id->getUser() == $this->getUser()) {
+        /*if ($id->getUser() == $this->getUser()) {
             $userType = 'user';
         } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
             $userType = 'supervisor';
@@ -134,7 +134,14 @@ class FormCdpController extends Controller
             //$isHR = 'true';
         } else {
             $userType = 'invalid';
-        }
+        }*/
+        $userType = 'invalid';
+        if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
+        if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
+        if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) { $userType = 'board'; }
+        if (in_array('ROLE_HR', $this->getUser()->getRoles())) { $userType = 'hr'; }
+        //dump($userType);die;
+
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'view', 'userType' => $userType];
 

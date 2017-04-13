@@ -255,7 +255,7 @@ class FormYeController extends Controller
         $formProgress = 'ye';
 
         // CHECK ACCESS TO YE AS USERTYPE
-        if ($id->getUser() == $this->getUser()) {
+        /*if ($id->getUser() == $this->getUser()) {
             $userType = 'user';
         } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
             $userType = 'supervisor';
@@ -265,7 +265,13 @@ class FormYeController extends Controller
             //$isHR = 'true';
         } else {
             $userType = 'invalid';
-        }
+        }*/
+        $userType = 'invalid';
+        if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
+        if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
+        if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) { $userType = 'board'; }
+        if (in_array('ROLE_HR', $this->getUser()->getRoles())) { $userType = 'hr'; }
+        //dump($userType);die;
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'view', 'userType' => $userType];
 
@@ -316,23 +322,28 @@ class FormYeController extends Controller
         $formProgress = 'ye';
 
         // CHECK ACCESS TO YE AS USERTYPE
-        if ($id->getUser() == $this->getUser()) {
+        /*if ($id->getUser() == $this->getUser()) {
             $userType = 'user';
-            $redirect = 'dashboard_employee';
         } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
             $userType = 'supervisor';
-            $redirect = 'dashboard_supervisor';
+        } elseif (in_array('ROLE_BOARD', $this->getUser()->getRoles())) {
+            $userType = 'board';
         } elseif (in_array('ROLE_HR', $this->getUser()->getRoles())) {
             $userType = 'hr';
-            $redirect = 'dashboard_hr';
         } else {
             $userType = 'invalid';
-        }
+        }*/
+        $userType = 'invalid';
+        if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
+        if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
+        if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) { $userType = 'board'; }
+        if (in_array('ROLE_HR', $this->getUser()->getRoles())) { $userType = 'hr'; }
+        //dump($userType);die;
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'edit', 'userType' => $userType];
 
         if ($userType == 'invalid'){
-            throw $this->createNotFoundException('No access to this CDP! Only the user itself, his Supervisor or a person from the HR Team are allowed to access it.');
+            throw $this->createNotFoundException('No access to this CDP! Only the user itself, his Supervisor or a member of the Board or HR Team is allowed to access it.');
         }
         else {
             $em = $this->getDoctrine()->getManager();
@@ -388,6 +399,7 @@ class FormYeController extends Controller
                 );
 
                 // REDIRECT USER
+                if ($userType == 'board') { $userType = 'hr'; }
                 return $this->redirectToRoute('dashboard_'. $userType);
             }
 

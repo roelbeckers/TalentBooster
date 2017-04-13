@@ -8,7 +8,8 @@ security:
 
     role_hierarchy:
         ROLE_SUPERVISOR:    ROLE_USER
-        ROLE_HR:            ROLE_SUPERVISOR
+        ROLE_BOARD:         ROLE_SUPERVISOR
+        ROLE_HR:            ROLE_BOARD
         ROLE_SUPER_ADMIN:   [ROLE_HR, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers

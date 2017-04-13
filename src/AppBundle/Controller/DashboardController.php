@@ -73,7 +73,7 @@ class DashboardController extends Controller
 
     /**
      * @Route("/dashboard/hr", name="dashboard_hr")
-     * @Security("is_granted('ROLE_HR')")
+     * @Security("is_granted('ROLE_BOARD')")
      */
     public function listHRAction(Request $request)
     {

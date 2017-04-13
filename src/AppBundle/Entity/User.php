@@ -92,19 +92,20 @@ class User implements UserInterface
      */
     private $enabled = true;
 
-
-    // GETTERS AND SETTERS
-
-
     /**
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @Assert\NotBlank(groups={"Registration"})
+     * A non-persisted field that's used to create the encoded password.
+     *
+     * @var string
      */
-    private $plainPassword = "temppassword";
+    private $plainPassword;
+
+
+    // GETTERS AND SETTERS
 
     public function getUsername()
     {

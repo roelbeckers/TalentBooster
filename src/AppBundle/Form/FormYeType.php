@@ -146,6 +146,19 @@ class FormYeType extends AbstractType
             ;
         }
 
+        if (($this->formParam['userType'] == 'board') and (($this->formParam['formAction'] == 'edit') or ($this->formParam['formAction'] == 'create'))){
+            $builder
+                // YEAR-END SPECIFIC
+                ->add('yeFeedbackHR')
+
+                // BUTTONS
+                ->add('btnSave', SubmitType::class, [
+                    'label' => '<span class="fa fa-save"></span> Save',
+                    'attr' => array('value' => 5),
+                ])
+            ;
+        }
+
         if (($this->formParam['userType'] == 'hr') and (($this->formParam['formAction'] == 'edit') or ($this->formParam['formAction'] == 'create'))){
             $builder
                 // YEAR-END SPECIFIC
