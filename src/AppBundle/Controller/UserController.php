@@ -42,7 +42,7 @@ class UserController extends Controller
             $user->setPlainPassword($plainPassword);
             $user->setEmail(strtolower($user->getEmail()));
 
-            dump($user);die;
+            //dump($user);die;
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

@@ -320,6 +320,12 @@ class FormYeController extends Controller
     public function editYeAction(Request $request, FormTable $id)
     {
         $formProgress = 'ye';
+        $sourcePageUri = $request->headers->get('referer');
+        $sourcePageUriArray = explode('/',$sourcePageUri);
+        $sourcePage = $sourcePageUriArray[count($sourcePageUriArray)-1];
+        //dump($sourcePage);die;
+        $yeStatus = $id->getFormYe()->getyeStatus()->getId();
+
 
         // CHECK ACCESS TO YE AS USERTYPE
         /*if ($id->getUser() == $this->getUser()) {
@@ -333,12 +339,21 @@ class FormYeController extends Controller
         } else {
             $userType = 'invalid';
         }*/
+
+
+
         $userType = 'invalid';
         if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
         if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
-        if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) { $userType = 'board'; }
-        if (in_array('ROLE_HR', $this->getUser()->getRoles())) { $userType = 'hr'; }
-        //dump($userType);die;
+        if ($yeStatus == '5' or $yeStatus == '6' or $yeStatus == '8') {
+            if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) {
+                $userType = 'board';
+            }
+            if (in_array('ROLE_HR', $this->getUser()->getRoles())) {
+                $userType = 'hr';
+            }
+        }
+        //dump($yeStatus, $userType);die;
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'edit', 'userType' => $userType];
 
