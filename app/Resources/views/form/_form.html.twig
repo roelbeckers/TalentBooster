@@ -1029,12 +1029,12 @@
                     {% if ((userType == 'user') and (formAction == 'view') and (formDataYe.yeStatus.id == '8')) %}
                         <hr>
                         {{ formDataYe.yeRating }}
-                    {% elseif ((userType == 'supervisor') or (userType == 'hr')) %}
+                    {% elseif ((userType == 'supervisor') or (userType == 'board') or (userType == 'hr')) %}
                         <span style="font-style: italic;">Select the Year-End rating for this employee</span>
                         <hr>
 
                         <p>
-                            {% if (formAction == 'view') %}
+                            {% if ((formAction == 'view') or (userType == 'board')) %}
                                 {{ formDataYe.yeRating }}
                             {% else %}
                                 {{ form_widget(formForm.yeRating) }}
