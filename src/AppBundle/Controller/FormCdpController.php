@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Cycle;
 use AppBundle\Entity\FormCdp;
 use AppBundle\Entity\FormStatus;
 use AppBundle\Entity\FormTable;
@@ -28,45 +29,45 @@ use Symfony\Component\HttpFoundation\Request;
 class FormCdpController extends Controller
 {
     /**
-     * @Route("/cdp/{id}/create", name="cdp_create")
+     * @Route("/cdp/{cycleId}/create", name="cdp_create")
      */
-    public function createCdpAction(Request $request, FormTable $id)
+    public function createCdpAction(Request $request, Cycle $cycleId)
     {
-        $formProgress = 'ye';
+        $formProgress = 'cdp';
+        $cycleName = $id->getCycle()->getName();
 
-        // CHECK ACCESS TO YE AS USERTYPE
-        if ($id->getUser() == $this->getUser()) {
-            $userType = 'user';
-            $redirect = 'dashboard_employee';
-        } else {
-            $userType = 'invalid';
-        }
+        $userType = 'user';
+        //if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
+        //if ($this->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
+        //if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) { $userType = 'board'; }
+        //if (in_array('ROLE_HR', $this->getUser()->getRoles())) { $userType = 'hr'; }
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'create', 'userType' => $userType];
 
         if ($userType == 'invalid'){
-            throw $this->createNotFoundException('No access to this '. strtoupper($formProgress) .'! Only the user itself, his Supervisor or a person from the HR Team are allowed to access it.');
+            throw $this->createNotFoundException('No access to this '. strtoupper($formProgress) .'! No access to this CDP! Only the user itself, his Supervisor or a member of the Board or HR Team is allowed to access it.');
         }
         else {
-            $em = $this->getDoctrine()->getManager();
+            /*$em = $this->getDoctrine()->getManager();
             $formDataCdp = $em->getRepository('AppBundle:FormCdp')
-                ->findOneBy(['id' => $id->getFormCdp()]);
+                ->findOneBy(['id' => $id->getFormCdp()]);*/
 
 
             $formForm = $this->createForm(
-                FormYeType::class,
-                new FormYe(),
+                FormCdpType::class,
+                //$formDataCdp,
+                new FormCdp(),
                 [
                     'formParam' => $formParam,
-                    'formData'  => $formDataCdp,
+                    //'formData'  => $formDataCdp,
                 ]
             );
-
 
             $formForm->handleRequest($request);
 
             if ($formForm->isSubmitted() and $formForm->isValid()) {
-                $formSave = $formForm->getData();
+            //if ($formForm->isSubmitted()) {
+                $cdpSave = $formForm->getData();
 
                 //dump($formSave);die;
 
@@ -75,26 +76,32 @@ class FormCdpController extends Controller
                 $getFormStatus = $em->getRepository('AppBundle:FormStatus')
                     ->findOneBy(array('id' => $btnValue));
 
-                $formSave->setYeStatus($getFormStatus);
+                $cdpSave->setCdpStatus($getFormStatus);
 
-                // CREATE YE ENTRY IN DB
+                // CREATE CDP ENTRY IN FORMCDP DB
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($cdpSave);
+                $em->flush();
+                //dump($cdpSave);die;
+
+                // CREATE CDP ENTRY IN FORMTABLE DB WITH CDP ID
+
+                $formSave = new FormTable();
+                $formSave->setUser($this->getUser());
+                $formSave->setCycle($cycleId);
+                $formSave->setFormCdp($cdpSave);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($formSave);
                 $em->flush();
-
-                // UPDATE FORMTABLE WITH YE ID
-                $id->setFormYe($formSave);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($formSave);
-                $em->flush();
+                //dump($formSave);die;
 
                 // SEND MAIL
-                $this->sendYeMail($userType, $getFormStatus, $id, $request->getUri());
+                //$this->sendYeMail($userType, $getFormStatus, $id, $request->getUri());
 
-                // SHOW SUCCESS MESSSAGE ON SCREEN TO USER
+                // SHOW SUCCESS MESSAGE ON SCREEN TO USER
                 $this->addFlash(
                     'success',
-                    sprintf('Year-End for '. $id->getUser()->getFullName() .' successfully updated')
+                    sprintf('CDP for '. $this->getUser()->getFullName() .' successfully updated')
                 );
 
                 // REDIRECT USER
@@ -105,10 +112,10 @@ class FormCdpController extends Controller
                 'form/cdpView.html.twig',
                 [
                     'formForm'      => $formForm->createView(),
-                    'formDataCdp'      => $formDataCdp,
-                    'formUser'      => $id->getUser(),
+                    'formUser'      => $this->getUser(),
                     'formAction'    => 'create',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -122,6 +129,7 @@ class FormCdpController extends Controller
     public function viewCdpAction(FormTable $id)
     {
         $formProgress = 'cdp';
+        $cycleName = $id->getCycle()->getName();
 
         // CHECK ACCESS TO YE AS USERTYPE
         /*if ($id->getUser() == $this->getUser()) {
@@ -177,6 +185,7 @@ class FormCdpController extends Controller
                     'formUser'      => $id->getUser(),
                     'formAction'    => 'view',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -189,42 +198,40 @@ class FormCdpController extends Controller
      */
     public function editCdpAction(Request $request, FormTable $id)
     {
-        $formProgress = 'ye';
+        $formProgress = 'cdp';
+        $cycleName = $id->getCycle()->getName();
+        $cdpStatus = $id->getFormCdp()->getCdpStatus()->getId();
 
-        // CHECK ACCESS TO YE AS USERTYPE
-        if ($id->getUser() == $this->getUser()) {
-            $userType = 'user';
-            $redirect = 'dashboard_employee';
-        } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
-            $userType = 'supervisor';
-            $redirect = 'dashboard_supervisor';
-        } elseif (in_array('ROLE_HR', $this->getUser()->getRoles())) {
-            $userType = 'hr';
-            $redirect = 'dashboard_hr';
-        } else {
-            $userType = 'invalid';
+        $userType = 'invalid';
+        if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
+        if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
+        if ($cdpStatus == '5' or $cdpStatus == '6' or $cdpStatus == '8') {
+            if (in_array('ROLE_BOARD', $this->getUser()->getRoles())) {
+                $userType = 'board';
+            }
+            if (in_array('ROLE_HR', $this->getUser()->getRoles())) {
+                $userType = 'hr';
+            }
         }
+        //dump($cdpStatus, $userType);die;
 
         $formParam = ['formProgress' => $formProgress, 'formAction' => 'edit', 'userType' => $userType];
 
         if ($userType == 'invalid'){
-            throw $this->createNotFoundException('No access to this CDP! Only the user itself, his Supervisor or a person from the HR Team are allowed to access it.');
+            throw $this->createNotFoundException('No access to this CDP! Only the user itself, his Supervisor or a member of the Board or HR Team is allowed to access it.');
         }
         else {
             $em = $this->getDoctrine()->getManager();
             $formDataCdp = $em->getRepository('AppBundle:FormCdp')
                 ->findOneBy(['id' => $id->getFormCdp()]);
-
-            $formDataYe = $em->getRepository('AppBundle:FormYe')
-                ->findOneBy(['id' => $id->getFormYe()]);
-
+            //dump($formDataCdp);die;
 
             $formForm = $this->createForm(
-                FormYeType::class,
-                $formDataYe,
+                FormCdpType::class,
+                $formDataCdp,
                 [
                     'formParam' => $formParam,
-                    'formData' => $formDataCdp,
+                    'formData'  => $formDataCdp,
                 ]
             );
 
@@ -232,38 +239,33 @@ class FormCdpController extends Controller
             $formForm->handleRequest($request);
 
             if ($formForm->isSubmitted() and $formForm->isValid()) {
-                $formSave = $formForm->getData();
+                $cdpSave = $formForm->getData();
 
-                //dump($formSave);die;
+                //dump($cdpSave);die;
 
                 $btnValue = $formForm->getClickedButton()->getConfig()->getOption('attr');
                 $em = $this->getDoctrine()->getManager();
                 $getFormStatus = $em->getRepository('AppBundle:FormStatus')
                     ->findOneBy(array('id' => $btnValue));
 
-                $formSave->setYeStatus($getFormStatus);
+                $cdpSave->setCdpStatus($getFormStatus);
 
-                // CREATE YE ENTRY IN DB
+                // UPDATE CDP ENTRY IN DB
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($formSave);
-                $em->flush();
-
-                // UPDATE FORMTABLE WITH YE ID
-                $id->setFormYe($formSave);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($formSave);
+                $em->persist($cdpSave);
                 $em->flush();
 
                 // SEND MAIL
-                $this->sendYeMail($userType, $getFormStatus, $id, $request->getUri());
+                $this->sendCdpMail($userType, $getFormStatus, $id, $request->getUri());
 
-                // SHOW SUCCESS MESSSAGE ON SCREEN TO USER
+                // SHOW SUCCESS MESSAGE ON SCREEN TO USER
                 $this->addFlash(
                     'success',
-                    sprintf('Year-End for '.$id->getUser()->getFullName().' successfully updated')
+                    sprintf('CDP for '.$id->getUser()->getFullName().' successfully updated')
                 );
 
                 // REDIRECT USER
+                if ($userType == 'board') { $userType = 'hr'; }
                 return $this->redirectToRoute('dashboard_'. $userType);
             }
 
@@ -272,10 +274,10 @@ class FormCdpController extends Controller
                 [
                     'formForm'      => $formForm->createView(),
                     'formDataCdp'   => $formDataCdp,
-                    'formDataYe'    => $formDataYe,
                     'formUser'      => $id->getUser(),
                     'formAction'    => 'edit',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -295,36 +297,31 @@ class FormCdpController extends Controller
             // USER STATUS = SEND TO SUPERVISOR
             if ($newStatus->getId() == '3') {
                 $actionName = $this->getUser()->getFullName();
-                $subject = 'TalentBooster: '. $actionName .' changed Year-End form to '.$newStatus->getStatus();
+                $subject = 'TalentBooster: '. $actionName .' changed CDP form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getSupervisor()->getEmail();
                 $toName = $formTable->getUser()->getSupervisor()->getFirstName();
-                //$formURL = $this->generateUrl('form_edit', array('formProgress' => $formProgress, 'id' => $id->getId()));
-                //$formURL = $request->getUri();
             }
         }
         elseif ($userType == 'supervisor') {
             if ($newStatus->getId() == '4') {
                 $actionName = $this->getUser()->getFullName();
-                $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '.$newStatus->getStatus();
+                $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = $request->getUri();
             }
         }
         elseif ($userType == 'hr') {
             if ($newStatus->getId() == '7') {
                 $actionName = 'HR';
-                $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '. $newStatus->getStatus();
+                $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '. $newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = $request->getUri();
             }
             if ($newStatus->getId() == '8') {
                 $actionName = 'HR';
-                $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '.$newStatus->getStatus();
+                $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = str_replace('edit', 'view', $request->getUri());
             }
         }
 
@@ -335,14 +332,13 @@ class FormCdpController extends Controller
                 ->setTo($toEmail)
                 ->setBody(
                     $this->renderView(
-                    // app/Resources/views/emails/user_create.html.twig
                         'emails/form_sendOnStatusChange.html.twig',
                         array(
                             'actionName' => $actionName,
                             'toName' => $toName,
                             'formStatus' => $newStatus->getStatus(),
                             'formURL' => $formURL,
-                            'formProgress' => 'Year-End'
+                            'formProgress' => 'CDP'
                         )
                     ),
                     'text/html'

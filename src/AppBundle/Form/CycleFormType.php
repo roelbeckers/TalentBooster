@@ -30,7 +30,7 @@ class CycleFormType extends AbstractType
                 'html5' => false,
                 'format' => 'dd-MM-yyyy'
             ])
-            ->add('cdpAutoMail')
+            //->add('cdpAutoMail')
             ->add('myDateStart', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
@@ -47,7 +47,7 @@ class CycleFormType extends AbstractType
                 'html5' => false,
                 'format' => 'dd-MM-yyyy'
             ])
-            ->add('myAutoMail')
+            //->add('myAutoMail')
             ->add('yeDateStart', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
@@ -63,8 +63,8 @@ class CycleFormType extends AbstractType
                 ],
                 'html5' => false,
                 'format' => 'dd-MM-yyyy'
-            ])
-            ->add('yeAutoMail');
+            ]);
+            //->add('yeAutoMail');
     }
 
     public function configureOptions(OptionsResolver $resolver)

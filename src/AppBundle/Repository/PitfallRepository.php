@@ -10,7 +10,7 @@ class PitfallRepository extends EntityRepository
     /**
      * @return Pitfall[]
      */
-    public function findAllEnglishPitfallOrderById()
+    public function findAllEnglishPitfallOrderByName()
     {
         return $this->createQueryBuilder('pitfall')
             ->where('pitfall.isStandard = :isStandard')

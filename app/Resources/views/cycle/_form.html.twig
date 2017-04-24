@@ -7,6 +7,7 @@
 
 
     <hr><p>&nbsp;</p>
+    <div class="panel-warning" id="cdpDiv">
     <h2>CDP</h2>
 
     {{ form_row(cycleForm.cdpDateStart, {
@@ -15,13 +16,10 @@
     {{ form_row(cycleForm.cdpDateEnd, {
         'label': "CDP End Date"
     }) }}
-    {{ form_row(cycleForm.cdpAutoMail, {
-        'label': "Automatically inform employees by mail on CDP start date"
-    }) }}
-
+    </div>
 
     <hr><p>&nbsp;</p>
-    <div class="panel-warning" id="">
+    <div class="panel-warning" id="myDiv">
     <h2>Mid-Year</h2>
 
     {{ form_row(cycleForm.myDateStart, {
@@ -30,12 +28,10 @@
     {{ form_row(cycleForm.myDateEnd, {
         'label': "Mid-Year End Date"
     }) }}
-    {{ form_row(cycleForm.myAutoMail, {
-        'label': "Automatically inform employees by mail on Mid-Year start date"
-    }) }}
     </div>
 
     <hr><p>&nbsp;</p>
+    <div class="panel-warning" id="yeDiv">
     <h2>Year-End</h2>
 
     {{ form_row(cycleForm.yeDateStart, {
@@ -44,10 +40,7 @@
     {{ form_row(cycleForm.yeDateEnd, {
         'label': "Year-End End Date"
     }) }}
-    {{ form_row(cycleForm.yeAutoMail, {
-        'label': "Automatically inform employees by mail on Year-End start date"
-    }) }}
-
+    </div>
 
     <hr><p>&nbsp;</p>
 

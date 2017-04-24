@@ -65,6 +65,7 @@ class UserRepository extends EntityRepository
             ->setParameter('currentUser', $currentUser)
             ->andWhere('user.roles LIKE :userRole')
             ->setParameter('userRole', '%ROLE_USER%')
+            ->andWhere('user.id != :currentUser')
             ->andWhere('user.enabled = true');
             //->orderBy('user.firstname', 'ASC');
             //->getQuery()

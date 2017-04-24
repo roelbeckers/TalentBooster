@@ -24,15 +24,24 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $cycle = $em->getRepository('AppBundle:Cycle')
+        // FIND ACTIVE CYCLES
+        $cycles = $em->getRepository('AppBundle:Cycle')
             ->findActiveCycle();
 
-        $forms = $em->getRepository('AppBundle:FormTable')
-            ->findFormsforCurrentUserInActiveCycle($this->getUser(), $cycle[0]);
+        // FIND EXISTING FORMS FOR ENABLED USERS IN ACTIVE CYCLES
+        $forms = [];
+        foreach ($cycles as $cycle) {
+            $formsTemp = $em->getRepository('AppBundle:FormTable')
+                ->findFormsforCurrentUserInActiveCycle($this->getUser(), $cycle);
+
+            array_push($forms, $formsTemp);
+        }
 
         return $this->render('dashboard/listEmployee.html.twig', [
-            'forms' => $forms
+            'cycles' => $cycles,
+            'forms'  => $forms
         ]);
+
     }
 
     /**
@@ -44,30 +53,35 @@ class DashboardController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // FIND ACTIVE CYCLE
-        $cycle = $em->getRepository('AppBundle:Cycle')
+        $cycles = $em->getRepository('AppBundle:Cycle')
             ->findActiveCycle();
 
         // FIND USERS FOR SUPERVISOR
         $usersQuery = $em->getRepository('AppBundle:User')
             ->findAllUsersForSupervisor($this->getUser());
-        //dump($usersQuery->getQuery()->execute());die;
 
-        // FIND FORMS FOR USERS OF SUPERVISOR IN CURRENT CYCLE
-        $forms = $em->getRepository('AppBundle:FormTable')
-            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle[0]);
+        // FIND EXISTING FORMS FOR ENABLED USERS IN ACTIVE CYCLES
+        $forms = [];
+        foreach ($cycles as $cycle) {
+            $formsTemp = $em->getRepository('AppBundle:FormTable')
+                ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle);
 
+            array_push($forms, $formsTemp);
+        }
+
+        // CONFIGURE PAGINATION
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $usersQuery, /* query NOT result */
             $request->query->getInt('page', 1), /* current page number */
-            20, /* limit of records per page */
+            10, /* limit of records per page */
             array('defaultSortFieldName' => 'user.firstname', 'defaultSortDirection' => 'asc')
         );
 
         return $this->render('dashboard/listSupervisor.html.twig', [
-            //'users' => $users,
             'pagination'    => $pagination,
-            'forms' => $forms
+            'cycles'        => $cycles,
+            'forms'         => $forms
         ]);
     }
 
@@ -79,30 +93,39 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        // FIND ACTIVE CYCLE
-        $cycle = $em->getRepository('AppBundle:Cycle')
+        // FIND ACTIVE CYCLES
+        $cycles = $em->getRepository('AppBundle:Cycle')
             ->findActiveCycle();
 
         // FIND ALL USERS WITH ROLE_USER
         $usersQuery = $em->getRepository('AppBundle:User')
             ->findAllUsersForHR();
 
-        // FIND FORMS FOR USERS IN CURRENT CYCLE
-        $forms = $em->getRepository('AppBundle:FormTable')
-            ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle[0]);
+        // FIND EXISTING FORMS FOR ENABLED USERS IN ACTIVE CYCLES
+        $forms = [];
+        foreach ($cycles as $cycle) {
+            $formsTemp = $em->getRepository('AppBundle:FormTable')
+                ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle);
+
+            array_push($forms, $formsTemp);
+        }
+
+
+        //$forms = $em->getRepository('AppBundle:FormTable')
+        //    ->findAllFormsOfEmployeesForSupervisorInActiveCycle($usersQuery->getQuery()->execute(), $cycle[0]);
 
         // CONFIGURE PAGINATOR
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $usersQuery, /* query NOT result */
             $request->query->getInt('page', 1), /* current page number */
-            20, /* limit of records per page */
+            10, /* limit of records per page */
             array('defaultSortFieldName' => 'user.firstname', 'defaultSortDirection' => 'asc')
         );
 
         return $this->render('dashboard/listHR.html.twig', [
-            //'users' => $users,
             'pagination'    => $pagination,
+            'cycles'        => $cycles,
             'forms'         => $forms
         ]);
     }

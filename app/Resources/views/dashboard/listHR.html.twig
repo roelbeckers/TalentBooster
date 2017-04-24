@@ -3,14 +3,16 @@
 {% block title %}My Team{% endblock %}
 
 {% block body %}
-    <h1>My Organisation ({{ pagination.getTotalItemCount }} Employees in total)</h1>
+    <!--h1>My Team ({{ pagination.getTotalItemCount }} Employees in total)</h1-->
+    <h1>My Organisation</h1>
     <a href="{{ path('dashboard_start') }}"><span class="fa fa-arrow-circle-left"></span> Return to dashboard</a><br><br>
 
-    <!-- CYCLES WITH FORMS AVAILABLE YET -->
-    <table class="table table-hover">
+    {% for cycle in cycles %}
+        {% set i = ((pagination.currentPageNumber-1)*10) %}
+        <table class="table table-hover">
         <thead>
             <tr>
-                <th style="border: 0;"><h2>{{ forms[0].cycle.name }}</h2></th>
+                <th style="border: 0;"><h2>{{ cycle.name }}</h2></th>
             </tr>
             <tr>
                 <th style="background-color: #EEEEEE; border: none; width: 200px;">{{ knp_pagination_sortable(pagination, 'Employee', 'user.firstname') }}</th>
@@ -30,55 +32,83 @@
         <tbody>
 
         {% for user in pagination %}
+            {% set i =  i+1 %}
+            {% set currentRecord = null %}
+            {% set cdpStatus = null %}
+            {% set myStatus = null %}
+            {% set yeStatus = null %}
+
+            <!-- SEARCH FOR MATCH BETWEEN SUPERVISOR EMPLOYEE'S AND EXISTING EMPLOYEES FORMS -->
             {% for form in forms %}
-                {% if user == form.user %}
-                    <tr>
-                        <td>{{ user.fullname }}</td>
-                        <td>{{ user.team }}</td>
-
-                        {% if (form.formCdp != null) %}
-                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.formCdp.cdpStatus }}</td>
-                            <td>
-                                {% if ((form.formCdp.cdpStatus.id == 5) or (form.formCdp.cdpStatus.id == 6)) %}
-                                    <a href="{{ path('cdp_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                                    <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                                {% elseif (form.formCdp.cdpStatus.id == 3) or (form.formCdp.cdpStatus.id == 4) or (form.formCdp.cdpStatus.id == 7) or (form.formCdp.cdpStatus.id == 8) %}
-                                    <a href="{{ path('cdp_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                                    <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                                {% else %}
-                                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                {% if (form|length != 0) %}
+                    {% for record in form %}
+                        {% if (record.cycle.id == cycle.id) %}
+                            {% if user == record.user %}
+                                {% set currentRecord = record %}
+                                {% set cdpStatus = record.formCdp.cdpStatus %}
+                                {% if (record.formMy != null) %}
+                                    {% set myStatus = record.formMy.myStatus %}
                                 {% endif %}
-                            </td>
-                        {% else %}
-                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
-                            <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
-                        {% endif %}
-
-                        {% if (form.formYe != null) %}
-                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ form.formYe.yeStatus }}</td>
-                            <td>
-                                {% if ((form.formYe.yeStatus.id == 5) or (form.formYe.yeStatus.id == 6)) %}
-                                    <a href="{{ path('ye_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                                    <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                                {% elseif (form.formYe.yeStatus.id == 3) or (form.formYe.yeStatus.id == 4) or (form.formYe.yeStatus.id == 7) or (form.formYe.yeStatus.id == 8) %}
-                                    <a href="{{ path('ye_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                                    <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                                {% else %}
-                                    <span class="btn btn-primary" disabled="disabled">No action</span>
+                                {% if (record.formYe != null) %}
+                                    {% set yeStatus = record.formYe.yeStatus %}
                                 {% endif %}
-                            </td>
-                        {% else %}
-                            <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Available</td>
-                            <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                            {% endif %}
                         {% endif %}
-                    </tr>
+                    {% endfor %}
                 {% endif %}
             {% endfor %}
+
+            <!-- DISPLAY RESULTS -->
+            <tr>
+                <td>{{ i }}. {{ user.fullname }}</td>
+                <td>{{ user.team }}</td>
+
+                    <!-- CDP -->
+                    {% if (cdpStatus != null) %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ cdpStatus }}</td>
+                        <td>
+                            {% if (cdpStatus.id == 5) or (cdpStatus.id == 6) %}
+                                <a href="{{ path('cdp_edit', {'id': currentRecord.id}) }}" class="btn btn-primary" style="width: 90px;"><span class="fa fa-edit"></span> Edit</a>
+                                <a href="{{ path('pdf_cdp', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% elseif (cdpStatus.id == 3) or (cdpStatus.id == 4) or (cdpStatus.id == 7) or (cdpStatus.id == 8) %}
+                                <a href="{{ path('cdp_view', {'id': currentRecord.id}) }}" class="btn btn-primary" style="width: 90px;"><span class="fa fa-angle-double-right"></span> View</a>
+                                <a href="{{ path('pdf_cdp', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% else %}
+                                <span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span>
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Not yet started</td>
+                        <td><span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span></td>
+                    {% endif %}
+
+                    <!-- YE -->
+                    {% if (yeStatus != null) %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ yeStatus }}</td>
+                        <td>
+                            {% if (yeStatus.id == 5) or (yeStatus.id == 6) %}
+                                <a href="{{ path('ye_edit', {'id': currentRecord.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                <a href="{{ path('pdf_ye', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% elseif (yeStatus.id == 3) or (yeStatus.id == 4) or (yeStatus.id == 7) or (yeStatus.id == 8) %}
+                                <a href="{{ path('ye_view', {'id': currentRecord.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                <a href="{{ path('pdf_ye', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% else %}
+                                <span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span>
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Not yet started</td>
+                        <td><span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span></td>
+                    {% endif %}
+
+            </tr>
+
         {% endfor %}
 
         </tbody>
-    </table>
-    <div class="navigation" style="text-align: center;">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+        </table>
+        <div class="navigation" style="text-align: center;">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endfor %}
 {% endblock %}

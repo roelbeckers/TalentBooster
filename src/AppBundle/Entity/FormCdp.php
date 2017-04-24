@@ -11,6 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FormCdp
 {
+    public function __construct()
+    {
+        //$this->cdpFeedbackDate = new \DateTime();
+    }
+
+
     // GENERAL
 
     /**
@@ -19,7 +25,6 @@ class FormCdp
      * @ORM\Column(type="integer")
      */
     private $id;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FormStatus")
@@ -67,7 +72,7 @@ class FormCdp
     private $sa1PitfallDesc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa1Challenge;
 
@@ -115,7 +120,7 @@ class FormCdp
     private $sa2PitfallDesc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa2Challenge;
 
@@ -163,7 +168,7 @@ class FormCdp
     private $sa3PitfallDesc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa3Challenge;
 
@@ -211,7 +216,7 @@ class FormCdp
     private $sa4PitfallDesc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa4Challenge;
 
@@ -259,7 +264,7 @@ class FormCdp
     private $sa5PitfallDesc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Challenge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CoreQuality")
      */
     private $sa5Challenge;
 

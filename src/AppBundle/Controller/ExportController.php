@@ -24,6 +24,7 @@ class ExportController extends Controller
     public function pdfCdpAction(FormTable $id)
     {
         $formProgress = 'cdp';
+        $cycleName = $id->getCycle()->getName();
 
         // CHECK ACCESS TO YE AS USERTYPE
         if ($id->getUser() == $this->getUser()) {
@@ -65,6 +66,7 @@ class ExportController extends Controller
                 'formUser'      => $id->getUser(),
                 'formAction'    => 'view',
                 'formProgress'  => $formProgress,
+                'cycleName'     => $cycleName,
                 'userType'      => $userType,
                 'isPdf'         => 'true',
             ));
@@ -101,6 +103,7 @@ class ExportController extends Controller
     public function pdfYeAction(FormTable $id)
     {
         $formProgress = 'ye';
+        $cycleName = $id->getCycle()->getName();
 
         // CHECK ACCESS TO YE AS USERTYPE
         if ($id->getUser() == $this->getUser()) {
@@ -148,6 +151,7 @@ class ExportController extends Controller
                 'formUser'      => $id->getUser(),
                 'formAction'    => 'view',
                 'formProgress'  => $formProgress,
+                'cycleName'     => $cycleName,
                 'userType'      => $userType,
                 'isPdf'         => 'true',
             ));

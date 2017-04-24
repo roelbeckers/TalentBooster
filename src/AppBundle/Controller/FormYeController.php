@@ -32,6 +32,7 @@ class FormYeController extends Controller
     public function createYeAction(Request $request, FormTable $id)
     {
         $formProgress = 'ye';
+        $cycleName = $id->getCycle()->getName();
 
         // CHECK ACCESS TO YE AS USERTYPE
         if ($id->getUser() == $this->getUser()) {
@@ -104,10 +105,11 @@ class FormYeController extends Controller
                 'form/cdpView.html.twig',
                 [
                     'formForm'      => $formForm->createView(),
-                    'formDataCdp'      => $formDataCdp,
+                    'formDataCdp'   => $formDataCdp,
                     'formUser'      => $id->getUser(),
                     'formAction'    => 'create',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -253,19 +255,8 @@ class FormYeController extends Controller
     public function viewYeAction(FormTable $id)
     {
         $formProgress = 'ye';
+        $cycleName = $id->getCycle()->getName();
 
-        // CHECK ACCESS TO YE AS USERTYPE
-        /*if ($id->getUser() == $this->getUser()) {
-            $userType = 'user';
-        } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
-            $userType = 'supervisor';
-            //$isSupervisor = 'true';
-        } elseif (in_array('ROLE_HR', $this->getUser()->getRoles())) {
-            $userType = 'hr';
-            //$isHR = 'true';
-        } else {
-            $userType = 'invalid';
-        }*/
         $userType = 'invalid';
         if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
         if ($id->getUser()->getSupervisor() == $this->getUser()) { $userType = 'supervisor'; }
@@ -307,6 +298,7 @@ class FormYeController extends Controller
                     'formUser'      => $id->getUser(),
                     'formAction'    => 'view',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -320,27 +312,13 @@ class FormYeController extends Controller
     public function editYeAction(Request $request, FormTable $id)
     {
         $formProgress = 'ye';
+        $cycleName = $id->getCycle()->getName();
+
         $sourcePageUri = $request->headers->get('referer');
         $sourcePageUriArray = explode('/',$sourcePageUri);
         $sourcePage = $sourcePageUriArray[count($sourcePageUriArray)-1];
         //dump($sourcePage);die;
         $yeStatus = $id->getFormYe()->getyeStatus()->getId();
-
-
-        // CHECK ACCESS TO YE AS USERTYPE
-        /*if ($id->getUser() == $this->getUser()) {
-            $userType = 'user';
-        } elseif ($id->getUser()->getSupervisor() == $this->getUser()) {
-            $userType = 'supervisor';
-        } elseif (in_array('ROLE_BOARD', $this->getUser()->getRoles())) {
-            $userType = 'board';
-        } elseif (in_array('ROLE_HR', $this->getUser()->getRoles())) {
-            $userType = 'hr';
-        } else {
-            $userType = 'invalid';
-        }*/
-
-
 
         $userType = 'invalid';
         if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
@@ -427,6 +405,7 @@ class FormYeController extends Controller
                     'formUser'      => $id->getUser(),
                     'formAction'    => 'edit',
                     'formProgress'  => $formProgress,
+                    'cycleName'     => $cycleName,
                     'userType'      => $userType,
                     'isPdf'         => 'false',
                 ]
@@ -546,8 +525,6 @@ class FormYeController extends Controller
                 $subject = 'TalentBooster: '. $actionName .' changed Year-End form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getSupervisor()->getEmail();
                 $toName = $formTable->getUser()->getSupervisor()->getFirstName();
-                //$formURL = $this->generateUrl('form_edit', array('formProgress' => $formProgress, 'id' => $id->getId()));
-                //$formURL = $request->getUri();
             }
         }
         elseif ($userType == 'supervisor') {
@@ -556,7 +533,6 @@ class FormYeController extends Controller
                 $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = $request->getUri();
             }
         }
         elseif ($userType == 'hr') {
@@ -565,14 +541,12 @@ class FormYeController extends Controller
                 $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '. $newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = $request->getUri();
             }
             if ($newStatus->getId() == '8') {
                 $actionName = 'HR';
                 $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '.$newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-                //$formURL = str_replace('edit', 'view', $request->getUri());
             }
         }
 

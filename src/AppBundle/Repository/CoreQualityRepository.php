@@ -10,7 +10,7 @@ class CoreQualityRepository extends EntityRepository
     /**
      * @return CoreQuality[]
      */
-    public function findAllEnglishCoreQualityOrderById()
+    public function findAllEnglishCoreQualityOrderByName()
     {
         return $this->createQueryBuilder('coreQuality')
             ->where('coreQuality.isStandard = :isStandard')

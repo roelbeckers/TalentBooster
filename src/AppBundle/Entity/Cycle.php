@@ -41,7 +41,7 @@ class Cycle
     /**
      * @ORM\Column(type="boolean")
      */
-    private $cdpAutoMail = true;
+    private $cdpAutoMail = false;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -56,7 +56,7 @@ class Cycle
     /**
      * @ORM\Column(type="boolean")
      */
-    private $myAutoMail = true;
+    private $myAutoMail = false;
 
     /**
      * @Assert\NotBlank()
@@ -73,7 +73,7 @@ class Cycle
     /**
      * @ORM\Column(type="boolean")
      */
-    private $yeAutoMail = true;
+    private $yeAutoMail = false;
 
     // GETTERS & SETTERS
 

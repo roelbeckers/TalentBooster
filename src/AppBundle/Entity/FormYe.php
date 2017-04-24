@@ -13,7 +13,6 @@ class FormYe
 {
     public function __construct()
     {
-        // $this->yeFeedbackDate = new \DateTime("1900-12-31");
         $this->yeFeedbackDate = new \DateTime();
     }
 

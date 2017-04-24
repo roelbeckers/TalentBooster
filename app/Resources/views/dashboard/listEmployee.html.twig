@@ -6,89 +6,134 @@
     <h1>My Career</h1>
     <a href="{{ path('dashboard_start') }}"><span class="fa fa-arrow-circle-left"></span> Return to dashboard</a><br><br>
 
-    <!-- CYCLES WITH FORMS AVAILABLE YET -->
-    <table class="table table-hover">
-    {% for form in forms %}
+    {% for cycle in cycles %}
+        <table class="table table-hover">
             <thead>
             <tr>
-                <th style="border: 0;"><h2>{{ form.cycle.name }}</h2></th>
+                <th style="border: 0; column-span: 4;"><h2>{{ cycle.name }}</h2></th>
             </tr>
             <tr>
-                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Form</th>
-                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Dates</th>
-                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
-                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Action</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 25%;">Form</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 25%;">Dates</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 25%;">Status</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 25%;">Action</th>
             </tr>
             </thead>
             <tbody>
 
-            <!-- CDP -->
-            <tr>
-                <td>CDP</td>
-                <td>{{ form.cycle.cdpDateStart|date('d-M-Y') }} until {{ form.cycle.cdpDateEnd|date('d-M-Y') }}</td>
-                {% if form.formCdp != null %}
-                    <td>{{ form.formCdp.cdpStatus }}</td>
-                    <td>
-                        {% if (form.formCdp.cdpStatus.id == 1) or (form.formCdp.cdpStatus.id == 2) or (form.formCdp.cdpStatus.id == 4) or (form.formCdp.cdpStatus.id == 7) %}
-                            <a href="{{ path('cdp_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                            <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                        {% elseif (form.formCdp.cdpStatus.id == 3) or (form.formCdp.cdpStatus.id == 5) or (form.formCdp.cdpStatus.id == 6) or (form.formCdp.cdpStatus.id == 8) %}
-                            <a href="{{ path('cdp_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                            <a href="{{ path('pdf_cdp', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                        {% else %}
-                            <span class="btn btn-primary" disabled="disabled">No action</span>
+            {% set formFound = false %}
+            {% for form in forms %}
+                {% if (form|length != 0) %}
+                    <!-- CDP ALREADY CREATED IN DATABASE -->
+                    {% for record in form %}
+                        {% if (record.cycle.id == cycle.id) %}
+                            {% set formFound = true %}
+                            <!-- CDP -->
+                            <tr>
+                                <td>CDP</td>
+                                <td>{{ record.cycle.cdpDateStart|date('d-M-Y') }} until {{ record.cycle.cdpDateEnd|date('d-M-Y') }}</td>
+                                {% if record.formCdp != null %}
+                                    <td>{{ record.formCdp.cdpStatus }}</td>
+                                    <td>
+                                        {% if (record.formCdp.cdpStatus.id == 1) or (record.formCdp.cdpStatus.id == 2) or (record.formCdp.cdpStatus.id == 4) or (record.formCdp.cdpStatus.id == 7) %}
+                                            <a href="{{ path('cdp_edit', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                            <a href="{{ path('pdf_cdp', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% elseif (record.formCdp.cdpStatus.id == 3) or (record.formCdp.cdpStatus.id == 5) or (record.formCdp.cdpStatus.id == 6) or (record.formCdp.cdpStatus.id == 8) %}
+                                            <a href="{{ path('cdp_view', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                            <a href="{{ path('pdf_cdp', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% else %}
+                                            <span class="btn btn-primary" disabled="disabled">No action</span>
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    {% if ((record.cycle.cdpDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (record.cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                                        <td>Available</td>
+                                        <td><a href="{{ path('cdp_create', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
+                                    {% else %}
+                                        <td>Not available</td>
+                                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
+
+                            <!-- Mid-Year -->
+                            {% if (record.cycle.myDateStart != null) %}
+                                <tr>
+                                    <td>Mid-Year</td>
+                                    <td>{{ record.cycle.myDateStart|date('d-M-Y') }} until {{ record.cycle.myDateEnd|date('d-M-Y') }}</td>
+                                    <td>{{ record.formMy.myStatus }}</td>
+                                    <!-- AVAILABLE -->          {{ (record.formMy.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
+                                    <!-- NOT YET AVAILABLE -->  {{ (record.formMy.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+                                </tr>
+                            {% endif %}
+
+                            <!-- Year-End -->
+                            <tr>
+                                <td>Year-End</td>
+                                <td>{{ record.cycle.yeDateStart|date('d-M-Y') }} until {{ record.cycle.yeDateEnd|date('d-M-Y') }}</td>
+                                {% if record.formYe != null %}
+                                    <td>{{ record.formYe.yeStatus }}</td>
+                                    <td>
+                                        {% if (record.formYe.yeStatus.id == 1) or (record.formYe.yeStatus.id == 2) or (record.formYe.yeStatus.id == 4) or (record.formYe.yeStatus.id == 7) %}
+                                            <a href="{{ path('ye_edit', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                            <a href="{{ path('pdf_ye', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% elseif (record.formYe.yeStatus.id == 3) or (record.formYe.yeStatus.id == 5) or (record.formYe.yeStatus.id == 6) or (record.formYe.yeStatus.id == 8) %}
+                                            <a href="{{ path('ye_view', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                            <a href="{{ path('pdf_ye', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% else %}
+                                            <span class="btn btn-primary" disabled="disabled">No action</span>
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    {% if ((record.cycle.yeDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (record.cycle.yeDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                                        <td>Available</td>
+                                        <td><a href="{{ path('ye_create', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
+                                    {% else %}
+                                        <td>Not available</td>
+                                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
                         {% endif %}
-                    </td>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            {% if (formFound == false) %}
+                <!-- CDP NOT YET CREATED IN DATABASE -->
+
+                <!-- CDP -->
+                <td>CDP</td>
+                <td>{{ cycle.cdpDateStart|date('d-M-Y') }} until {{ cycle.cdpDateEnd|date('d-M-Y') }}</td>
+                {% if ((cycle.cdpDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                    <td>Available</td>
+                    <td><a href="{{ path('cdp_create', {'cycleId': cycle.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
                 {% else %}
-                    {% if ((form.cycle.cdpDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (form.cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
-                        <td>Available</td>
-                        <td><a href="{{ path('cdp_create', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
-                    {% else %}
+                    <td>Not available</td>
+                    <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                {% endif %}
+
+                <!-- Mid-Year -->
+                {% if (cycle.myDateStart != null) %}
+                    <tr>
+                        <td>Mid-Year</td>
+                        <td>{{ cycle.myDateStart|date('d-M-Y') }} until {{ cycle.myDateEnd|date('d-M-Y') }}</td>
                         <td>Not available</td>
                         <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
-                    {% endif %}
+                    </tr>
                 {% endif %}
-            </tr>
 
-            <!-- Mid-Year -->
-            {% if (form.cycle.myDateStart != null) %}
+                <!-- Year-End -->
                 <tr>
-                    <td>Mid-Year</td>
-                    <td>{{ form.cycle.myDateStart|date('d-M-Y') }} until {{ form.cycle.myDateEnd|date('d-M-Y') }}</td>
-                    <td>{{ form.formMy.myStatus }}</td>
-                    <!-- AVAILABLE -->          {{ (form.formMy.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
-                    <!-- NOT YET AVAILABLE -->  {{ (form.formMy.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
+                    <td>Year-End</td>
+                    <td>{{ cycle.yeDateStart|date('d-M-Y') }} until {{ cycle.yeDateEnd|date('d-M-Y') }}</td>
+                    <td>Not available</td>
+                    <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
                 </tr>
             {% endif %}
 
-            <!-- Year-End -->
-            <tr>
-                <td>Year-End</td>
-                <td>{{ form.cycle.yeDateStart|date('d-M-Y') }} until {{ form.cycle.yeDateEnd|date('d-M-Y') }}</td>
-                {% if form.formYe != null %}
-                    <td>{{ form.formYe.yeStatus }}</td>
-                    <td>
-                        {% if (form.formYe.yeStatus.id == 1) or (form.formYe.yeStatus.id == 2) or (form.formYe.yeStatus.id == 4) or (form.formYe.yeStatus.id == 7) %}
-                            <a href="{{ path('ye_edit', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                            <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                        {% elseif (form.formYe.yeStatus.id == 3) or (form.formYe.yeStatus.id == 5) or (form.formYe.yeStatus.id == 6) or (form.formYe.yeStatus.id == 8) %}
-                            <a href="{{ path('ye_view', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
-                            <a href="{{ path('pdf_ye', {'id': form.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
-                        {% else %}
-                            <span class="btn btn-primary" disabled="disabled">No action</span>
-                        {% endif %}
-                    </td>
-                {% else %}
-                    {% if ((form.cycle.yeDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (form.cycle.yeDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
-                        <td>Available</td>
-                        <td><a href="{{ path('ye_create', {'id': form.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
-                    {% else %}
-                        <td>Not available</td>
-                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
-                    {% endif %}
-                {% endif %}
-            </tr>
             </tbody>
+        </table>
+        <p>&nbsp;</p>
     {% endfor %}
-    </table>
 {% endblock %}

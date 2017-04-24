@@ -16,11 +16,10 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>{{ formName }}</h1>
+                <h3>Cycle {{ cycleName }}</h3>
                 {% set isPdf = isPdf %}
                 {{
-                    include('form/_form.html.twig', {
-                        'buttonLabel': 'Create cycle',
-                    })
+                    include('form/_form.html.twig')
                 }}
 
             </div>
