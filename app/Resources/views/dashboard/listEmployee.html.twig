@@ -28,6 +28,7 @@
                     {% for record in form %}
                         {% if (record.cycle.id == cycle.id) %}
                             {% set formFound = true %}
+
                             <!-- CDP -->
                             <tr>
                                 <td>CDP</td>
@@ -46,7 +47,7 @@
                                         {% endif %}
                                     </td>
                                 {% else %}
-                                    {% if ((record.cycle.cdpDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (record.cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                                    {% if ((record.cycle.cdpDateStart|date('Y-m-d') <= "now"|date('Y-m-d')) and (record.cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
                                         <td>Available</td>
                                         <td><a href="{{ path('cdp_create', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
                                     {% else %}
@@ -85,7 +86,7 @@
                                         {% endif %}
                                     </td>
                                 {% else %}
-                                    {% if ((record.cycle.yeDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (record.cycle.yeDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                                    {% if ((record.cycle.yeDateStart|date('Y-m-d') <= "now"|date('Y-m-d')) and (record.cycle.yeDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
                                         <td>Available</td>
                                         <td><a href="{{ path('ye_create', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
                                     {% else %}
@@ -105,7 +106,7 @@
                 <!-- CDP -->
                 <td>CDP</td>
                 <td>{{ cycle.cdpDateStart|date('d-M-Y') }} until {{ cycle.cdpDateEnd|date('d-M-Y') }}</td>
-                {% if ((cycle.cdpDateStart|date('Y-m-d') < "now"|date('Y-m-d')) and (cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                {% if ((cycle.cdpDateStart|date('Y-m-d') <= "now"|date('Y-m-d')) and (cycle.cdpDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
                     <td>Available</td>
                     <td><a href="{{ path('cdp_create', {'cycleId': cycle.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
                 {% else %}

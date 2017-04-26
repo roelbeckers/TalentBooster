@@ -34,7 +34,7 @@ class FormCdpController extends Controller
     public function createCdpAction(Request $request, Cycle $cycleId)
     {
         $formProgress = 'cdp';
-        $cycleName = $id->getCycle()->getName();
+        $cycleName = $cycleId->getName();
 
         $userType = 'user';
         //if ($id->getUser() == $this->getUser()) { $userType = 'user'; }
