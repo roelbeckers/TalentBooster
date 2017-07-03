@@ -311,17 +311,18 @@ class FormCdpController extends Controller
             }
         }
         elseif ($userType == 'hr') {
-            if ($newStatus->getId() == '7') {
+            /*if ($newStatus->getId() == '7') {
                 $actionName = 'HR';
                 $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '. $newStatus->getStatus();
                 $toEmail = $formTable->getUser()->getEmail();
                 $toName = $formTable->getUser()->getFirstName();
-            }
+            }*/
+            $actionName = 'HR';
+            $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '.$newStatus->getStatus();
+            $toEmail = $formTable->getUser()->getEmail();
+            $toName = $formTable->getUser()->getFirstName();
             if ($newStatus->getId() == '8') {
-                $actionName = 'HR';
-                $subject = 'TalentBooster: '. $actionName .' changed your CDP form to '.$newStatus->getStatus();
-                $toEmail = $formTable->getUser()->getEmail();
-                $toName = $formTable->getUser()->getFirstName();
+                str_replace('edit', 'view', $formURL);
             }
         }
 
