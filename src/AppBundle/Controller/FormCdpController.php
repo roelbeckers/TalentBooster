@@ -322,7 +322,7 @@ class FormCdpController extends Controller
             $toEmail = $formTable->getUser()->getEmail();
             $toName = $formTable->getUser()->getFirstName();
             if ($newStatus->getId() == '8') {
-                str_replace('edit', 'view', $formURL);
+                $formURL = str_replace('edit', 'view', $formURL);
             }
         }
 
