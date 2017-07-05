@@ -536,12 +536,14 @@ class FormYeController extends Controller
             }
         }
         elseif ($userType == 'hr') {
-            $actionName = 'HR';
-            $subject = 'TalentBooster: '. $actionName .' changed your Year-End form to '.$newStatus->getStatus();
-            $toEmail = $formTable->getUser()->getEmail();
-            $toName = $formTable->getUser()->getFirstName();
-            if ($newStatus->getId() == '8') {
-                $formURL = str_replace('edit', 'view', $formURL);
+            if ($newStatus->getId() == '7' or $newStatus->getId() == '8') {
+                $actionName = 'HR';
+                $subject = 'TalentBooster: '.$actionName.' changed your Year-End form to '.$newStatus->getStatus();
+                $toEmail = $formTable->getUser()->getEmail();
+                $toName = $formTable->getUser()->getFirstName();
+                if ($newStatus->getId() == '8') {
+                    $formURL = str_replace('edit', 'view', $formURL);
+                }
             }
         }
 
