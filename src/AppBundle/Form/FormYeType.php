@@ -47,7 +47,7 @@ class FormYeType extends AbstractType
                 // TASKS AND RESPONSIBILITIES
                 ->add('tr1FeedbackYE')
                 ->add('tr2FeedbackYE')
-                ->add('tr3FeedbackYE')
+                //->add('tr3FeedbackYE')
 
                 // SKILLS AND COMPETENCIES
                 ->add('sc1FeedbackYE')
@@ -57,7 +57,7 @@ class FormYeType extends AbstractType
                 // ORGANIZATIONAL COMPETENCIES
                 ->add('oc1FeedbackYE')
                 ->add('oc2FeedbackYE')
-                ->add('oc3FeedbackYE')
+                //->add('oc3FeedbackYE')
 
                 // BUTTONS
                 ->add('btnSave', SubmitType::class, [
@@ -87,6 +87,9 @@ class FormYeType extends AbstractType
                     }
 
                     // TASKS AND RESPONSIBILITIES
+                    if ($formData->getTr3WhatWhy() != null) {
+                        $form->add('tr3FeedbackYE');
+                    }
                     if ($formData->getTr4WhatWhy() != null) {
                         $form->add('tr4FeedbackYE');
                     }
@@ -103,6 +106,9 @@ class FormYeType extends AbstractType
                     }
 
                     // ORGANIZATIONAL COMPETENCIES
+                    if ($formData->getOc3WhatWhy() != null) {
+                        $form->add('oc3FeedbackYE');
+                    }
                     if ($formData->getOc4WhatWhy() != null) {
                         $form->add('oc4FeedbackYE');
                     }
