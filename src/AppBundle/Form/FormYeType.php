@@ -41,22 +41,22 @@ class FormYeType extends AbstractType
 
                 // SELF ASSESSMENT
                 ->add('sa1FeedbackYE')
-                ->add('sa2FeedbackYE')
-                ->add('sa3FeedbackYE')
+                //->add('sa2FeedbackYE')
+                //->add('sa3FeedbackYE')
 
                 // TASKS AND RESPONSIBILITIES
                 ->add('tr1FeedbackYE')
-                ->add('tr2FeedbackYE')
+                //->add('tr2FeedbackYE')
                 //->add('tr3FeedbackYE')
 
                 // SKILLS AND COMPETENCIES
                 ->add('sc1FeedbackYE')
-                ->add('sc2FeedbackYE')
-                ->add('sc3FeedbackYE')
+                //->add('sc2FeedbackYE')
+                //->add('sc3FeedbackYE')
 
                 // ORGANIZATIONAL COMPETENCIES
                 ->add('oc1FeedbackYE')
-                ->add('oc2FeedbackYE')
+                //->add('oc2FeedbackYE')
                 //->add('oc3FeedbackYE')
 
                 // BUTTONS
@@ -79,6 +79,12 @@ class FormYeType extends AbstractType
                     $form = $event->getForm();
 
                     // SELF ASSESSMENT
+                    if ($formData->getSa2CoreQuality() != null) {
+                        $form->add('sa2FeedbackYE');
+                    }
+                    if ($formData->getSa3CoreQuality() != null) {
+                        $form->add('sa3FeedbackYE');
+                    }
                     if ($formData->getSa4CoreQuality() != null) {
                         $form->add('sa4FeedbackYE');
                     }
@@ -87,6 +93,9 @@ class FormYeType extends AbstractType
                     }
 
                     // TASKS AND RESPONSIBILITIES
+                    if ($formData->getTr2WhatWhy() != null) {
+                        $form->add('tr2FeedbackYE');
+                    }
                     if ($formData->getTr3WhatWhy() != null) {
                         $form->add('tr3FeedbackYE');
                     }
@@ -98,6 +107,12 @@ class FormYeType extends AbstractType
                     }
 
                     // SKILLS AND COMPETENCIES
+                    if ($formData->getSc2WhatWhy() != null) {
+                        $form->add('sc2FeedbackYE');
+                    }
+                    if ($formData->getSc3WhatWhy() != null) {
+                        $form->add('sc3FeedbackYE');
+                    }
                     if ($formData->getSc4WhatWhy() != null) {
                         $form->add('sc4FeedbackYE');
                     }
@@ -106,6 +121,9 @@ class FormYeType extends AbstractType
                     }
 
                     // ORGANIZATIONAL COMPETENCIES
+                    if ($formData->getOc2WhatWhy() != null) {
+                        $form->add('oc2FeedbackYE');
+                    }
                     if ($formData->getOc3WhatWhy() != null) {
                         $form->add('oc3FeedbackYE');
                     }
