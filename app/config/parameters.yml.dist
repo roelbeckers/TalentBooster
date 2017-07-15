@@ -3,13 +3,20 @@
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
     #DATABASE
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_host:     db-instance.c70ajgoj82a5.eu-west-1.rds.amazonaws.com
+    database_port:     3306
+    database_name:     talentbooster_<subdomain>
+    database_user:     talentbooster
+    database_password: TBooster4ever!
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    mailer_transport:  smtp
+    mailer_host:       email-smtp.eu-west-1.amazonaws.com
+    mailer_port:       587
+    mailer_encryption: tls
+    mailer_user:       AKIAJUFKZDNNSY6ZMUWQ
+    mailer_password:   Aje0iOV0EI9gxIJEQl+m5voOBCYXBA75d2vRRATKnOXI
