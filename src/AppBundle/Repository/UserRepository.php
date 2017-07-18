@@ -78,8 +78,10 @@ class UserRepository extends EntityRepository
     public function findAllUsersForHR()
     {
         return $this->createQueryBuilder('user')
-            ->where('user.roles LIKE :userRole')
-            ->setParameter('userRole', '%ROLE_USER%')
+            ->where('user.roles LIKE :roleUser')
+            ->setParameter('roleUser', '%USER%')
+            ->andWhere('user.roles NOT LIKE :roleSuperAdmin')
+            ->setParameter('roleSuperAdmin', '%SUPER_ADMIN%')
             ->andWhere('user.enabled = true');
             //->orderBy('user.firstname', 'ASC');
             //->getQuery();
