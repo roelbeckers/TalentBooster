@@ -1,0 +1,423 @@
+AppBundle\Entity\User:
+    user1:
+        email: roel@ebeck.be
+        plainPassword: Mijn2zonen!
+        date_lastpromotion: <(new \DateTime('1981-08-15'))>
+        date_hire: <(new \DateTime('1981-08-15'))>
+        roles: ['ROLE_USER', 'ROLE_SUPERVISOR', 'ROLE_HR', 'ROLE_SUPER_ADMIN']
+        enabled: true
+        supervisor: '@user1'
+        firstname: Roel
+        lastname: Beckers
+        language: en
+        jobtitle: TalentBooster Developer
+        team: IntoPeople bvba
+    user2:
+        email: queenie@intopeople.be
+        plainPassword: Qfinity02
+        date_lastpromotion: <(new \DateTime('1978-08-16'))>
+        date_hire: <(new \DateTime('1978-08-16'))>
+        roles: ['ROLE_USER', 'ROLE_SUPERVISOR', 'ROLE_HR', 'ROLE_SUPER_ADMIN']
+        enabled: true
+        supervisor: '@user2'
+        firstname: Queenie
+        lastname: Dirkx
+        language: en
+        jobtitle: TalentBooster Owner
+        team: IntoPeople bvba
+    user3:
+        email: hr@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER', 'ROLE_SUPERVISOR', 'ROLE_HR']
+        enabled: true
+        supervisor: '@user3'
+        firstname: HR
+        lastname: Manager
+        language: en
+        jobtitle: HR Manager
+        team: HR
+    user4:
+        email: boardmember@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER', 'ROLE_SUPERVISOR', 'ROLE_BOARD']
+        enabled: true
+        supervisor: '@user4'
+        firstname: Board
+        lastname: Member
+        language: en
+        jobtitle: Board Member
+        team: BOD
+    user5:
+        email: supervisor@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER', 'ROLE_SUPERVISOR']
+        enabled: true
+        supervisor: '@user4'
+        firstname: Super
+        lastname: Visor
+        language: en
+        jobtitle: Supervisor
+        team: Marketing
+    user6:
+        email: employee01@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER']
+        enabled: true
+        supervisor: '@user5'
+        firstname: Employee
+        lastname: 01
+        language: en
+        jobtitle: Junior Data Analyst
+        team: Marketing
+    user7:
+        email: employee02@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER']
+        enabled: true
+        supervisor: '@user5'
+        firstname: Employee
+        lastname: 02
+        language: en
+        jobtitle: Senior Data Analyst
+        team: Marketing
+    user8:
+        email: employee03@talentbooster.io
+        plainPassword: demo4TBooster!
+        date_lastpromotion: <dateTimeBetween('-36 months', '-6 months')>
+        date_hire: <dateTimeBetween('-240 months', '-6 months')>
+        roles: ['ROLE_USER']
+        enabled: true
+        supervisor: '@user5'
+        firstname: Employee
+        lastname: 03
+        language: en
+        jobtitle: Expert Data Analyst
+        team: Marketing
+
+AppBundle\Entity\Cycle:
+    cycle1:
+        name: 2016
+        cdpDateStart: 2016-01-11
+        cdpDateEnd: 2016-02-12
+        yeDateStart: 2016-11-07
+        yeDateEnd: 2016-12-09
+    cycle2:
+        name: 2017
+        cdpDateStart: 2017-07-03
+        cdpDateEnd: 2017-09-01
+        yeDateStart: 2017-10-02
+        yeDateEnd: 2017-12-01
+
+AppBundle\Entity\FormStatus:
+    formStatus1:
+        status: Available
+    formStatus2:
+        status: In Progress
+    formStatus3:
+        status: Sent to Supervisor
+    formStatus4:
+        status: Sent back by Supervisor
+    formStatus5:
+        status: Sent to HR
+    formStatus6:
+        status: On Hold
+    formStatus7:
+        status: Sent back by HR
+    formStatus8:
+        status: Completed
+    formStatus9:
+        status: Not yet available
+
+AppBundle\Entity\RatingMy:
+    ratingmy1:
+        name: On Track
+    ratingmy2:
+        name: Not On Track
+
+AppBundle\Entity\RatingYe:
+    ratingye1:
+        name: Meet None Expectations
+    ratingye2:
+        name: Meet Some Expectations
+    ratingye3:
+        name: Meet Expectations
+    ratingye4:
+        name: Exceeds Expectations
+    ratingye5:
+        name: Substantially Exceeds Expectations
+
+AppBundle\Entity\Challenge:
+    challenge1:
+        name:           Accurate
+        is_standard:    true
+        language:       1
+    challenge2:
+        name:           Adaptibility
+        is_standard:    true
+        language:       1
+    challenge3:
+        name:           Alert
+        is_standard:    true
+        language:       1
+    challenge4:
+        name:           Ambitious
+        is_standard:    true
+        language:       1
+    challenge5:
+        name:           Attentive
+        is_standard:    true
+        language:       1
+    challenge6:
+        name:           Balanced
+        is_standard:    true
+        language:       1
+    challenge7:
+        name:           Bright
+        is_standard:    true
+        language:       1
+    challenge8:
+        name:           Carefree
+        is_standard:    true
+        language:       1
+    challenge9:
+        name:           Careful
+        is_standard:    true
+        language:       1
+    challenge10:
+        name:           Cheerful / Jolly
+        is_standard:    true
+        language:       1
+    challenge11:
+        name:           Confident
+        is_standard:    true
+        language:       1
+    challenge12:
+        name:           Confronting
+        is_standard:    true
+        language:       1
+    challenge13:
+        name:           Concise
+        is_standard:    true
+        language:       1
+    challenge14:
+        name:           Cooperative
+        is_standard:    true
+        language:       1
+    challenge15:
+        name:           Corteous
+        is_standard:    true
+        language:       1
+    challenge16:
+        name:           Creative
+        is_standard:    true
+        language:       1
+    challenge17:
+        name:           Daring
+        is_standard:    true
+        language:       1
+    challenge18:
+        name:           Decisive
+        is_standard:    true
+        language:       1
+    challenge19:
+        name:           Diplomatic
+        is_standard:    true
+        language:       1
+    challenge20:
+        name:           Disciplined
+        is_standard:    true
+        language:       1
+    challenge21:
+        name:           Easy going
+        is_standard:    true
+        language:       1
+    challenge22:
+        name:           Effective
+        is_standard:    true
+        language:       1
+    challenge23:
+        name:           Empathy
+        is_standard:    true
+        language:       1
+    challenge24:
+        name:           Enthousiastic
+        is_standard:    true
+        language:       1
+    challenge25:
+        name:           Flexible
+        is_standard:    true
+        language:       1
+    challenge26:
+        name:           Friendly
+        is_standard:    true
+        language:       1
+    challenge27:
+        name:           Generous
+        is_standard:    true
+        language:       1
+    challenge28:
+        name:           Guts
+        is_standard:    true
+        language:       1
+    challenge29:
+        name:           Harmonious
+        is_standard:    true
+        language:       1
+    challenge30:
+        name:           Helpful
+        is_standard:    true
+        language:       1
+    challenge31:
+        name:           Honest
+        is_standard:    true
+        language:       1
+    challenge32:
+        name:           Humorous
+        is_standard:    true
+        language:       1
+    challenge33:
+        name:           Imaginative
+        is_standard:    true
+        language:       1
+    challenge34:
+        name:           Improvisation
+        is_standard:    true
+        language:       1
+    challenge35:
+        name:           Independant
+        is_standard:    true
+        language:       1
+    challenge36:
+        name:           Loose
+        is_standard:    true
+        language:       1
+    challenge37:
+        name:           Loyal
+        is_standard:    true
+        language:       1
+    challenge38:
+        name:           Modest
+        is_standard:    true
+        language:       1
+    challenge39:
+        name:           Motivated
+        is_standard:    true
+        language:       1
+    challenge40:
+        name:           Normal
+        is_standard:    true
+        language:       1
+    challenge41:
+        name:           Objective
+        is_standard:    true
+        language:       1
+    challenge42:
+        name:           Open
+        is_standard:    true
+        language:       1
+    challenge43:
+        name:           Optimistic
+        is_standard:    true
+        language:       1
+    challenge44:
+        name:           Organised
+        is_standard:    true
+        language:       1
+    challenge45:
+        name:           Patient
+        is_standard:    true
+        language:       1
+    challenge46:
+        name:           Pragmatic
+        is_standard:    true
+        language:       1
+    challenge47:
+        name:           Present
+        is_standard:    true
+        language:       1
+    challenge48:
+        name:           Pro-active
+        is_standard:    true
+        language:       1
+    challenge49:
+        name:           Realistic
+        is_standard:    true
+        language:       1
+    challenge50:
+        name:           Relaxed
+        is_standard:    true
+        language:       1
+    challenge51:
+        name:           Reserved
+        is_standard:    true
+        language:       1
+    challenge52:
+        name:           Responsible
+        is_standard:    true
+        language:       1
+    challenge53:
+        name:           Sensitive
+        is_standard:    true
+        language:       1
+    challenge54:
+        name:           Serious
+        is_standard:    true
+        language:       1
+    challenge55:
+        name:           Sharp
+        is_standard:    true
+        language:       1
+    challenge56:
+        name:           Sparse
+        is_standard:    true
+        language:       1
+    challenge57:
+        name:           Spontanious
+        is_standard:    true
+        language:       1
+    challenge58:
+        name:           Stylish
+        is_standard:    true
+        language:       1
+    challenge59:
+        name:           Sympathic
+        is_standard:    true
+        language:       1
+    challenge60:
+        name:           Tactful
+        is_standard:    true
+        language:       1
+    challenge61:
+        name:           Tolerant
+        is_standard:    true
+        language:       1
+    challenge62:
+        name:           Unconditional
+        is_standard:    true
+        language:       1
+
+#AppBundle\Entity\Form:
+    #form1:
+        #cycle: '@cycle1'
+        #user: '@user1'
+        #cdpStatus: '@formStatus1'
+        #myStatus: '@formStatus9'
+        #yeStatus: '@formStatus9'
+    #form2:
+        #cycle: '@cycle1'
+        #user: '@user2'
+        #cdpStatus: '@formStatus9'
+        #myStatus: '@formStatus9'
+        #yeStatus: '@formStatus9'
+
+
