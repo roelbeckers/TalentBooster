@@ -107,16 +107,16 @@ AppBundle\Entity\User:
 AppBundle\Entity\Cycle:
     cycle1:
         name: 2016
-        cdpDateStart: 2016-01-11
-        cdpDateEnd: 2016-02-12
-        yeDateStart: 2016-11-07
-        yeDateEnd: 2016-12-09
+        cdpDateStart: <(new \DateTime('2016-11-01'))>
+        cdpDateEnd: <(new \DateTime('2016-12-02'))>
+        yeDateStart: <(new \DateTime('2016-11-07'))>
+        yeDateEnd: <(new \DateTime('2016-12-09'))>
     cycle2:
         name: 2017
-        cdpDateStart: 2017-07-03
-        cdpDateEnd: 2017-09-01
-        yeDateStart: 2017-10-02
-        yeDateEnd: 2017-12-01
+        cdpDateStart: <(new \DateTime('2017-07-03'))>
+        cdpDateEnd: <(new \DateTime('2017-09-01'))>
+        yeDateStart: <(new \DateTime('2017-10-02'))>
+        yeDateEnd: <(new \DateTime('2017-12-01'))>
 
 AppBundle\Entity\FormStatus:
     formStatus1:
@@ -139,285 +139,830 @@ AppBundle\Entity\FormStatus:
         status: Not yet available
 
 AppBundle\Entity\RatingMy:
-    ratingmy1:
+    ratingMy1:
         name: On Track
-    ratingmy2:
+    ratingMy2:
         name: Not On Track
 
 AppBundle\Entity\RatingYe:
-    ratingye1:
+    ratingYe1:
         name: Meet None Expectations
-    ratingye2:
+    ratingYe2:
         name: Meet Some Expectations
-    ratingye3:
+    ratingYe3:
         name: Meet Expectations
-    ratingye4:
+    ratingYe4:
         name: Exceeds Expectations
-    ratingye5:
+    ratingYe5:
         name: Substantially Exceeds Expectations
 
 AppBundle\Entity\Challenge:
     challenge1:
         name:           Accurate
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge2:
         name:           Adaptibility
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge3:
         name:           Alert
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge4:
         name:           Ambitious
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge5:
         name:           Attentive
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge6:
         name:           Balanced
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge7:
         name:           Bright
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge8:
         name:           Carefree
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge9:
         name:           Careful
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge10:
         name:           Cheerful / Jolly
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge11:
         name:           Confident
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge12:
         name:           Confronting
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge13:
         name:           Concise
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge14:
         name:           Cooperative
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge15:
         name:           Corteous
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge16:
         name:           Creative
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge17:
         name:           Daring
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge18:
         name:           Decisive
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge19:
         name:           Diplomatic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge20:
         name:           Disciplined
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge21:
         name:           Easy going
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge22:
         name:           Effective
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge23:
         name:           Empathy
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge24:
         name:           Enthousiastic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge25:
         name:           Flexible
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge26:
         name:           Friendly
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge27:
         name:           Generous
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge28:
         name:           Guts
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge29:
         name:           Harmonious
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge30:
         name:           Helpful
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge31:
         name:           Honest
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge32:
         name:           Humorous
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge33:
         name:           Imaginative
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge34:
         name:           Improvisation
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge35:
         name:           Independant
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge36:
         name:           Loose
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge37:
         name:           Loyal
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge38:
         name:           Modest
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge39:
         name:           Motivated
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge40:
         name:           Normal
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge41:
         name:           Objective
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge42:
         name:           Open
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge43:
         name:           Optimistic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge44:
         name:           Organised
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge45:
         name:           Patient
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge46:
         name:           Pragmatic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge47:
         name:           Present
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge48:
         name:           Pro-active
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge49:
         name:           Realistic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge50:
         name:           Relaxed
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge51:
         name:           Reserved
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge52:
         name:           Responsible
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge53:
         name:           Sensitive
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge54:
         name:           Serious
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge55:
         name:           Sharp
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge56:
         name:           Sparse
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge57:
         name:           Spontanious
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge58:
         name:           Stylish
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge59:
         name:           Sympathic
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge60:
         name:           Tactful
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge61:
         name:           Tolerant
-        is_standard:    true
+        isStandard:     true
         language:       1
     challenge62:
         name:           Unconditional
-        is_standard:    true
+        isStandard:     true
         language:       1
 
-#AppBundle\Entity\Form:
-    #form1:
-        #cycle: '@cycle1'
-        #user: '@user1'
-        #cdpStatus: '@formStatus1'
-        #myStatus: '@formStatus9'
-        #yeStatus: '@formStatus9'
-    #form2:
-        #cycle: '@cycle1'
-        #user: '@user2'
-        #cdpStatus: '@formStatus9'
-        #myStatus: '@formStatus9'
-        #yeStatus: '@formStatus9'
+AppBundle\Entity\CoreQuality:
+    coreQuality1:
+        name:           Accurate
+        isStandard:     true
+        language:       1
+    coreQuality2:
+        name:           Adaptibility
+        isStandard:     true
+        language:       1
+    coreQuality3:
+        name:           Alert
+        isStandard:     true
+        language:       1
+    coreQuality4:
+        name:           Ambitious
+        isStandard:     true
+        language:       1
+    coreQuality5:
+        name:           Attentive
+        isStandard:     true
+        language:       1
+    coreQuality6:
+        name:           Balanced
+        isStandard:     true
+        language:       1
+    coreQuality7:
+        name:           Bright
+        isStandard:     true
+        language:       1
+    coreQuality8:
+        name:           Carefree
+        isStandard:     true
+        language:       1
+    coreQuality9:
+        name:           Careful
+        isStandard:     true
+        language:       1
+    coreQuality10:
+        name:           Cheerful / Jolly
+        isStandard:     true
+        language:       1
+    coreQuality11:
+        name:           Confident
+        isStandard:     true
+        language:       1
+    coreQuality12:
+        name:           Confronting
+        isStandard:     true
+        language:       1
+    coreQuality13:
+        name:           Concise
+        isStandard:     true
+        language:       1
+    coreQuality14:
+        name:           Cooperative
+        isStandard:     true
+        language:       1
+    coreQuality15:
+        name:           Corteous
+        isStandard:     true
+        language:       1
+    coreQuality16:
+        name:           Creative
+        isStandard:     true
+        language:       1
+    coreQuality17:
+        name:           Daring
+        isStandard:     true
+        language:       1
+    coreQuality18:
+        name:           Decisive
+        isStandard:     true
+        language:       1
+    coreQuality19:
+        name:           Diplomatic
+        isStandard:     true
+        language:       1
+    coreQuality20:
+        name:           Disciplined
+        isStandard:     true
+        language:       1
+    coreQuality21:
+        name:           Easy going
+        isStandard:     true
+        language:       1
+    coreQuality22:
+        name:           Effective
+        isStandard:     true
+        language:       1
+    coreQuality23:
+        name:           Empathy
+        isStandard:     true
+        language:       1
+    coreQuality24:
+        name:           Enthousiastic
+        isStandard:     true
+        language:       1
+    coreQuality25:
+        name:           Flexible
+        isStandard:     true
+        language:       1
+    coreQuality26:
+        name:           Friendly
+        isStandard:     true
+        language:       1
+    coreQuality27:
+        name:           Generous
+        isStandard:     true
+        language:       1
+    coreQuality28:
+        name:           Guts
+        isStandard:     true
+        language:       1
+    coreQuality29:
+        name:           Harmonious
+        isStandard:     true
+        language:       1
+    coreQuality30:
+        name:           Helpful
+        isStandard:     true
+        language:       1
+    coreQuality31:
+        name:           Honest
+        isStandard:     true
+        language:       1
+    coreQuality32:
+        name:           Humorous
+        isStandard:     true
+        language:       1
+    coreQuality33:
+        name:           Imaginative
+        isStandard:     true
+        language:       1
+    coreQuality34:
+        name:           Improvisation
+        isStandard:     true
+        language:       1
+    coreQuality35:
+        name:           Independant
+        isStandard:     true
+        language:       1
+    coreQuality36:
+        name:           Loose
+        isStandard:     true
+        language:       1
+    coreQuality37:
+        name:           Loyal
+        isStandard:     true
+        language:       1
+    coreQuality38:
+        name:           Modest
+        isStandard:     true
+        language:       1
+    coreQuality39:
+        name:           Motivated
+        isStandard:     true
+        language:       1
+    coreQuality40:
+        name:           Normal
+        isStandard:     true
+        language:       1
+    coreQuality41:
+        name:           Objective
+        isStandard:     true
+        language:       1
+    coreQuality42:
+        name:           Open
+        isStandard:     true
+        language:       1
+    coreQuality43:
+        name:           Optimistic
+        isStandard:     true
+        language:       1
+    coreQuality44:
+        name:           Organised
+        isStandard:     true
+        language:       1
+    coreQuality45:
+        name:           Patient
+        isStandard:     true
+        language:       1
+    coreQuality46:
+        name:           Pragmatic
+        isStandard:     true
+        language:       1
+    coreQuality47:
+        name:           Present
+        isStandard:     true
+        language:       1
+    coreQuality48:
+        name:           Pro-active
+        isStandard:     true
+        language:       1
+    coreQuality49:
+        name:           Realistic
+        isStandard:     true
+        language:       1
+    coreQuality50:
+        name:           Relaxed
+        isStandard:     true
+        language:       1
+    coreQuality51:
+        name:           Reserved
+        isStandard:     true
+        language:       1
+    coreQuality52:
+        name:           Responsible
+        isStandard:     true
+        language:       1
+    coreQuality53:
+        name:           Sensitive
+        isStandard:     true
+        language:       1
+    coreQuality54:
+        name:           Serious
+        isStandard:     true
+        language:       1
+    coreQuality55:
+        name:           Sharp
+        isStandard:     true
+        language:       1
+    coreQuality56:
+        name:           Sparse
+        isStandard:     true
+        language:       1
+    coreQuality57:
+        name:           Spontanious
+        isStandard:     true
+        language:       1
+    coreQuality58:
+        name:           Stylish
+        isStandard:     true
+        language:       1
+    coreQuality59:
+        name:           Sympathic
+        isStandard:     true
+        language:       1
+    coreQuality60:
+        name:           Tactful
+        isStandard:     true
+        language:       1
+    coreQuality61:
+        name:           Tolerant
+        isStandard:     true
+        language:       1
+    coreQuality62:
+        name:           Unconditional
+        isStandard:     true
+        language:       1
 
+AppBundle\Entity\Pitfall:
+    pitfall1:
+        name:           Ambigous
+        isStandard:     true
+        language:       1
+    pitfall2:
+        name:           Arrogance
+        isStandard:     true
+        language:       1
+    pitfall3:
+        name:           Blunt
+        isStandard:     true
+        language:       1
+    pitfall4:
+        name:           Capricious
+        isStandard:     true
+        language:       1
+    pitfall5:
+        name:           Careless
+        isStandard:     true
+        language:       1
+    pitfall6:
+        name:           Chaotic
+        isStandard:     true
+        language:       1
+    pitfall7:
+        name:           Cold
+        isStandard:     true
+        language:       1
+    pitfall8:
+        name:           Complicated
+        isStandard:     true
+        language:       1
+    pitfall9:
+        name:           Conservative
+        isStandard:     true
+        language:       1
+    pitfall10:
+        name:           Crestfallen
+        isStandard:     true
+        language:       1
+    pitfall11:
+        name:           Criticise
+        isStandard:     true
+        language:       1
+    pitfall12:
+        name:           Cynical
+        isStandard:     true
+        language:       1
+    pitfall13:
+        name:           Docile
+        isStandard:     true
+        language:       1
+    pitfall14:
+        name:           Dogmatic
+        isStandard:     true
+        language:       1
+    pitfall15:
+        name:           Dull
+        isStandard:     true
+        language:       1
+    pitfall16:
+        name:           Egocentric
+        isStandard:     true
+        language:       1
+    pitfall17:
+        name:           Fanatic
+        isStandard:     true
+        language:       1
+    pitfall18:
+        name:           Frantic
+        isStandard:     true
+        language:       1
+    pitfall19:
+        name:           Fuzzy
+        isStandard:     true
+        language:       1
+    pitfall20:
+        name:           Greed
+        isStandard:     true
+        language:       1
+    pitfall21:
+        name:           Impulsive
+        isStandard:     true
+        language:       1
+    pitfall22:
+        name:           Indecisive
+        isStandard:     true
+        language:       1
+    pitfall23:
+        name:           Indifferent
+        isStandard:     true
+        language:       1
+    pitfall24:
+        name:           Inexorable
+        isStandard:     true
+        language:       1
+    pitfall25:
+        name:           Invisible
+        isStandard:     true
+        language:       1
+    pitfall26:
+        name:           Ironic
+        isStandard:     true
+        language:       1
+    pitfall27:
+        name:           Lazy
+        isStandard:     true
+        language:       1
+    pitfall28:
+        name:           Manipulative
+        isStandard:     true
+        language:       1
+    pitfall29:
+        name:           Merciless
+        isStandard:     true
+        language:       1
+    pitfall30:
+        name:           Monotone
+        isStandard:     true
+        language:       1
+    pitfall31:
+        name:           Naive
+        isStandard:     true
+        language:       1
+    pitfall32:
+        name:           Nitpicker
+        isStandard:     true
+        language:       1
+    pitfall33:
+        name:           Obsessed
+        isStandard:     true
+        language:       1
+    pitfall34:
+        name:           Obstinate
+        isStandard:     true
+        language:       1
+    pitfall35:
+        name:           Omitting
+        isStandard:     true
+        language:       1
+    pitfall36:
+        name:           Passive
+        isStandard:     true
+        language:       1
+    pitfall37:
+        name:           Patronising
+        isStandard:     true
+        language:       1
+    pitfall38:
+        name:           Perfectionist
+        isStandard:     true
+        language:       1
+    pitfall39:
+        name:           Pessimist
+        isStandard:     true
+        language:       1
+    pitfall40:
+        name:           Plotting
+        isStandard:     true
+        language:       1
+    pitfall41:
+        name:           Profligative
+        isStandard:     true
+        language:       1
+    pitfall42:
+        name:           Restless
+        isStandard:     true
+        language:       1
+    pitfall43:
+        name:           Rigid
+        isStandard:     true
+        language:       1
+    pitfall44:
+        name:           Rude
+        isStandard:     true
+        language:       1
+    pitfall45:
+        name:           Ruthless
+        isStandard:     true
+        language:       1
+    pitfall46:
+        name:           Sacrificing
+        isStandard:     true
+        language:       1
+    pitfall47:
+        name:           Scared
+        isStandard:     true
+        language:       1
+    pitfall48:
+        name:           Selfish
+        isStandard:     true
+        language:       1
+    pitfall49:
+        name:           Sentimental
+        isStandard:     true
+        language:       1
+    pitfall50:
+        name:           Short sighted
+        isStandard:     true
+        language:       1
+    pitfall51:
+        name:           Sloppy
+        isStandard:     true
+        language:       1
+    pitfall52:
+        name:           Smart-ass
+        isStandard:     true
+        language:       1
+    pitfall53:
+        name:           Stubborn
+        isStandard:     true
+        language:       1
+    pitfall54:
+        name:           Superficial
+        isStandard:     true
+        language:       1
+    pitfall55:
+        name:           Untidy
+        isStandard:     true
+        language:       1
+    pitfall56:
+        name:           Useless
+        isStandard:     true
+        language:       1
+    pitfall57:
+        name:           Wired up
+        isStandard:     true
+        language:       1
 
+AppBundle\Entity\FormCdp:
+    formCdp1:
+        cdpStatus:              '@formStatus8'
+        sa1CoreQuality:         '@coreQuality25'
+        sa1Pitfall:             '@pitfall5'
+        sa1Challenge:           '@coreQuality46'
+        sa2CoreQuality:         '@coreQuality39'
+        sa2Pitfall:             '@pitfall5'
+        sa2Challenge:           '@coreQuality6'
+        cdpFeedbackDate:        <(new \DateTime('2016-01-14'))>
+        cdpFeedbackSupervisor:  Investigate use of external capacity. Knowledge for intensifying projects so that your team doesn't become the IT support department. Action towards training key-users. Positive about the future challenges / developments.
+        cdpFeedbackHR:          'Your team does have the necessity to prioritise and finalise certain projects. The 5 top projects should be achieved within agreed deadlines. Prepare a project plan and define very well: project, capacity need, etc.'
+        sa1CoreQualityDesc:     I can easily switch from one task to another. This is required for my job, as I need to solve ad-hoc issues for users.
+        sa1PitfallDesc:         Meaning 'easily distracted', as it is sometimes necessary to anticipate on ad-hoc requests. So not easy to focus on a task and finish it.
+        sa1ChallengeDesc:       Remain flexible, but evaluate the urgency of the ad-hoc requests, so the to-do list gets done as well.
+        sa1How:                 Using Outlook agenda helps to define tasks that need to be finished at a certain deadline and to book time to do so.
+        sa1Success:             Be able to focus and to finish tasks.
+        sa1Needs:               Possibility to create an environment with minor possibilities to get distracted.
+        sa2CoreQualityDesc:     I have high energy and believe in what we do. Feel part of the firm, and am willing to do what it takes to make us a succes.
+        sa2PitfallDesc:         To myself, and sometimes this comes to expense of my private life. I also set high standards to my colleagues. Perhaps sometimes too high.
+        sa2ChallengeDesc:       Become more considerate of others prioirities when communicating, without lowering my high standards.
+        tr1WhatWhy:             Alerts to improve pro-active communication.
+        tr1How:                 Implement the next release.
+        tr1Success:             Alerts implemented.
+        tr1Needs:               Mobile app needs to be completely implemented.
+        tr2WhatWhy:             Investigate customer use of portal.
+        tr2How:                 Training sessions and testing.
+        tr2Success:             Final conclusion about how the customer portal (as-is) can support our processes. Defined needs about possible developments to optimise supporting processes.
+        tr2Needs:               Available resources.
+        sc1WhatWhy:             Technical skills.
+        sc1How:                 Stay involved in technical issues.
+        sc1Success:             More insight and understanding in technical issues.
+        sc1Needs:               Training course (TBC). If available stay involved in discussions about technical issues.
+        sc2WhatWhy:             'Knowledge transfer: in my function it is important to be able to transfer system and process knowledge to colleagues.'
+        sc2How:                 Take time to explain things instead of doing it myself.
+        sc2Success:             If support questions are limited to real issues.
+        sc3WhatWhy:             'Coaching leader: I want to be able to stimulate skills and talents from people, so the firm can have the absolute benefit of it, and people feel good in what they do (and are therefore very motivated).'
+        sc3How:                 Learn more about coaching leadership.
+        sc3Success:             This will be a continuous process.
+        sc3Needs:               The individual coaching sessions we had, were already very inspirational. I want to be able to keep on working like this. Simple things, you actually already know, but because you're used to do things in a certain way, you never looked at it in that way.
+        oc1WhatWhy:             Creativity
+        oc1Desc:                Always looking for things that can improve our way of working. This can be developments in existing system, and also being well informed about other possibilities and market developments.
+        oc1How:                 Stay up to date about external developments via different ways.
+        oc1Success:             Be able to propose possibilities to support our processes better.
+        oc1Needs:               Environments to do so.
+        oc2WhatWhy:             Team
+        oc2Desc:                Be close to the business, to be able to understand issues and help looking for solutions.
+        oc2How:                 Regular meetings with key-users. Have key-users involved in during developments.
+        oc2Success:             More agile implementations.
+        oc2Needs:               Resources (key-users) being involved will be a big advantage.
+        careerObjectives:       I want to coach a team which is able to see and understands the needs of the business and is able to react on it by supporting in process and system developments.
+        additionalInfo:         I want to become the go-to person regarding Social Responsibility branding.
+
+AppBundle\Entity\FormYe:
+    formYe1:
+        yeStatus:               '@formStatus8'
+        yeRating:               '@ratingYe4'
+        yeFeedbackDate:         <(new \DateTime('2016-11-23'))>
+        yeFeedbackSupervisor:   Great performance in the last year! And great to work together with you. Keep up the good work.
+        yeFeedbackHR:           You've shown commitment and reported consequently and clearly to the organisation. For the next year, integration with quality and other countries are main objectives, as well to make a good link with operations so they can use efficiently all available tools and processes.
+        yeQ1:                   Motivating and challenging.
+        yeQ2:                   We must become more involved in the business.
+        yeQ3:                   Top-down communication (general and important information from the board should reach people working on the floor).
+        yeQ4:                   Space...(but already in progress). For me, the firm is a very ambitious company with management that is aware of the importance of investing in its people as well as in further growth and supporting tools. Still pleased to be part of the firm and supporting in our further growth.
+        sa1FeedbackYE:          Working an a regular base from home helps. But it is not possible to do that more than 1 day a week. It  would be good to have the possibility to 'isolate' myself at the office as well.
+        sa2FeedbackYE:          Positive evolution; Especially towards colleagues I can respect the work/life balance (I don't get irritated if someone goes home on time :).
+        tr1FeedbackYE:          Already available in acceptance environment and explained to some key-planners. Not very positive feedback. Way of planning needs to be changed. This functionality can not be used in production before implementation of Q4 2016. This is postponed to beginning of January.
+        tr2FeedbackYE:          Investigation is done by our trainee. Not clear yet how to proceed.
+        sc1FeedbackYE:          No progress yet.
+        sc2FeedbackYE:          'No progress yet. Planned to change knowledge transfer in 2017: our team will work together with Analyst team to train people on the job (by sitting next to them and evaluate the way of working).'
+        sc3FeedbackYE:          In progress. Positive evolution.
+        oc1FeedbackYE:          Ongoing. So far not able to spent extra time on this topic.
+        oc2FeedbackYE:          In progress, but still a way to go. Linda, in her role in operations as from next year on, will support this better.
+
+AppBundle\Entity\FormTable:
+    formTable1:
+        user:           '@user6'
+        cycle:          '@cycle1'
+        formcdp:        '@formCdp1'
+        formye:         '@formYe1'
