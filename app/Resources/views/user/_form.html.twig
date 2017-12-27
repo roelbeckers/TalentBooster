@@ -26,11 +26,21 @@
         'label': "Access Level"
     }) }}
 
-<button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonCreateUpdate }}</button>
+<!--button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-save"></span> {{ buttonCreateUpdate }}</button-->
+{{ form_widget(userForm.btnCreateUpdate, {
+    'label': '<span class="fa fa-archive"></span> ' ~ buttonCreateUpdate,
+    'attr': {'class': 'btn btn-primary'}
+})
+}}
 
 {% if (buttonArchive != 'donotshow') %}
     <br><br>
-    <button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-archive"></span> {{ buttonArchive }}</button>
+    <!--button type="submit" class="btn btn-primary" formnovalidate><span class="fa fa-archive"></span> {{ buttonArchive }}</button><br-->
+    {{ form_widget(userForm.btnArchive, {
+       'label': '<span class="fa fa-archive"></span> ' ~ buttonArchive,
+       'attr': {'class': 'btn btn-primary'}
+       })
+    }}
 {% endif %}
 
 &nbsp;&nbsp;&nbsp;<a href="{{ app.request.headers.get('referer') }}">Cancel</a>

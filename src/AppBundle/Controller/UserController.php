@@ -28,6 +28,8 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $form = $this->createForm(UserFormType::class);
+        $form->remove('btnArchive');
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
@@ -117,16 +119,28 @@ class UserController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            //dump($user);die;
+
+            //dump($form->getClickedButton()->getName());die;
+            if ($form->getClickedButton()->getName() == 'btnArchive') {
+                $user->setEnabled(false);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash(
-                'success',
-                sprintf('User %s %s updated.', $user->getFirstname(), $user->getLastName())
-            );
+            if ($form->getClickedButton()->getName() == 'btnArchive') {
+                $this->addFlash(
+                    'success',
+                    sprintf('User %s %s has been archived.', $user->getFirstname(), $user->getLastName())
+                );
+            }
+            else {
+                $this->addFlash(
+                    'success',
+                    sprintf('User %s %s updated.', $user->getFirstname(), $user->getLastName())
+                );
+            }
 
             return $this->redirectToRoute('user_list');
         }

@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,7 +34,8 @@ class UserFormType extends AbstractType
                     'class' => 'js-datepicker'
                 ],
                 'html5' => false,
-                'format' => 'dd-MM-yyyy'
+                'format' => 'dd-MM-yyyy',
+                'required' => false
             ])
             ->add('dateLastpromotion', DateType::class, [
                 'widget' => 'single_text',
@@ -41,7 +43,8 @@ class UserFormType extends AbstractType
                     'class' => 'js-datepicker'
                 ],
                 'html5' => false,
-                'format' => 'dd-MM-yyyy'
+                'format' => 'dd-MM-yyyy',
+                'required' => false
             ])
             ->add('supervisor', EntityType::class, [
                 'class' => User::class,
@@ -63,8 +66,9 @@ class UserFormType extends AbstractType
                 //'data' => [
                 //    'ROLE_USER',
                 //]
-            ]);
-            //->add('enabled');
+            ])
+            ->add('btnCreateUpdate', SubmitType::class)
+            ->add('btnArchive', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

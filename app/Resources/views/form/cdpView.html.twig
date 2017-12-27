@@ -11,6 +11,19 @@
 
 {% block title %}{{ formName }}{% endblock %}
 
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+        $(function() {
+            $('.btnSave').on('click', function() {
+                $(this).prepend('<i class="fa fa-refresh fa-spin"></i>  ');
+            });
+        });
+    </script>
+
+{%endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row">

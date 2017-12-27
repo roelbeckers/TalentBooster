@@ -83,6 +83,7 @@ class User implements UserInterface
     private $supervisor;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="json_array")
      */
     private $roles = [];

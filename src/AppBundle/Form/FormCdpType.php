@@ -319,7 +319,9 @@ class FormCdpType extends AbstractType
                 // BUTTONS
                 ->add('btnSave', SubmitType::class, [
                     'label' => '<span class="fa fa-save"></span> Save',
-                    'attr' => array('value' => 2),
+                    'attr' => array(
+                        'value' => 2,
+                    )
                 ])
                 ->add('btnSendToSupervisor', SubmitType::class, [
                     'label' => '<span class="fa fa-send"></span> Send to Supervisor',

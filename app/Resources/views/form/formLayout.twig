@@ -2,7 +2,6 @@
 
 {% form_theme formForm _self %}
 
-
 {%- block button_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
     {%- if label is empty -%}

@@ -74,6 +74,8 @@ class ExportController extends Controller
             // KNP SNAPPY THROWS AN ERROR ON ASSETS FROM LOCALHOST:8000
             $html = str_replace("localhost:8000", "test.talentbooster.io", $html);
 
+            //dump($html);die;
+
             return new Response(
                 $knp_snappy_pdf->getOutputFromHtml($html, array(
                     'orientation'       => 'Landscape',
