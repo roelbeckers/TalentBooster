@@ -371,6 +371,7 @@
                         </td>
                     </tr>
                 {% else %}
+<<<<<<< HEAD
                     {% if (formDataCdp.sa1Challenge != null) %}
                         <tr>
                             <td>
@@ -379,15 +380,55 @@
                                 </td>
                             <td>
                                 <strong>{{ formDataCdp.sa1Pitfall.name }}</strong><br><br>
+=======
+                    {% if ( (formDataCdp.sa1CoreQuality is not null) or
+                            (formDataCdp.sa1CoreQualityDesc is not null) or
+                            (formDataCdp.sa1Pitfall is not null) or
+                            (formDataCdp.sa1PitfallDesc is not null) or
+                            (formDataCdp.sa1Challenge is not null) or
+                            (formDataCdp.sa1ChallengeDesc is not null) or
+                            (formDataCdp.sa1How is not null) or
+                            (formDataCdp.sa1Success is not null) or
+                            (formDataCdp.sa1Needs is not null)
+                        )
+                    %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa1CoreQuality is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa1CoreQuality.name }}
+                                    {% endif %}
+                                </strong><br><br>
+                                {{ formDataCdp.sa1CoreQualityDesc }}
+                            </td>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa1Pitfall is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa1Pitfall.name }}
+                                    {% endif %}
+                                </strong><br><br>
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 {{ formDataCdp.sa1PitfallDesc }}
                             </td>
                             <td>
                                 <strong>
+<<<<<<< HEAD
                                 {% if (formDataCdp.sa1Challenge.id > 122)  %}
                                     N/A
                                 {% else %}
                                     {{ formDataCdp.sa1Challenge.name }}
                                 {% endif %}
+=======
+                                    {% if ((formDataCdp.sa1Challenge is null) or (formDataCdp.sa1Challenge.id > 122))  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa1Challenge.name }}
+                                    {% endif %}
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 </strong><br><br>
                                 {{ formDataCdp.sa1ChallengeDesc }}
                             </td>
@@ -469,6 +510,7 @@
                         </td>
                     </tr>
                 {% else %}
+<<<<<<< HEAD
                     {% if (formDataCdp.sa2Challenge != null) %}
                         <tr>
                             <td>
@@ -477,11 +519,47 @@
                             </td>
                             <td>
                                 <strong>{{ formDataCdp.sa2Pitfall.name }}</strong><br><br>
+=======
+                    {% if ( (formDataCdp.sa2CoreQuality is not null) or
+                            (formDataCdp.sa2CoreQualityDesc is not null) or
+                            (formDataCdp.sa2Pitfall is not null) or
+                            (formDataCdp.sa2PitfallDesc is not null) or
+                            (formDataCdp.sa2Challenge is not null) or
+                            (formDataCdp.sa2ChallengeDesc is not null) or
+                            (formDataCdp.sa2How is not null) or
+                            (formDataCdp.sa2Success is not null) or
+                            (formDataCdp.sa2Needs is not null)
+                        )
+                    %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa2CoreQuality is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa2CoreQuality.name }}
+                                    {% endif %}
+                                </strong><br><br>
+                                {{ formDataCdp.sa2CoreQualityDesc }}
+                            </td>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa2Pitfall is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa2Pitfall.name }}
+                                    {% endif %}
+                                </strong><br><br>
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 {{ formDataCdp.sa2PitfallDesc }}
                             </td>
                             <td>
                                 <strong>
+<<<<<<< HEAD
                                     {% if (formDataCdp.sa2Challenge.id > 122)  %}
+=======
+                                    {% if ((formDataCdp.sa2Challenge is null) or (formDataCdp.sa2Challenge.id > 122))  %}
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                         N/A
                                     {% else %}
                                         {{ formDataCdp.sa2Challenge.name }}
@@ -567,6 +645,7 @@
                         </td>
                     </tr>
                 {% else %}
+<<<<<<< HEAD
                     {% if (formDataCdp.sa3Challenge != null) %}
                         <tr>
                             <td>
@@ -575,11 +654,47 @@
                             </td>
                             <td>
                                 <strong>{{ formDataCdp.sa3Pitfall.name }}</strong><br><br>
+=======
+                    {% if ( (formDataCdp.sa3CoreQuality is not null) or
+                            (formDataCdp.sa3CoreQualityDesc is not null) or
+                            (formDataCdp.sa3Pitfall is not null) or
+                            (formDataCdp.sa3PitfallDesc is not null) or
+                            (formDataCdp.sa3Challenge is not null) or
+                            (formDataCdp.sa3ChallengeDesc is not null) or
+                            (formDataCdp.sa3How is not null) or
+                            (formDataCdp.sa3Success is not null) or
+                            (formDataCdp.sa3Needs is not null)
+                        )
+                    %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa3CoreQuality is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa3CoreQuality.name }}
+                                    {% endif %}
+                                </strong><br><br>
+                                {{ formDataCdp.sa3CoreQualityDesc }}
+                            </td>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa3Pitfall is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa3Pitfall.name }}
+                                    {% endif %}
+                                </strong><br><br>
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 {{ formDataCdp.sa3PitfallDesc }}
                             </td>
                             <td>
                                 <strong>
+<<<<<<< HEAD
                                     {% if (formDataCdp.sa3Challenge.id > 122)  %}
+=======
+                                    {% if ((formDataCdp.sa3Challenge is null) or (formDataCdp.sa3Challenge.id > 122))  %}
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                         N/A
                                     {% else %}
                                         {{ formDataCdp.sa3Challenge.name }}
@@ -665,6 +780,7 @@
                         </td>
                     </tr>
                 {% else %}
+<<<<<<< HEAD
                     {% if (formDataCdp.sa4Challenge != null) %}
                         <tr>
                             <td>
@@ -673,11 +789,47 @@
                             </td>
                             <td>
                                 <strong>{{ formDataCdp.sa4Pitfall.name }}</strong><br><br>
+=======
+                    {% if ( (formDataCdp.sa4CoreQuality is not null) or
+                            (formDataCdp.sa4CoreQualityDesc is not null) or
+                            (formDataCdp.sa4Pitfall is not null) or
+                            (formDataCdp.sa4PitfallDesc is not null) or
+                            (formDataCdp.sa4Challenge is not null) or
+                            (formDataCdp.sa4ChallengeDesc is not null) or
+                            (formDataCdp.sa4How is not null) or
+                            (formDataCdp.sa4Success is not null) or
+                            (formDataCdp.sa4Needs is not null)
+                        )
+                    %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa4CoreQuality is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa4CoreQuality.name }}
+                                    {% endif %}
+                                </strong><br><br>
+                                {{ formDataCdp.sa4CoreQualityDesc }}
+                            </td>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa4Pitfall is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa4Pitfall.name }}
+                                    {% endif %}
+                                </strong><br><br>
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 {{ formDataCdp.sa4PitfallDesc }}
                             </td>
                             <td>
                                 <strong>
+<<<<<<< HEAD
                                     {% if (formDataCdp.sa4Challenge.id > 122)  %}
+=======
+                                    {% if ((formDataCdp.sa4Challenge is null) or (formDataCdp.sa4Challenge.id > 122))  %}
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                         N/A
                                     {% else %}
                                         {{ formDataCdp.sa4Challenge.name }}
@@ -763,6 +915,7 @@
                         </td>
                     </tr>
                 {% else %}
+<<<<<<< HEAD
                     {% if (formDataCdp.sa5Challenge != null) %}
                         <tr>
                             <td>
@@ -771,11 +924,47 @@
                             </td>
                             <td>
                                 <strong>{{ formDataCdp.sa5Pitfall.name }}</strong><br><br>
+=======
+                    {% if ( (formDataCdp.sa5CoreQuality is not null) or
+                            (formDataCdp.sa5CoreQualityDesc is not null) or
+                            (formDataCdp.sa5Pitfall is not null) or
+                            (formDataCdp.sa5PitfallDesc is not null) or
+                            (formDataCdp.sa5Challenge is not null) or
+                            (formDataCdp.sa5ChallengeDesc is not null) or
+                            (formDataCdp.sa5How is not null) or
+                            (formDataCdp.sa5Success is not null) or
+                            (formDataCdp.sa5Needs is not null)
+                        )
+                    %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa5CoreQuality is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa5CoreQuality.name }}
+                                    {% endif %}
+                                </strong><br><br>
+                                {{ formDataCdp.sa5CoreQualityDesc }}
+                            </td>
+                            <td>
+                                <strong>
+                                    {% if (formDataCdp.sa5Pitfall is null)  %}
+                                        N/A
+                                    {% else %}
+                                        {{ formDataCdp.sa5Pitfall.name }}
+                                    {% endif %}
+                                </strong><br><br>
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                 {{ formDataCdp.sa5PitfallDesc }}
                             </td>
                             <td>
                                 <strong>
+<<<<<<< HEAD
                                     {% if (formDataCdp.sa5Challenge.id > 122)  %}
+=======
+                                    {% if ((formDataCdp.sa5Challenge is null) or (formDataCdp.sa5Challenge.id > 122))  %}
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                                         N/A
                                     {% else %}
                                         {{ formDataCdp.sa5Challenge.name }}

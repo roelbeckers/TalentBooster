@@ -42,7 +42,11 @@ class FormCdpType extends AbstractType
                 // SELF ASSESSMENT 1
                 ->add('sa1CoreQuality', EntityType::class, [
                     'class' => CoreQuality::class,
+<<<<<<< HEAD
                     'placeholder' => 'Select a Core Quality',
+=======
+                    'placeholder' => 'Select a Talent',
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                     'query_builder' => function(CoreQualityRepository $repo){
                         return $repo->findAllEnglishCoreQualityOrderByName();
                     },
@@ -74,7 +78,11 @@ class FormCdpType extends AbstractType
                 // SELF ASSESSMENT 2
                 ->add('sa2CoreQuality', EntityType::class, [
                     'class' => CoreQuality::class,
+<<<<<<< HEAD
                     'placeholder' => 'Select a Core Quality',
+=======
+                    'placeholder' => 'Select a Talent',
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                     'query_builder' => function(CoreQualityRepository $repo){
                         return $repo->findAllEnglishCoreQualityOrderByName();
                     },
@@ -106,7 +114,11 @@ class FormCdpType extends AbstractType
                 // SELF ASSESSMENT 3
                 ->add('sa3CoreQuality', EntityType::class, [
                     'class' => CoreQuality::class,
+<<<<<<< HEAD
                     'placeholder' => 'Select a Core Quality',
+=======
+                    'placeholder' => 'Select a Talent',
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                     'query_builder' => function(CoreQualityRepository $repo){
                         return $repo->findAllEnglishCoreQualityOrderByName();
                     },
@@ -138,7 +150,11 @@ class FormCdpType extends AbstractType
                 // SELF ASSESSMENT 4
                 ->add('sa4CoreQuality', EntityType::class, [
                     'class' => CoreQuality::class,
+<<<<<<< HEAD
                     'placeholder' => 'Select a Core Quality',
+=======
+                    'placeholder' => 'Select a Talent',
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                     'query_builder' => function(CoreQualityRepository $repo){
                         return $repo->findAllEnglishCoreQualityOrderByName();
                     },
@@ -170,7 +186,11 @@ class FormCdpType extends AbstractType
                 // SELF ASSESSMENT 5
                 ->add('sa5CoreQuality', EntityType::class, [
                     'class' => CoreQuality::class,
+<<<<<<< HEAD
                     'placeholder' => 'Select a Core Quality',
+=======
+                    'placeholder' => 'Select a Talent',
+>>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
                     'query_builder' => function(CoreQualityRepository $repo){
                         return $repo->findAllEnglishCoreQualityOrderByName();
                     },
