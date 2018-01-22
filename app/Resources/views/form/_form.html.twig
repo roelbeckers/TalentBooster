@@ -1,1844 +1,1765 @@
 {{ form_start(formForm) }}
     {{ form_errors(formForm) }}
-    <p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
-    <!-- PERSONALIA -->
-    <div id="personalia" class="row">
-        <div class="col-md-12">
+<!-- PERSONALIA -->
+<div id="personalia" class="row">
+    <div class="col-md-12">
         <h3>Personalia</h3>
         <hr>
 
-            <table class="table">
-                <tr>
-                    <th width="150" style="border: none; background-color: #EEEEEE;">Name:</th>
-                    <td width="250" style="border: none;">{{ formUser.fullname }}</td>
-                    <th width="150" style="border: none; background-color: #EEEEEE;">Team:</th>
-                    <td width="250" style="border: none;">{{ formUser.team }}</td>
-                </tr>
-                <tr>
-                    <th style="border: none; background-color: #EEEEEE;">Supervisor:</th>
-                    <td style="border: none;">{{ formUser.supervisor.fullname }}</td>
-                    <th style="border: none; background-color: #EEEEEE;">Job Title:</th>
-                    <td style="border: none;">{{ formUser.jobtitle }}</td>
-                </tr>
-                <tr>
-                    <th style="border: none; background-color: #EEEEEE;">Date discussion:</th>
-                    <td style="border: none;">
-                        {% if (formProgress == 'cdp') %}
-                            {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                                {{ form_widget(formForm.cdpFeedbackDate) }}
-                            {% else %}
-                                {{ formDataCdp.cdpFeedbackDate|date('d-M-Y') }}
-                            {% endif %}
-                        {% elseif (formProgress == 'my') %}
-                            {{ formDataMy.myFeedbackDate|date('d-M-Y') }}
-                        {% elseif (formProgress == 'ye') %}
-                            {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                                {{ form_widget(formForm.yeFeedbackDate) }}
-                            {% else %}
-                                {{ formDataYe.yeFeedbackDate|date('d-M-Y') }}
-                            {% endif %}
-                        {% endif %}
-                    </td>
-                    <th style="border: none; background-color: #EEEEEE;">Status:</th>
-                    <td style="border: none;">
-                        {% if ((formProgress == 'cdp') and (formAction != "create")) %}
-                            {{ formDataCdp.cdpStatus }}
-                        {% elseif (formProgress == 'my') %}
-                            {{ formDataMy.myStatus }}
-                        {% elseif ((formProgress == 'ye') and (formAction != "create")) %}
-                            {{ formDataYe.yeStatus }}
+        <table class="table">
+            <tr>
+                <th width="150" style="border: none; background-color: #EEEEEE;">Name:</th>
+                <td width="250" style="border: none;">{{ formUser.fullname }}</td>
+                <th width="150" style="border: none; background-color: #EEEEEE;">Team:</th>
+                <td width="250" style="border: none;">{{ formUser.team }}</td>
+            </tr>
+            <tr>
+                <th style="border: none; background-color: #EEEEEE;">Supervisor:</th>
+                <td style="border: none;">{{ formUser.supervisor.fullname }}</td>
+                <th style="border: none; background-color: #EEEEEE;">Job Title:</th>
+                <td style="border: none;">{{ formUser.jobtitle }}</td>
+            </tr>
+            <tr>
+                <th style="border: none; background-color: #EEEEEE;">Date discussion:</th>
+                <td style="border: none;">
+                    {% if (formProgress == 'cdp') %}
+                        {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                            {{ form_widget(formForm.cdpFeedbackDate) }}
                         {% else %}
-                            Available
+                            {{ formDataCdp.cdpFeedbackDate|date('d-M-Y') }}
                         {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </div>
+                    {% elseif (formProgress == 'my') %}
+                        {{ formDataMy.myFeedbackDate|date('d-M-Y') }}
+                    {% elseif (formProgress == 'ye') %}
+                        {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                            {{ form_widget(formForm.yeFeedbackDate) }}
+                        {% else %}
+                            {{ formDataYe.yeFeedbackDate|date('d-M-Y') }}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <th style="border: none; background-color: #EEEEEE;">Status:</th>
+                <td style="border: none;">
+                    {% if ((formProgress == 'cdp') and (formAction != "create")) %}
+                        {{ formDataCdp.cdpStatus }}
+                    {% elseif (formProgress == 'my') %}
+                        {{ formDataMy.myStatus }}
+                    {% elseif ((formProgress == 'ye') and (formAction != "create")) %}
+                        {{ formDataYe.yeStatus }}
+                    {% else %}
+                        Available
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </div>
+</div>
 
-    <!-- CDP FEEDBACK -->
-    <div id="cdpFeedback" class="row" style="padding-top: 40px;">
-        <!-- CDP FEEDBACK SUPERVISOR -->
-        <div id="cdpFeedbackSupervisor">
-            <div class="col-md-6">
-                <h3>CDP Feedback Supervisor</h3>
-                <hr>
+<!-- CDP FEEDBACK -->
+<div id="cdpFeedback" class="row" style="padding-top: 40px;">
+    <!-- CDP FEEDBACK SUPERVISOR -->
+    <div id="cdpFeedbackSupervisor">
+        <div class="col-md-6">
+            <h3>CDP Feedback Supervisor</h3>
+            <hr>
 
-                <p>
-                    {% if (userType == 'user') %}
-                        {% if (formAction == 'view') %}
-                            {% if ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6') or (formDataCdp.cdpStatus.id == '8')) %}
-                                {{ formDataCdp.cdpFeedbackSupervisor }}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
-                                </script>
-                            {% endif %}
+            <p>
+                {% if (userType == 'user') %}
+                    {% if (formAction == 'view') %}
+                    {% if ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6') or (formDataCdp.cdpStatus.id == '8')) %}
+                        {{ formDataCdp.cdpFeedbackSupervisor }}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
+                        </script>
+                    {% endif %}
                         {% elseif (formAction == 'edit') %}
-                            {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '4') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackSupervisor != '')) %}
-                                {{ formDataCdp.cdpFeedbackSupervisor }}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
-                                </script>
-                            {% endif %}
-                        {% else %}
-                            <script type="text/javascript">
-                                document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
-                            </script>
-                        {% endif %}
-                    {% elseif (userType == 'supervisor') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and (formDataCdp.cdpStatus.id == '3')) %}
-                            {{ form_widget(formForm.cdpFeedbackSupervisor) }}
-                        {% else %}
-                            {{ formDataCdp.cdpFeedbackSupervisor }}
-                        {% endif %}
-                    {% elseif (userType == 'board' or userType == 'hr') %}
+                    {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '4') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackSupervisor != '')) %}
+                        {{ formDataCdp.cdpFeedbackSupervisor }}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
+                        </script>
+                    {% endif %}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackSupervisor').style.display = 'none';
+                        </script>
+                    {% endif %}
+                {% elseif (userType == 'supervisor') %}
+                    {% if ((formAction == 'edit') and (formProgress == 'cdp') and (formDataCdp.cdpStatus.id == '3')) %}
+                        {{ form_widget(formForm.cdpFeedbackSupervisor) }}
+                    {% else %}
                         {{ formDataCdp.cdpFeedbackSupervisor }}
                     {% endif %}
-                </p>
+                {% elseif (userType == 'board' or userType == 'hr') %}
+                    {{ formDataCdp.cdpFeedbackSupervisor }}
+                {% endif %}
+            </p>
 
-            </div>
         </div>
+    </div>
 
 
-        <!-- CDP FEEDBACK HR -->
-        <div id="cdpFeedbackHR">
+    <!-- CDP FEEDBACK HR -->
+    <div id="cdpFeedbackHR">
+        <div class="col-md-6">
+            <h3>CDP Feedback HR</h3>
+            <hr>
+
+            <p>
+                {% if (userType == 'user') %}
+                    {% if (formAction == 'view') %}
+                    {% if (formDataCdp.cdpStatus.id == '8') %}
+                        {{ formDataCdp.cdpFeedbackHR }}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackHR').style.display = 'none';
+                        </script>
+                    {% endif %}
+                        {% elseif (formAction == 'edit') %}
+                    {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackHR != '')) %}
+                        {{ formDataCdp.cdpFeedbackHR }}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackHR').style.display = 'none';
+                        </script>
+                    {% endif %}
+                    {% else %}
+                        <script type="text/javascript">
+                            document.getElementById('cdpFeedbackHR').style.display = 'none';
+                        </script>
+                    {% endif %}
+                {% elseif (userType == 'supervisor') %}
+                    {{ formDataCdp.cdpFeedbackHR }}
+                {% elseif (userType == 'board' or userType == 'hr') %}
+                    {% if ((formAction == 'edit') and (formProgress == 'cdp') and ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6'))) %}
+                        {{ form_widget(formForm.cdpFeedbackHR) }}
+                    {% else %}
+                        {{ formDataCdp.cdpFeedbackHR }}
+                    {% endif %}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+
+{% if (formProgress == 'ye') %}
+    <!-- YEAR-END FEEDBACK -->
+    <div id="yeFeedback" class="row" style="padding-top: 40px;">
+        <!-- YEAR-END FEEDBACK SUPERVISOR -->
+        <div id="yeFeedbackSupervisor">
             <div class="col-md-6">
-                <h3>CDP Feedback HR</h3>
+                <h3>Year-End Feedback Supervisor</h3>
                 <hr>
 
                 <p>
                     {% if (userType == 'user') %}
                         {% if (formAction == 'view') %}
-                            {% if (formDataCdp.cdpStatus.id == '8') %}
-                                {{ formDataCdp.cdpFeedbackHR }}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('cdpFeedbackHR').style.display = 'none';
-                                </script>
-                            {% endif %}
-                        {% elseif (formAction == 'edit') %}
-                            {% if (((formDataCdp.cdpStatus.id == '2') or (formDataCdp.cdpStatus.id == '7') or (formDataCdp.cdpStatus.id == '8')) and (formDataCdp.cdpFeedbackHR != '')) %}
-                                {{ formDataCdp.cdpFeedbackHR }}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('cdpFeedbackHR').style.display = 'none';
-                                </script>
-                            {% endif %}
+                        {% if ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6') or (formDataYe.yeStatus.id == '8')) %}
+                            {{ formDataYe.yeFeedbackSupervisor }}
                         {% else %}
                             <script type="text/javascript">
-                                document.getElementById('cdpFeedbackHR').style.display = 'none';
+                                document.getElementById('yeFeedbackSupervisor').style.display = 'none';
+                            </script>
+                        {% endif %}
+                            {% elseif (formAction == 'edit') %}
+                        {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '4') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackSupervisor != '')) %}
+                            {{ formDataYe.yeFeedbackSupervisor }}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('yeFeedbackSupervisor').style.display = 'none';
+                            </script>
+                        {% endif %}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('yeFeedbackSupervisor').style.display = 'none';
                             </script>
                         {% endif %}
                     {% elseif (userType == 'supervisor') %}
-                        {{ formDataCdp.cdpFeedbackHR }}
-                    {% elseif (userType == 'board' or userType == 'hr') %}
-                        {% if ((formAction == 'edit') and (formProgress == 'cdp') and ((formDataCdp.cdpStatus.id == '5') or (formDataCdp.cdpStatus.id == '6'))) %}
-                            {{ form_widget(formForm.cdpFeedbackHR) }}
+                        {% if ((formAction == 'edit') and (formProgress == 'ye') and (formDataYe.yeStatus.id == '3')) %}
+                            {{ form_widget(formForm.yeFeedbackSupervisor) }}
                         {% else %}
-                            {{ formDataCdp.cdpFeedbackHR }}
-                        {% endif %}
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-    {% if (formProgress == 'ye') %}
-        <!-- YEAR-END FEEDBACK -->
-        <div id="yeFeedback" class="row" style="padding-top: 40px;">
-            <!-- YEAR-END FEEDBACK SUPERVISOR -->
-            <div id="yeFeedbackSupervisor">
-                <div class="col-md-6">
-                    <h3>Year-End Feedback Supervisor</h3>
-                    <hr>
-
-                    <p>
-                        {% if (userType == 'user') %}
-                            {% if (formAction == 'view') %}
-                                {% if ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6') or (formDataYe.yeStatus.id == '8')) %}
-                                    {{ formDataYe.yeFeedbackSupervisor }}
-                                {% else %}
-                                    <script type="text/javascript">
-                                        document.getElementById('yeFeedbackSupervisor').style.display = 'none';
-                                    </script>
-                                {% endif %}
-                            {% elseif (formAction == 'edit') %}
-                                {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '4') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackSupervisor != '')) %}
-                                    {{ formDataYe.yeFeedbackSupervisor }}
-                                {% else %}
-                                    <script type="text/javascript">
-                                        document.getElementById('yeFeedbackSupervisor').style.display = 'none';
-                                    </script>
-                                {% endif %}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('yeFeedbackSupervisor').style.display = 'none';
-                                </script>
-                            {% endif %}
-                        {% elseif (userType == 'supervisor') %}
-                            {% if ((formAction == 'edit') and (formProgress == 'ye') and (formDataYe.yeStatus.id == '3')) %}
-                                {{ form_widget(formForm.yeFeedbackSupervisor) }}
-                            {% else %}
-                                {{ formDataYe.yeFeedbackSupervisor }}
-                            {% endif %}
-                        {% elseif (userType == 'board' or userType == 'hr') %}
                             {{ formDataYe.yeFeedbackSupervisor }}
                         {% endif %}
-                    </p>
-                </div>
-            </div>
-
-
-            <!-- YEAR-END FEEDBACK HR -->
-            <div id="yeFeedbackHR">
-                <div class="col-md-6">
-                    <h3>Year-End Feedback HR</h3>
-                    <hr>
-
-                    <p>
-                        {% if (userType == 'user') %}
-                            {% if (formAction == 'view') %}
-                                {% if (formDataYe.yeStatus.id == '8') %}
-                                    {{ formDataYe.yeFeedbackHR }}
-                                {% else %}
-                                    <script type="text/javascript">
-                                        document.getElementById('yeFeedbackHR').style.display = 'none';
-                                    </script>
-                                {% endif %}
-                            {% elseif (formAction == 'edit') %}
-                                {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackHR != '')) %}
-                                    {{ formDataYe.yeFeedbackHR }}
-                                {% else %}
-                                    <script type="text/javascript">
-                                        document.getElementById('yeFeedbackHR').style.display = 'none';
-                                    </script>
-                                {% endif %}
-                            {% else %}
-                                <script type="text/javascript">
-                                    document.getElementById('yeFeedbackHR').style.display = 'none';
-                                </script>
-                            {% endif %}
-                        {% elseif (userType == 'supervisor') %}
-                            {{ formDataYe.yeFeedbackHR }}
-                        {% elseif (userType == 'board' or userType == 'hr') %}
-                            {% if ((formAction == 'edit') and (formProgress == 'ye') and ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6'))) %}
-                                {{ form_widget(formForm.yeFeedbackHR) }}
-                            {% else %}
-                                {{ formDataYe.yeFeedbackHR }}
-                            {% endif %}
-                        {% endif %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    <hr>
-
-    <!-- OTHER COMMENTS -->
-    <div id="otherComments" class="row" style="padding-top: 40px;">
-        <!-- CAREER OBJECTIVES -->
-        <div id="careerObjectives">
-            <div class="col-md-6">
-                <h3>Career Objectives / Staffing Considerations</h3>
-                <span style="font-style: italic;">Where do you see yourself in three years?</span><br><br><br>
-                <hr>
-
-                <p>
-                    {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                        {{ form_widget(formForm.careerObjectives) }}
-                    {% else %}
-                        {{ formDataCdp.careerObjectives }}
+                    {% elseif (userType == 'board' or userType == 'hr') %}
+                        {{ formDataYe.yeFeedbackSupervisor }}
                     {% endif %}
                 </p>
             </div>
         </div>
 
-        <!-- ADDITIONAL INFORMATION -->
-        <div id="additionalInformation">
+
+        <!-- YEAR-END FEEDBACK HR -->
+        <div id="yeFeedbackHR">
             <div class="col-md-6">
-                <h3>Additional Information</h3>
-                <span style="font-style: italic;">List any additional information that is relevant to your Career Development Plan (CDP) for the coming year. Such information could include your interest in special assignments, considerations related to work / life balance, etc.</span>
+                <h3>Year-End Feedback HR</h3>
                 <hr>
 
                 <p>
-                    {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                        {{ form_widget(formForm.additionalInfo) }}
-                    {% else %}
-                        {{ formDataCdp.additionalInfo }}
+                    {% if (userType == 'user') %}
+                        {% if (formAction == 'view') %}
+                        {% if (formDataYe.yeStatus.id == '8') %}
+                            {{ formDataYe.yeFeedbackHR }}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('yeFeedbackHR').style.display = 'none';
+                            </script>
+                        {% endif %}
+                            {% elseif (formAction == 'edit') %}
+                        {% if (((formDataYe.yeStatus.id == '2') or (formDataYe.yeStatus.id == '7')) and (formDataYe.yeFeedbackHR != '')) %}
+                            {{ formDataYe.yeFeedbackHR }}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('yeFeedbackHR').style.display = 'none';
+                            </script>
+                        {% endif %}
+                        {% else %}
+                            <script type="text/javascript">
+                                document.getElementById('yeFeedbackHR').style.display = 'none';
+                            </script>
+                        {% endif %}
+                    {% elseif (userType == 'supervisor') %}
+                        {{ formDataYe.yeFeedbackHR }}
+                    {% elseif (userType == 'board' or userType == 'hr') %}
+                        {% if ((formAction == 'edit') and (formProgress == 'ye') and ((formDataYe.yeStatus.id == '5') or (formDataYe.yeStatus.id == '6'))) %}
+                            {{ form_widget(formForm.yeFeedbackHR) }}
+                        {% else %}
+                            {{ formDataYe.yeFeedbackHR }}
+                        {% endif %}
                     {% endif %}
                 </p>
             </div>
         </div>
     </div>
-    <hr>
+{% endif %}
+<hr>
+
+<!-- OTHER COMMENTS -->
+<div id="otherComments" class="row" style="padding-top: 40px;">
+    <!-- CAREER OBJECTIVES -->
+    <div id="careerObjectives">
+        <div class="col-md-6">
+            <h3>Career Objectives / Staffing Considerations</h3>
+            <span style="font-style: italic;">Where do you see yourself in three years?</span><br><br><br>
+            <hr>
+
+            <p>
+                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                    {{ form_widget(formForm.careerObjectives) }}
+                {% else %}
+                    {{ formDataCdp.careerObjectives }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- ADDITIONAL INFORMATION -->
+    <div id="additionalInformation">
+        <div class="col-md-6">
+            <h3>Additional Information</h3>
+            <span style="font-style: italic;">List any additional information that is relevant to your Career Development Plan (CDP) for the coming year. Such information could include your interest in special assignments, considerations related to work / life balance, etc.</span>
+            <hr>
+
+            <p>
+                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                    {{ form_widget(formForm.additionalInfo) }}
+                {% else %}
+                    {{ formDataCdp.additionalInfo }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+<hr>
 
 <!-- SET SOME DEFAULTS -->
-    {% set column4or5 = '25%' %}
+{% set column4or5 = '25%' %}
     {% set column5or6 = '20%' %}
     {% set column6or7 = '16%' %}
     {% set colspan4or5 = '4' %}
     {% set colspan5or6 = '5' %}
 
 
-    <!-- CHECK SOME PARAMETERS -->
-    {% if (formProgress == 'ye') %}
-        {% set column4or5 = '20%' %}
-        {% set column5or6 = '16%' %}
-        {% set column6or7 = '14%' %}
-        {% set colspan4or5 = '5' %}
-        {% set colspan5or6 = '6' %}
+<!-- CHECK SOME PARAMETERS -->
+{% if (formProgress == 'ye') %}
+    {% set column4or5 = '20%' %}
+    {% set column5or6 = '16%' %}
+    {% set column6or7 = '14%' %}
+    {% set colspan4or5 = '5' %}
+    {% set colspan5or6 = '6' %}
 
-    {% endif %}
+{% endif %}
 
-    <!-- SELF ASSESSMENT -->
-    <div id="selfAssessment" class="row" style="padding-top: 40px;">
-        <div class="col-md-12">
-            <h3>Self Assessment <a href="http://bit.ly/move-DanielOfman" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></h3><br>
-            <span style="font-style: italic;">Complete at least one, no more than five items for both strengths and development needs.</span>
-            <hr>
+<!-- SELF ASSESSMENT -->
+<div id="selfAssessment" class="row" style="padding-top: 40px;">
+    <div class="col-md-12">
+        <h3>Self Assessment <a href="http://bit.ly/move-DanielOfman" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></h3><br>
+        <span style="font-style: italic;">Complete at least one, no more than five items for both strengths and development needs.</span>
+        <hr>
 
-            <table class="table">
+        <table class="table">
+            <tr>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Talent</th>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Pitfall</th>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Challenge</th>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">How</th>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Success</th>
+                <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Need</th>
+                {% if (formProgress == 'ye') %}
+                    <th width="{{ column6or7 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
+                {% endif %}
+            </tr>
+
+            <!-- SELF ASSESSMENT 1 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
                 <tr>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Talent</th>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Pitfall</th>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Challenge</th>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">How</th>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Success</th>
-                    <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Need</th>
-                    {% if (formProgress == 'ye') %}
-                            <th width="{{ column6or7 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
-                    {% endif %}
+                    <td>
+                        <strong>{{ form_widget(formForm.sa1CoreQuality) }}</strong><br>
+                        {{ form_widget(formForm.sa1CoreQualityDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa1Pitfall) }}</strong><br>
+                        {{ form_widget(formForm.sa1PitfallDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa1Challenge) }}</strong><br>
+                        {{ form_widget(formForm.sa1ChallengeDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa1How,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa1Success,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa1Needs,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
                 </tr>
-
-                <!-- SELF ASSESSMENT 1 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+            {% else %}
+                {% if ( (formDataCdp.sa1CoreQuality is not null) or
+                (formDataCdp.sa1CoreQualityDesc is not null) or
+                (formDataCdp.sa1Pitfall is not null) or
+                (formDataCdp.sa1PitfallDesc is not null) or
+                (formDataCdp.sa1Challenge is not null) or
+                (formDataCdp.sa1ChallengeDesc is not null) or
+                (formDataCdp.sa1How is not null) or
+                (formDataCdp.sa1Success is not null) or
+                (formDataCdp.sa1Needs is not null)
+                )
+                %}
                     <tr>
                         <td>
-                            <strong>{{ form_widget(formForm.sa1CoreQuality) }}</strong><br>
-                            {{ form_widget(formForm.sa1CoreQualityDesc, 
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa1CoreQuality is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa1CoreQuality.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa1CoreQualityDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa1Pitfall) }}</strong><br>
-                            {{ form_widget(formForm.sa1PitfallDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa1Pitfall is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa1Pitfall.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa1PitfallDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa1Challenge) }}</strong><br>
-                            {{ form_widget(formForm.sa1ChallengeDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa1How,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa1Success,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa1Needs,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
-                        </td>
-                    </tr>
-                {% else %}
-<<<<<<< HEAD
-                    {% if (formDataCdp.sa1Challenge != null) %}
-                        <tr>
-                            <td>
-                                <strong>{{ formDataCdp.sa1CoreQuality.name }}</strong><br><br>
-                                {{ formDataCdp.sa1CoreQualityDesc }}
-                                </td>
-                            <td>
-                                <strong>{{ formDataCdp.sa1Pitfall.name }}</strong><br><br>
-=======
-                    {% if ( (formDataCdp.sa1CoreQuality is not null) or
-                            (formDataCdp.sa1CoreQualityDesc is not null) or
-                            (formDataCdp.sa1Pitfall is not null) or
-                            (formDataCdp.sa1PitfallDesc is not null) or
-                            (formDataCdp.sa1Challenge is not null) or
-                            (formDataCdp.sa1ChallengeDesc is not null) or
-                            (formDataCdp.sa1How is not null) or
-                            (formDataCdp.sa1Success is not null) or
-                            (formDataCdp.sa1Needs is not null)
-                        )
-                    %}
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa1CoreQuality is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa1CoreQuality.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa1CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa1Pitfall is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa1Pitfall.name }}
-                                    {% endif %}
-                                </strong><br><br>
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                {{ formDataCdp.sa1PitfallDesc }}
-                            </td>
-                            <td>
-                                <strong>
-<<<<<<< HEAD
-                                {% if (formDataCdp.sa1Challenge.id > 122)  %}
+                            <strong>
+                                {% if ((formDataCdp.sa1Challenge is null) or (formDataCdp.sa1Challenge.id > 122))  %}
                                     N/A
                                 {% else %}
                                     {{ formDataCdp.sa1Challenge.name }}
                                 {% endif %}
-=======
-                                    {% if ((formDataCdp.sa1Challenge is null) or (formDataCdp.sa1Challenge.id > 122))  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa1Challenge.name }}
-                                    {% endif %}
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                </strong><br><br>
-                                {{ formDataCdp.sa1ChallengeDesc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa1How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa1Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa1Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
-                                        {{ form_widget(formForm.sa1FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sa1FeedbackYE }}
-                                    {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa1ChallengeDesc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa1How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa1Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa1Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                    {{ form_widget(formForm.sa1FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sa1FeedbackYE }}
                                 {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- SELF ASSESSMENT 2 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            <strong>{{ form_widget(formForm.sa2CoreQuality) }}</strong><br>
-                            {{ form_widget(formForm.sa2CoreQualityDesc, 
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
-                        </td>
-                        <td>
-                            <strong>{{ form_widget(formForm.sa2Pitfall) }}</strong><br>
-                            {{ form_widget(formForm.sa2PitfallDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
-                        </td>
-                        <td>
-                            <strong>{{ form_widget(formForm.sa2Challenge) }}</strong><br>
-                            {{ form_widget(formForm.sa2ChallengeDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa2How,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa2Success,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sa2Needs,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {% endif %}
                         </td>
                     </tr>
-                {% else %}
-<<<<<<< HEAD
-                    {% if (formDataCdp.sa2Challenge != null) %}
-                        <tr>
-                            <td>
-                                <strong>{{ formDataCdp.sa2CoreQuality.name }}</strong><br><br>
-                                {{ formDataCdp.sa2CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>{{ formDataCdp.sa2Pitfall.name }}</strong><br><br>
-=======
-                    {% if ( (formDataCdp.sa2CoreQuality is not null) or
-                            (formDataCdp.sa2CoreQualityDesc is not null) or
-                            (formDataCdp.sa2Pitfall is not null) or
-                            (formDataCdp.sa2PitfallDesc is not null) or
-                            (formDataCdp.sa2Challenge is not null) or
-                            (formDataCdp.sa2ChallengeDesc is not null) or
-                            (formDataCdp.sa2How is not null) or
-                            (formDataCdp.sa2Success is not null) or
-                            (formDataCdp.sa2Needs is not null)
-                        )
-                    %}
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa2CoreQuality is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa2CoreQuality.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa2CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa2Pitfall is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa2Pitfall.name }}
-                                    {% endif %}
-                                </strong><br><br>
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                {{ formDataCdp.sa2PitfallDesc }}
-                            </td>
-                            <td>
-                                <strong>
-<<<<<<< HEAD
-                                    {% if (formDataCdp.sa2Challenge.id > 122)  %}
-=======
-                                    {% if ((formDataCdp.sa2Challenge is null) or (formDataCdp.sa2Challenge.id > 122))  %}
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa2Challenge.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa2ChallengeDesc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa2How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa2Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa2Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
-                                        {{ form_widget(formForm.sa2FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sa2FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
                 {% endif %}
+            {% endif %}
 
-                <!-- SELF ASSESSMENT 3 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+            <!-- SELF ASSESSMENT 2 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa2CoreQuality) }}</strong><br>
+                        {{ form_widget(formForm.sa2CoreQualityDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa2Pitfall) }}</strong><br>
+                        {{ form_widget(formForm.sa2PitfallDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa2Challenge) }}</strong><br>
+                        {{ form_widget(formForm.sa2ChallengeDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa2How,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa2Success,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa2Needs,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if ( (formDataCdp.sa2CoreQuality is not null) or
+                (formDataCdp.sa2CoreQualityDesc is not null) or
+                (formDataCdp.sa2Pitfall is not null) or
+                (formDataCdp.sa2PitfallDesc is not null) or
+                (formDataCdp.sa2Challenge is not null) or
+                (formDataCdp.sa2ChallengeDesc is not null) or
+                (formDataCdp.sa2How is not null) or
+                (formDataCdp.sa2Success is not null) or
+                (formDataCdp.sa2Needs is not null)
+                )
+                %}
                     <tr>
                         <td>
-                            <strong>{{ form_widget(formForm.sa3CoreQuality) }}</strong><br>
-                            {{ form_widget(formForm.sa3CoreQualityDesc, 
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa2CoreQuality is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa2CoreQuality.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa2CoreQualityDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa3Pitfall) }}</strong><br>
-                            {{ form_widget(formForm.sa3PitfallDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa2Pitfall is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa2Pitfall.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa2PitfallDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa3Challenge) }}</strong><br>
-                            {{ form_widget(formForm.sa3ChallengeDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if ((formDataCdp.sa2Challenge is null) or (formDataCdp.sa2Challenge.id > 122))  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa2Challenge.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa2ChallengeDesc }}
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa3How,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa2How }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa3Success,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa2Success }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa3Needs,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa2Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                    {{ form_widget(formForm.sa2FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sa2FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
                         </td>
                     </tr>
-                {% else %}
-<<<<<<< HEAD
-                    {% if (formDataCdp.sa3Challenge != null) %}
-                        <tr>
-                            <td>
-                                <strong>{{ formDataCdp.sa3CoreQuality.name }}</strong><br><br>
-                                {{ formDataCdp.sa3CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>{{ formDataCdp.sa3Pitfall.name }}</strong><br><br>
-=======
-                    {% if ( (formDataCdp.sa3CoreQuality is not null) or
-                            (formDataCdp.sa3CoreQualityDesc is not null) or
-                            (formDataCdp.sa3Pitfall is not null) or
-                            (formDataCdp.sa3PitfallDesc is not null) or
-                            (formDataCdp.sa3Challenge is not null) or
-                            (formDataCdp.sa3ChallengeDesc is not null) or
-                            (formDataCdp.sa3How is not null) or
-                            (formDataCdp.sa3Success is not null) or
-                            (formDataCdp.sa3Needs is not null)
-                        )
-                    %}
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa3CoreQuality is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa3CoreQuality.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa3CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa3Pitfall is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa3Pitfall.name }}
-                                    {% endif %}
-                                </strong><br><br>
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                {{ formDataCdp.sa3PitfallDesc }}
-                            </td>
-                            <td>
-                                <strong>
-<<<<<<< HEAD
-                                    {% if (formDataCdp.sa3Challenge.id > 122)  %}
-=======
-                                    {% if ((formDataCdp.sa3Challenge is null) or (formDataCdp.sa3Challenge.id > 122))  %}
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa3Challenge.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa3ChallengeDesc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa3How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa3Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa3Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
-                                        {{ form_widget(formForm.sa3FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sa3FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
                 {% endif %}
+            {% endif %}
 
-                <!-- SELF ASSESSMENT 4 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+            <!-- SELF ASSESSMENT 3 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa3CoreQuality) }}</strong><br>
+                        {{ form_widget(formForm.sa3CoreQualityDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa3Pitfall) }}</strong><br>
+                        {{ form_widget(formForm.sa3PitfallDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa3Challenge) }}</strong><br>
+                        {{ form_widget(formForm.sa3ChallengeDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa3How,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa3Success,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa3Needs,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if ( (formDataCdp.sa3CoreQuality is not null) or
+                (formDataCdp.sa3CoreQualityDesc is not null) or
+                (formDataCdp.sa3Pitfall is not null) or
+                (formDataCdp.sa3PitfallDesc is not null) or
+                (formDataCdp.sa3Challenge is not null) or
+                (formDataCdp.sa3ChallengeDesc is not null) or
+                (formDataCdp.sa3How is not null) or
+                (formDataCdp.sa3Success is not null) or
+                (formDataCdp.sa3Needs is not null)
+                )
+                %}
                     <tr>
                         <td>
-                            <strong>{{ form_widget(formForm.sa4CoreQuality) }}</strong><br>
-                            {{ form_widget(formForm.sa4CoreQualityDesc, 
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa3CoreQuality is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa3CoreQuality.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa3CoreQualityDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa4Pitfall) }}</strong><br>
-                            {{ form_widget(formForm.sa4PitfallDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa3Pitfall is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa3Pitfall.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa3PitfallDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa4Challenge) }}</strong><br>
-                            {{ form_widget(formForm.sa4ChallengeDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if ((formDataCdp.sa3Challenge is null) or (formDataCdp.sa3Challenge.id > 122))  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa3Challenge.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa3ChallengeDesc }}
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa4How,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa3How }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa4Success,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa3Success }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa4Needs,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa3Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                    {{ form_widget(formForm.sa3FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sa3FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
                         </td>
                     </tr>
-                {% else %}
-<<<<<<< HEAD
-                    {% if (formDataCdp.sa4Challenge != null) %}
-                        <tr>
-                            <td>
-                                <strong>{{ formDataCdp.sa4CoreQuality.name }}</strong><br><br>
-                                {{ formDataCdp.sa4CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>{{ formDataCdp.sa4Pitfall.name }}</strong><br><br>
-=======
-                    {% if ( (formDataCdp.sa4CoreQuality is not null) or
-                            (formDataCdp.sa4CoreQualityDesc is not null) or
-                            (formDataCdp.sa4Pitfall is not null) or
-                            (formDataCdp.sa4PitfallDesc is not null) or
-                            (formDataCdp.sa4Challenge is not null) or
-                            (formDataCdp.sa4ChallengeDesc is not null) or
-                            (formDataCdp.sa4How is not null) or
-                            (formDataCdp.sa4Success is not null) or
-                            (formDataCdp.sa4Needs is not null)
-                        )
-                    %}
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa4CoreQuality is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa4CoreQuality.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa4CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa4Pitfall is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa4Pitfall.name }}
-                                    {% endif %}
-                                </strong><br><br>
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                {{ formDataCdp.sa4PitfallDesc }}
-                            </td>
-                            <td>
-                                <strong>
-<<<<<<< HEAD
-                                    {% if (formDataCdp.sa4Challenge.id > 122)  %}
-=======
-                                    {% if ((formDataCdp.sa4Challenge is null) or (formDataCdp.sa4Challenge.id > 122))  %}
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa4Challenge.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa4ChallengeDesc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa4How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa4Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa4Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
-                                        {{ form_widget(formForm.sa4FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sa4FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
                 {% endif %}
+            {% endif %}
 
-                <!-- SELF ASSESSMENT 5 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+            <!-- SELF ASSESSMENT 4 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa4CoreQuality) }}</strong><br>
+                        {{ form_widget(formForm.sa4CoreQualityDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa4Pitfall) }}</strong><br>
+                        {{ form_widget(formForm.sa4PitfallDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa4Challenge) }}</strong><br>
+                        {{ form_widget(formForm.sa4ChallengeDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa4How,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa4Success,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa4Needs,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if ( (formDataCdp.sa4CoreQuality is not null) or
+                (formDataCdp.sa4CoreQualityDesc is not null) or
+                (formDataCdp.sa4Pitfall is not null) or
+                (formDataCdp.sa4PitfallDesc is not null) or
+                (formDataCdp.sa4Challenge is not null) or
+                (formDataCdp.sa4ChallengeDesc is not null) or
+                (formDataCdp.sa4How is not null) or
+                (formDataCdp.sa4Success is not null) or
+                (formDataCdp.sa4Needs is not null)
+                )
+                %}
                     <tr>
                         <td>
-                            <strong>{{ form_widget(formForm.sa5CoreQuality) }}</strong><br>
-                            {{ form_widget(formForm.sa5CoreQualityDesc, 
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa4CoreQuality is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa4CoreQuality.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa4CoreQualityDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa5Pitfall) }}</strong><br>
-                            {{ form_widget(formForm.sa5PitfallDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if (formDataCdp.sa4Pitfall is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa4Pitfall.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa4PitfallDesc }}
                         </td>
                         <td>
-                            <strong>{{ form_widget(formForm.sa5Challenge) }}</strong><br>
-                            {{ form_widget(formForm.sa5ChallengeDesc,
-                                    { 'attr': {
-                                        'rows' : '4'
-                                    }}
-                                )
-                            }}
+                            <strong>
+                                {% if ((formDataCdp.sa4Challenge is null) or (formDataCdp.sa4Challenge.id > 122))  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa4Challenge.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa4ChallengeDesc }}
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa5How,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa4How }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa5Success,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa4Success }}<br><br>
                         </td>
                         <td>
-                            {{ form_widget(formForm.sa5Needs,
-                                    { 'attr': {
-                                        'rows' : '7'
-                                    }}
-                                )
-                            }}<br>
+                            {{ formDataCdp.sa4Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                    {{ form_widget(formForm.sa4FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sa4FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
                         </td>
                     </tr>
-                {% else %}
-<<<<<<< HEAD
-                    {% if (formDataCdp.sa5Challenge != null) %}
-                        <tr>
-                            <td>
-                                <strong>{{ formDataCdp.sa5CoreQuality.name }}</strong><br><br>
-                                {{ formDataCdp.sa5CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>{{ formDataCdp.sa5Pitfall.name }}</strong><br><br>
-=======
-                    {% if ( (formDataCdp.sa5CoreQuality is not null) or
-                            (formDataCdp.sa5CoreQualityDesc is not null) or
-                            (formDataCdp.sa5Pitfall is not null) or
-                            (formDataCdp.sa5PitfallDesc is not null) or
-                            (formDataCdp.sa5Challenge is not null) or
-                            (formDataCdp.sa5ChallengeDesc is not null) or
-                            (formDataCdp.sa5How is not null) or
-                            (formDataCdp.sa5Success is not null) or
-                            (formDataCdp.sa5Needs is not null)
-                        )
-                    %}
-                        <tr>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa5CoreQuality is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa5CoreQuality.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa5CoreQualityDesc }}
-                            </td>
-                            <td>
-                                <strong>
-                                    {% if (formDataCdp.sa5Pitfall is null)  %}
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa5Pitfall.name }}
-                                    {% endif %}
-                                </strong><br><br>
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                {{ formDataCdp.sa5PitfallDesc }}
-                            </td>
-                            <td>
-                                <strong>
-<<<<<<< HEAD
-                                    {% if (formDataCdp.sa5Challenge.id > 122)  %}
-=======
-                                    {% if ((formDataCdp.sa5Challenge is null) or (formDataCdp.sa5Challenge.id > 122))  %}
->>>>>>> 844f5503d38baf3e054329795c6138cb33caef94
-                                        N/A
-                                    {% else %}
-                                        {{ formDataCdp.sa5Challenge.name }}
-                                    {% endif %}
-                                </strong><br><br>
-                                {{ formDataCdp.sa5ChallengeDesc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa5How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa5Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sa5Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
-                                        {{ form_widget(formForm.sa5FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sa5FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
                 {% endif %}
-            </table>
-        </div>
+            {% endif %}
+
+            <!-- SELF ASSESSMENT 5 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa5CoreQuality) }}</strong><br>
+                        {{ form_widget(formForm.sa5CoreQualityDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa5Pitfall) }}</strong><br>
+                        {{ form_widget(formForm.sa5PitfallDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        <strong>{{ form_widget(formForm.sa5Challenge) }}</strong><br>
+                        {{ form_widget(formForm.sa5ChallengeDesc,
+                        { 'attr': {
+                            'rows' : '4'
+                        }}
+                        )
+                        }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa5How,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa5Success,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sa5Needs,
+                        { 'attr': {
+                            'rows' : '7'
+                        }}
+                        )
+                        }}<br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if ( (formDataCdp.sa5CoreQuality is not null) or
+                (formDataCdp.sa5CoreQualityDesc is not null) or
+                (formDataCdp.sa5Pitfall is not null) or
+                (formDataCdp.sa5PitfallDesc is not null) or
+                (formDataCdp.sa5Challenge is not null) or
+                (formDataCdp.sa5ChallengeDesc is not null) or
+                (formDataCdp.sa5How is not null) or
+                (formDataCdp.sa5Success is not null) or
+                (formDataCdp.sa5Needs is not null)
+                )
+                %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {% if (formDataCdp.sa5CoreQuality is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa5CoreQuality.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa5CoreQualityDesc }}
+                        </td>
+                        <td>
+                            <strong>
+                                {% if (formDataCdp.sa5Pitfall is null)  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa5Pitfall.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa5PitfallDesc }}
+                        </td>
+                        <td>
+                            <strong>
+                                {% if ((formDataCdp.sa5Challenge is null) or (formDataCdp.sa5Challenge.id > 122))  %}
+                                    N/A
+                                {% else %}
+                                    {{ formDataCdp.sa5Challenge.name }}
+                                {% endif %}
+                            </strong><br><br>
+                            {{ formDataCdp.sa5ChallengeDesc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa5How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa5Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sa5Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                    {{ form_widget(formForm.sa5FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sa5FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
     </div>
+</div>
 
 
-    <!-- DEVELOPMENT NEEDS -->
-    <div id="developmentNeeds" class="row" style="padding-top: 40px;">
-        <div class="col-md-12">
-            <h3>Development Needs for your job</h3><br>
-            <span style="font-style: italic;">
+<!-- DEVELOPMENT NEEDS -->
+<div id="developmentNeeds" class="row" style="padding-top: 40px;">
+    <div class="col-md-12">
+        <h3>Development Needs for your job</h3><br>
+        <span style="font-style: italic;">
                 Align your personal goals with the company and team KPIs, as well as your job description.<br>
                 Click on the information button next to some titles for more information.
             </span>
+        <hr>
+
+        <!-- TASKS AND RESPONSIBILITIES -->
+        <table class="table">
+            <tr>
+                <th colspan="{{ colspan4or5 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Job Specific Tasks and Responsibilities <a href="http://bit.ly/move-PMF2018" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
+            </tr>
+            <tr>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                {% if (formProgress == 'ye') %}
+                    <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
+                {% endif %}
+
+            </tr>
+
+            <!-- TASKS AND RESPONSIBILITIES 1 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.tr1WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr1How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr1Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr1Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.tr1WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.tr1WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr1How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr1Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr1Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.tr1FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.tr1FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- TASKS AND RESPONSIBILITIES 2 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.tr2WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr2How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr2Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr2Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.tr2WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.tr2WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr2How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr2Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr2Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.tr2FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.tr2FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- TASKS AND RESPONSIBILITIES 3 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.tr3WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr3How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr3Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr3Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.tr3WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.tr3WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr3How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr3Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr3Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.tr3FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.tr3FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- TASKS AND RESPONSIBILITIES 4 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.tr4WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr4How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr4Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr4Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.tr4WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.tr4WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr4How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr4Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr4Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.tr4FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.tr4FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- TASKS AND RESPONSIBILITIES 5 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.tr5WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr5How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr5Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.tr5Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.tr5WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.tr5WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr5How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr5Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.tr5Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.tr5FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.tr5FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+        </table>
+
+        <!-- SKILLS AND COMPETENCIES -->
+        <table class="table">
+            <tr>
+                <th colspan="{{ colspan4or5 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Job Specific Skills and Competencies <a href="http://bit.ly/move-PMF2018" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
+            </tr>
+            <tr>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
+                <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                {% if (formProgress == 'ye') %}
+                    <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
+                {% endif %}
+
+            </tr>
+
+            <!-- SKILLS AND COMPETENCIES 1 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.sc1WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc1How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc1Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc1Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.sc1WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.sc1WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc1How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc1Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc1Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.sc1FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sc1FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- SKILLS AND COMPETENCIES 2 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.sc2WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc2How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc2Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc2Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.sc2WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.sc2WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc2How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc2Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc2Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.sc2FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sc2FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- SKILLS AND COMPETENCIES 3 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.sc3WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc3How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc3Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc3Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.sc3WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.sc3WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc3How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc3Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc3Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.sc3FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sc3FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- SKILLS AND COMPETENCIES 4 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.sc4WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc4How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc4Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc4Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.sc4WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.sc4WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc4How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc4Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc4Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.sc4FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sc4FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- SKILLS AND COMPETENCIES 5 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.sc5WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc5How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc5Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.sc5Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.sc5WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.sc5WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc5How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc5Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.sc5Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.sc5FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.sc5FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
+
+        <!-- ORGANIZATION COMPETENCIES -->
+        <table class="table">
+            <tr>
+                <th colspan="{{ colspan5or6 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Organisational Values <a href="http://bit.ly/move-ValuesCISTER" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
+            </tr>
+            <tr>
+                <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Organisational Value<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Select the organisational value(s) you are committed to work on.</span></th>
+                <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
+                <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
+                <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
+                <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                {% if (formProgress == 'ye') %}
+                    <th width="{{ column5or6 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
+                {% endif %}
+            </tr>
+
+            <!-- ORGANIZATION COMPETENCIES 1 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.oc1WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc1Desc) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc1How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc1Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc1Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.oc1WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.oc1WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc1Desc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc1How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc1Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc1Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.oc1FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.oc1FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- ORGANIZATION COMPETENCIES 2 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.oc2WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc2Desc) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc2How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc2Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc2Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.oc2WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.oc2WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc2Desc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc2How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc2Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc2Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.oc2FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.oc2FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- ORGANIZATION COMPETENCIES 3 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.oc3WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc3Desc) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc3How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc3Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc3Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.oc3WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.oc3WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc3Desc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc3How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc3Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc3Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.oc3FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.oc3FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- ORGANIZATION COMPETENCIES 4 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.oc4WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc4Desc) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc4How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc4Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc4Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.oc4WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.oc4WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc4Desc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc4How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc4Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc4Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.oc4FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.oc4FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+
+            <!-- ORGANIZATION COMPETENCIES 5 -->
+            {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                <tr>
+                    <td>
+                        {{ form_widget(formForm.oc5WhatWhy) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc5Desc) }}
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc5How) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc5Success) }}<br><br>
+                    </td>
+                    <td>
+                        {{ form_widget(formForm.oc5Needs) }}<br><br>
+                    </td>
+                </tr>
+            {% else %}
+                {% if (formDataCdp.oc5WhatWhy != null) %}
+                    <tr>
+                        <td>
+                            {{ formDataCdp.oc5WhatWhy }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc5Desc }}
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc5How }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc5Success }}<br><br>
+                        </td>
+                        <td>
+                            {{ formDataCdp.oc5Needs }}<br><br>
+                        </td>
+                        <td>
+                            {% if (formProgress == 'ye') %}
+                                {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                    {{ form_widget(formForm.oc5FeedbackYE) }}
+                                {% else %}
+                                    {{ formDataYe.oc5FeedbackYE }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+<!-- FEEDBACK FOR ORGANIZATION -->
+{% if (formProgress == 'ye') %}
+    <div id="feedbackForOrganization" class="row" style="padding-top: 40px;">
+        <div class="col-md-12">
+            <h3>Feedback for the Organisation</h3>
             <hr>
 
-            <!-- TASKS AND RESPONSIBILITIES -->
             <table class="table">
+                <tr><th style="border: none; background-color: #EEEEEE;">Share strengths and development needs for your supervisor from your point of view.</th></tr>
                 <tr>
-                    <th colspan="{{ colspan4or5 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Job Specific Tasks and Responsibilities <a href="http://bit.ly/move-PMF2018" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
-                </tr>
-                <tr>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
-                    {% if (formProgress == 'ye') %}
-                        <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
-                    {% endif %}
-
+                    <td style="border: none; padding-bottom: 30px;">
+                        {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                            {{ form_widget(formForm.yeQ1) }}
+                        {% else %}
+                            {{ formDataYe.yeQ1 }}
+                        {% endif %}
+                    </td>
                 </tr>
 
-                <!-- TASKS AND RESPONSIBILITIES 1 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.tr1WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr1How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr1Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr1Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.tr1WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.tr1WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr1How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr1Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr1Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.tr1FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.tr1FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- TASKS AND RESPONSIBILITIES 2 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.tr2WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr2How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr2Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr2Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.tr2WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.tr2WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr2How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr2Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr2Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.tr2FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.tr2FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- TASKS AND RESPONSIBILITIES 3 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.tr3WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr3How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr3Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr3Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.tr3WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.tr3WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr3How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr3Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr3Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.tr3FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.tr3FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- TASKS AND RESPONSIBILITIES 4 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.tr4WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr4How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr4Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr4Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.tr4WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.tr4WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr4How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr4Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr4Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.tr4FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.tr4FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- TASKS AND RESPONSIBILITIES 5 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.tr5WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr5How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr5Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.tr5Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.tr5WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.tr5WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr5How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr5Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.tr5Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.tr5FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.tr5FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-            </table>
-
-            <!-- SKILLS AND COMPETENCIES -->
-            <table class="table">
+                <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for your team.</th></tr>
                 <tr>
-                    <th colspan="{{ colspan4or5 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Job Specific Skills and Competencies <a href="http://bit.ly/move-PMF2018" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
-                </tr>
-                <tr>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
-                    <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
-                    {% if (formProgress == 'ye') %}
-                        <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
-                    {% endif %}
-
+                    <td style="border: none; padding-bottom: 30px;">
+                        {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                            {{ form_widget(formForm.yeQ2) }}
+                        {% else %}
+                            {{ formDataYe.yeQ2 }}
+                        {% endif %}
+                    </td>
                 </tr>
 
-                <!-- SKILLS AND COMPETENCIES 1 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.sc1WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc1How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc1Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc1Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.sc1WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.sc1WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc1How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc1Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc1Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.sc1FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sc1FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- SKILLS AND COMPETENCIES 2 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.sc2WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc2How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc2Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc2Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.sc2WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.sc2WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc2How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc2Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc2Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.sc2FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sc2FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- SKILLS AND COMPETENCIES 3 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.sc3WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc3How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc3Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc3Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.sc3WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.sc3WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc3How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc3Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc3Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.sc3FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sc3FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- SKILLS AND COMPETENCIES 4 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.sc4WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc4How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc4Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc4Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.sc4WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.sc4WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc4How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc4Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc4Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.sc4FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sc4FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- SKILLS AND COMPETENCIES 5 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.sc5WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc5How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc5Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.sc5Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.sc5WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.sc5WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc5How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc5Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.sc5Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.sc5FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.sc5FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-            </table>
-
-            <!-- ORGANIZATION COMPETENCIES -->
-            <table class="table">
+                <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for the other teams.</th></tr>
                 <tr>
-                    <th colspan="{{ colspan5or6 }}" style="border: none; background-color: #DDDDDD; text-align: center;">Organisational Values <a href="http://bit.ly/move-ValuesCISTER" target="_blank" title="Click for more info"><span class="fa fa-info-circle"></span></a></th>
-                </tr>
-                <tr>
-                    <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Organisational Value<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Select the organisational value(s) you are committed to work on.</span></th>
-                    <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">What & Why<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">Write down the actions you will take this year to further develop yourself in your job.</span></th>
-                    <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
-                    <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
-                    <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
-                    {% if (formProgress == 'ye') %}
-                        <th width="{{ column5or6 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
-                    {% endif %}
+                    <td style="border: none; padding-bottom: 30px;">
+                        {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                            {{ form_widget(formForm.yeQ3) }}
+                        {% else %}
+                            {{ formDataYe.yeQ3 }}
+                        {% endif %}
+                    </td>
                 </tr>
 
-                <!-- ORGANIZATION COMPETENCIES 1 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.oc1WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc1Desc) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc1How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc1Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc1Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.oc1WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.oc1WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc1Desc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc1How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc1Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc1Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.oc1FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.oc1FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ORGANIZATION COMPETENCIES 2 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.oc2WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc2Desc) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc2How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc2Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc2Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.oc2WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.oc2WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc2Desc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc2How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc2Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc2Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.oc2FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.oc2FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ORGANIZATION COMPETENCIES 3 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.oc3WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc3Desc) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc3How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc3Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc3Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.oc3WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.oc3WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc3Desc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc3How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc3Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc3Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.oc3FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.oc3FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ORGANIZATION COMPETENCIES 4 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.oc4WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc4Desc) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc4How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc4Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc4Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.oc4WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.oc4WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc4Desc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc4How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc4Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc4Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.oc4FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.oc4FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-
-                <!-- ORGANIZATION COMPETENCIES 5 -->
-                {% if ((formProgress == 'cdp') and (userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
-                    <tr>
-                        <td>
-                            {{ form_widget(formForm.oc5WhatWhy) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc5Desc) }}
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc5How) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc5Success) }}<br><br>
-                        </td>
-                        <td>
-                            {{ form_widget(formForm.oc5Needs) }}<br><br>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% if (formDataCdp.oc5WhatWhy != null) %}
-                        <tr>
-                            <td>
-                                {{ formDataCdp.oc5WhatWhy }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc5Desc }}
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc5How }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc5Success }}<br><br>
-                            </td>
-                            <td>
-                                {{ formDataCdp.oc5Needs }}<br><br>
-                            </td>
-                            <td>
-                                {% if (formProgress == 'ye') %}
-                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                        {{ form_widget(formForm.oc5FeedbackYE) }}
-                                    {% else %}
-                                        {{ formDataYe.oc5FeedbackYE }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
+                <tr><th style="border: none; background-color: #EEEEEE;">Share feedback for the Organisation in terms of working environment, health and safety, available tools and gear, etc.</th></tr>
+                <tr>
+                    <td style="border: none;">
+                        {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                            {{ form_widget(formForm.yeQ4) }}
+                        {% else %}
+                            {{ formDataYe.yeQ4 }}
+                        {% endif %}
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
-
-    <!-- FEEDBACK FOR ORGANIZATION -->
-    {% if (formProgress == 'ye') %}
-        <div id="feedbackForOrganization" class="row" style="padding-top: 40px;">
-            <div class="col-md-12">
-                <h3>Feedback for the Organisation</h3>
-                <hr>
-
-                <table class="table">
-                    <tr><th style="border: none; background-color: #EEEEEE;">Share strengths and development needs for your supervisor from your point of view.</th></tr>
-                    <tr>
-                        <td style="border: none; padding-bottom: 30px;">
-                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                {{ form_widget(formForm.yeQ1) }}
-                            {% else %}
-                                {{ formDataYe.yeQ1 }}
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                    <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for your team.</th></tr>
-                    <tr>
-                        <td style="border: none; padding-bottom: 30px;">
-                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                {{ form_widget(formForm.yeQ2) }}
-                            {% else %}
-                                {{ formDataYe.yeQ2 }}
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                    <tr><th style="border: none; background-color: #EEEEEE;">Share your ideas, working areas for the other teams.</th></tr>
-                    <tr>
-                        <td style="border: none; padding-bottom: 30px;">
-                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                {{ form_widget(formForm.yeQ3) }}
-                            {% else %}
-                                {{ formDataYe.yeQ3 }}
-                            {% endif %}
-                        </td>
-                    </tr>
-
-                    <tr><th style="border: none; background-color: #EEEEEE;">Share feedback for the Organisation in terms of working environment, health and safety, available tools and gear, etc.</th></tr>
-                    <tr>
-                        <td style="border: none;">
-                            {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
-                                {{ form_widget(formForm.yeQ4) }}
-                            {% else %}
-                                {{ formDataYe.yeQ4 }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    {% endif %}
+{% endif %}
 
 
+<!-- YEAR-END RATING -->
+{% if (formProgress == 'ye') %}
     <!-- YEAR-END RATING -->
-    {% if (formProgress == 'ye') %}
-        <!-- YEAR-END RATING -->
-        <div id="yeRating" class="row" style="padding-top: 40px;">
-                <div class="col-md-6">
-                    <h3>Year-End Rating</h3>
-                    {% if ((userType == 'user') and (formAction == 'view') and (formDataYe.yeStatus.id == '8')) %}
-                        <hr>
+    <div id="yeRating" class="row" style="padding-top: 40px;">
+        <div class="col-md-6">
+            <h3>Year-End Rating</h3>
+            {% if ((userType == 'user') and (formAction == 'view') and (formDataYe.yeStatus.id == '8')) %}
+                <hr>
+                {{ formDataYe.yeRating }}
+                {% elseif ((userType == 'supervisor') or (userType == 'board') or (userType == 'hr')) %}
+                <span style="font-style: italic;">Select the Year-End rating for this employee</span>
+            <hr>
+
+                <p>
+                    {% if ((formAction == 'view') or (userType == 'board')) %}
                         {{ formDataYe.yeRating }}
-                    {% elseif ((userType == 'supervisor') or (userType == 'board') or (userType == 'hr')) %}
-                        <span style="font-style: italic;">Select the Year-End rating for this employee</span>
-                        <hr>
-
-                        <p>
-                            {% if ((formAction == 'view') or (userType == 'board')) %}
-                                {{ formDataYe.yeRating }}
-                            {% else %}
-                                {{ form_widget(formForm.yeRating) }}
-                            {% endif %}
-                        </p>
                     {% else %}
-                        <script type="text/javascript">
-                            document.getElementById('yeRating').style.display = 'none';
-                        </script>
+                        {{ form_widget(formForm.yeRating) }}
                     {% endif %}
-                </div>
+                </p>
+            {% else %}
+                <script type="text/javascript">
+                    document.getElementById('yeRating').style.display = 'none';
+                </script>
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
+{% endif %}
 
-    <div class="row" style="padding-top: 40px;"></div>
+<div class="row" style="padding-top: 40px;"></div>
 
 {% if ((formAction == 'edit') or (formAction == "create")) %}
     {% if (userType == 'user') %}
