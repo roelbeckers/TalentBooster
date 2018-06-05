@@ -330,45 +330,45 @@ class FormCdpType extends AbstractType
                         'onclick' => "return confirm('This form will be send to your Supervisor.\\nYou will not be able to make any changes.\\n\\nDo you want to continue?')"
                     )
                 ])
-                ;
+            ;
 
-                /*$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
-                    //$formData = $event->getData();
-                    //dump($formData);die;
-                    $form = $event->getForm();
+            /*$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event){
+                //$formData = $event->getData();
+                //dump($formData);die;
+                $form = $event->getForm();
 
-                    // SELF ASSESSMENT
-                    if ($formData->getSa4CoreQuality() != null) {
-                        $form->add('sa4FeedbackYE');
-                    }
-                    if ($formData->getSa5CoreQuality() != null) {
-                        $form->add('sa5FeedbackYE');
-                    }
+                // SELF ASSESSMENT
+                if ($formData->getSa4CoreQuality() != null) {
+                    $form->add('sa4FeedbackYE');
+                }
+                if ($formData->getSa5CoreQuality() != null) {
+                    $form->add('sa5FeedbackYE');
+                }
 
-                    // TASKS AND RESPONSIBILITIES
-                    if ($formData->getTr4WhatWhy() != null) {
-                        $form->add('tr4FeedbackYE');
-                    }
-                    if ($formData->getTr5WhatWhy() != null) {
-                        $form->add('tr5FeedbackYE');
-                    }
+                // TASKS AND RESPONSIBILITIES
+                if ($formData->getTr4WhatWhy() != null) {
+                    $form->add('tr4FeedbackYE');
+                }
+                if ($formData->getTr5WhatWhy() != null) {
+                    $form->add('tr5FeedbackYE');
+                }
 
-                    // SKILLS AND COMPETENCIES
-                    if ($formData->getSc4WhatWhy() != null) {
-                        $form->add('sc4FeedbackYE');
-                    }
-                    if ($formData->getSc5WhatWhy() != null) {
-                        $form->add('sc5FeedbackYE');
-                    }
+                // SKILLS AND COMPETENCIES
+                if ($formData->getSc4WhatWhy() != null) {
+                    $form->add('sc4FeedbackYE');
+                }
+                if ($formData->getSc5WhatWhy() != null) {
+                    $form->add('sc5FeedbackYE');
+                }
 
-                    // ORGANIZATIONAL COMPETENCIES
-                    if ($formData->getOc4WhatWhy() != null) {
-                        $form->add('oc4FeedbackYE');
-                    }
-                    if ($formData->getOc5WhatWhy() != null) {
-                        $form->add('oc5FeedbackYE');
-                    }
-            });*/
+                // ORGANIZATIONAL COMPETENCIES
+                if ($formData->getOc4WhatWhy() != null) {
+                    $form->add('oc4FeedbackYE');
+                }
+                if ($formData->getOc5WhatWhy() != null) {
+                    $form->add('oc5FeedbackYE');
+                }
+        });*/
         }
 
         if (($this->formParam['userType'] == 'supervisor') and ($this->formParam['formAction'] == 'edit')){

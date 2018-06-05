@@ -58,15 +58,32 @@
                             </tr>
 
                             <!-- Mid-Year -->
-                            {% if (record.cycle.myDateStart != null) %}
-                                <tr>
-                                    <td>Mid-Year</td>
-                                    <td>{{ record.cycle.myDateStart|date('d-M-Y') }} until {{ record.cycle.myDateEnd|date('d-M-Y') }}</td>
+                            <tr>
+                                <td>Mid-Year</td>
+                                <td>{{ record.cycle.myDateStart|date('d-M-Y') }} until {{ record.cycle.myDateEnd|date('d-M-Y') }}</td>
+                                {% if record.formMy != null %}
                                     <td>{{ record.formMy.myStatus }}</td>
-                                    <!-- AVAILABLE -->          {{ (record.formMy.myStatus.id == 1) ? '<td><a href="#" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a></td>' : '<td>&nbsp;</td>' }}
-                                    <!-- NOT YET AVAILABLE -->  {{ (record.formMy.myStatus.id == 9) ? '<td>&nbsp;' : '<td>&nbsp;</td>' }}
-                                </tr>
-                            {% endif %}
+                                    <td>
+                                        {% if (record.formMy.myStatus.id == 1) or (record.formMy.myStatus.id == 2) or (record.formMy.myStatus.id == 4) or (record.formMy.myStatus.id == 7) %}
+                                            <a href="{{ path('ye_edit', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                            <a href="{{ path('pdf_ye', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% elseif (record.formYe.yeStatus.id == 3) or (record.formYe.yeStatus.id == 5) or (record.formYe.yeStatus.id == 6) or (record.formYe.yeStatus.id == 8) %}
+                                            <a href="{{ path('ye_view', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                            <a href="{{ path('pdf_ye', {'id': record.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                                        {% else %}
+                                            <span class="btn btn-primary" disabled="disabled">No action</span>
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    {% if ((record.cycle.myDateStart|date('Y-m-d') <= "now"|date('Y-m-d')) and (record.cycle.myDateEnd|date('Y-m-d') > "now"|date('Y-m-d'))) %}
+                                        <td>Available</td>
+                                        <td><a href="{{ path('ye_create', {'id': record.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Create</a></td>
+                                    {% else %}
+                                        <td>Not available</td>
+                                        <td><span class="btn btn-primary" disabled="disabled">No action</span></td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
 
                             <!-- Year-End -->
                             <tr>
