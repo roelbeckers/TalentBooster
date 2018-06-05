@@ -18,11 +18,14 @@
                 <th style="background-color: #EEEEEE; border: none; width: 200px;">{{ knp_pagination_sortable(pagination, 'Employee', 'user.firstname') }}</th>
                 <th style="background-color: #EEEEEE; border: none; width: 200px;">{{ knp_pagination_sortable(pagination, 'Team', 'user.team') }}</th>
                 <th colspan="2" style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF;">CDP</th>
+                <th colspan="2" style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF;">Mid-Year</th>
                 <th colspan="2" style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF;">Year-End</th>
             </tr>
             <tr>
                 <th style="background-color: #EEEEEE; border: none;"></th>
                 <th style="background-color: #EEEEEE; border: none;"></th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
+                <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Action</th>
                 <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
                 <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Action</th>
                 <th style="background-color: #EEEEEE; border: none; border-left: thin; border-left-style: dotted; border-left-color: #FFFFFF; width: 150px;">Status</th>
@@ -73,6 +76,25 @@
                             {% elseif (cdpStatus.id == 4) or (cdpStatus.id == 5) or (cdpStatus.id == 6) or (cdpStatus.id == 7) or (cdpStatus.id == 8) %}
                                 <a href="{{ path('cdp_view', {'id': currentRecord.id}) }}" class="btn btn-primary" style="width: 90px;"><span class="fa fa-angle-double-right"></span> View</a>
                                 <a href="{{ path('pdf_cdp', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% else %}
+                                <span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span>
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">Not yet started</td>
+                        <td><span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span></td>
+                    {% endif %}
+
+                    <!-- MY -->
+                    {% if (myStatus != null) %}
+                        <td style="border-left: thin; border-left-style: dotted; border-left-color: #DDDDDD;">{{ myStatus }}</td>
+                        <td>
+                            {% if (myStatus.id == 3) %}
+                                <a href="{{ path('my_edit', {'id': currentRecord.id}) }}" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                                <a href="{{ path('pdf_my', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
+                            {% elseif (myStatus.id == 4) or (myStatus.id == 5) or (myStatus.id == 6) or (myStatus.id == 7) or (myStatus.id == 8) %}
+                                <a href="{{ path('my_view', {'id': currentRecord.id}) }}" class="btn btn-primary"><span class="fa fa-angle-double-right"></span> View</a>
+                                <a href="{{ path('pdf_my', {'id': currentRecord.id}) }}" class="btn btn-action"><span class="fa fa-download"></span> Export PDF</a>
                             {% else %}
                                 <span class="btn btn-primary" style="width: 90px;" disabled="disabled">No action</span>
                             {% endif %}

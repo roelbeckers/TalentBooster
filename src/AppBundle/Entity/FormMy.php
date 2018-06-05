@@ -11,6 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class FormMy
 {
+    public function __construct()
+    {
+        $this->myFeedbackDate = new \DateTime();
+    }
+
+
     // GENERAL
 
     /**

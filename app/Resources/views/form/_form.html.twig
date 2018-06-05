@@ -2,6 +2,10 @@
     {{ form_errors(formForm) }}
     <p>&nbsp;</p>
 
+{% dump formProgress %}
+{% dump userType %}
+{% dump formAction %}
+{% dump formDataMy %}
 
     <!-- PERSONALIA -->
     <div id="personalia" class="row">
@@ -32,7 +36,11 @@
                                 {{ formDataCdp.cdpFeedbackDate|date('d-M-Y') }}
                             {% endif %}
                         {% elseif (formProgress == 'my') %}
-                            {{ formDataMy.myFeedbackDate|date('d-M-Y') }}
+                            {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
+                                {{ form_widget(formForm.myFeedbackDate) }}
+                            {% else %}
+                                {{ formDataMy.myFeedbackDate|date('d-M-Y') }}
+                            {% endif %}
                         {% elseif (formProgress == 'ye') %}
                             {% if ((userType == 'user') and ((formAction == 'create') or (formAction == 'edit'))) %}
                                 {{ form_widget(formForm.yeFeedbackDate) }}
@@ -45,7 +53,7 @@
                     <td style="border: none;">
                         {% if ((formProgress == 'cdp') and (formAction != "create")) %}
                             {{ formDataCdp.cdpStatus }}
-                        {% elseif (formProgress == 'my') %}
+                        {% elseif ((formProgress == 'my') and (formAction != "create")) %}
                             {{ formDataMy.myStatus }}
                         {% elseif ((formProgress == 'ye') and (formAction != "create")) %}
                             {{ formDataYe.yeStatus }}
@@ -147,9 +155,99 @@
         </div>
     </div>
 
+    <!-- MID-YEAR FEEDBACK -->
+    {% if (formProgress == 'my') %}
+        <div id="myFeedback" class="row" style="padding-top: 40px;">
+            <!-- MID-YEAR FEEDBACK SUPERVISOR -->
+            <div id="myFeedbackSupervisor">
+                <div class="col-md-6">
+                    <h3>Mid-Year Feedback Supervisor</h3>
+                    <hr>
 
+                    <p>
+                        {% if (userType == 'user') %}
+                            {% if (formAction == 'view') %}
+                            {% if ((formDataMy.myStatus.id == '5') or (formDataMy.myStatus.id == '6') or (formDataMy.myStatus.id == '8')) %}
+                                {{ formDataMy.myFeedbackSupervisor }}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackSupervisor').style.display = 'none';
+                                </script>
+                            {% endif %}
+                                {% elseif (formAction == 'edit') %}
+                            {% if (((formDataMy.myStatus.id == '2') or (formDataMy.myStatus.id == '4') or (formDataMy.myStatus.id == '7')) and (formDataMy.myFeedbackSupervisor != '')) %}
+                                {{ formDataMy.myFeedbackSupervisor }}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackSupervisor').style.display = 'none';
+                                </script>
+                            {% endif %}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackSupervisor').style.display = 'none';
+                                </script>
+                            {% endif %}
+                        {% elseif (userType == 'supervisor') %}
+                            {% if ((formAction == 'edit') and (formProgress == 'my') and (formDataMy.myStatus.id == '3')) %}
+                                {{ form_widget(formForm.myFeedbackSupervisor) }}
+                            {% else %}
+                                {{ formDataMy.myFeedbackSupervisor }}
+                            {% endif %}
+                        {% elseif (userType == 'board' or userType == 'hr') %}
+                            {{ formDataMy.myFeedbackSupervisor }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- MID-YEAR FEEDBACK HR -->
+            <div id="myFeedbackHR">
+                <div class="col-md-6">
+                    <h3>Mid-Year Feedback HR</h3>
+                    <hr>
+
+                    <p>
+                        {% if (userType == 'user') %}
+                            {% if (formAction == 'view') %}
+                            {% if (formDataMy.myStatus.id == '8') %}
+                                {{ formDataMy.myFeedbackHR }}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackHR').style.display = 'none';
+                                </script>
+                            {% endif %}
+                                {% elseif (formAction == 'edit') %}
+                            {% if (((formDataMy.myStatus.id == '2') or (formDataMy.myStatus.id == '7')) and (formDataMy.myFeedbackHR != '')) %}
+                                {{ formDataMy.myFeedbackHR }}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackHR').style.display = 'none';
+                                </script>
+                            {% endif %}
+                            {% else %}
+                                <script type="text/javascript">
+                                    document.getElementById('myFeedbackHR').style.display = 'none';
+                                </script>
+                            {% endif %}
+                        {% elseif (userType == 'supervisor') %}
+                            {{ formDataMy.myFeedbackHR }}
+                        {% elseif (userType == 'board' or userType == 'hr') %}
+                            {% if ((formAction == 'edit') and (formProgress == 'my') and ((formDataMy.myStatus.id == '5') or (formDataMy.myStatus.id == '6'))) %}
+                                {{ form_widget(formForm.myFeedbackHR) }}
+                            {% else %}
+                                {{ formDataMy.myFeedbackHR }}
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <!-- YEAR-END FEEDBACK -->
     {% if (formProgress == 'ye') %}
-        <!-- YEAR-END FEEDBACK -->
         <div id="yeFeedback" class="row" style="padding-top: 40px;">
             <!-- YEAR-END FEEDBACK SUPERVISOR -->
             <div id="yeFeedbackSupervisor">
@@ -310,6 +408,9 @@
                     <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">How</th>
                     <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Success</th>
                     <th width="{{ column6or7 }}" style="border: none; background-color: #EEEEEE;">Need</th>
+                    {% if (formProgress == 'my') %}
+                        <th width="{{ column6or7 }}" style="border: none; background-color: #80B441;">Mid-Year Assessment</th>
+                    {% endif %}
                     {% if (formProgress == 'ye') %}
                             <th width="{{ column6or7 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
                     {% endif %}
@@ -421,6 +522,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.sa1Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                        {{ form_widget(formForm.sa1FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sa1FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -543,6 +653,15 @@
                                 {{ formDataCdp.sa2Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                        {{ form_widget(formForm.sa2FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sa2FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
                                         {{ form_widget(formForm.sa2FeedbackYE) }}
@@ -661,6 +780,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.sa3Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                        {{ form_widget(formForm.sa3FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sa3FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -783,6 +911,15 @@
                                 {{ formDataCdp.sa4Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                        {{ form_widget(formForm.sa4FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sa4FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
                                         {{ form_widget(formForm.sa4FeedbackYE) }}
@@ -903,6 +1040,15 @@
                                 {{ formDataCdp.sa5Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
+                                        {{ form_widget(formForm.sa5FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sa5FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == 'create'))) %}
                                         {{ form_widget(formForm.sa5FeedbackYE) }}
@@ -939,6 +1085,9 @@
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                    {% if (formProgress == 'my') %}
+                        <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Mid-Year Assessment</th>
+                    {% endif %}
                     {% if (formProgress == 'ye') %}
                         <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
                     {% endif %}
@@ -975,6 +1124,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.tr1Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.tr1FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.tr1FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1021,6 +1179,15 @@
                                 {{ formDataCdp.tr2Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.tr2FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.tr2FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr2FeedbackYE) }}
@@ -1063,6 +1230,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.tr3Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.tr3FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.tr3FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1109,6 +1285,15 @@
                                 {{ formDataCdp.tr4Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.tr4FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.tr4FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr4FeedbackYE) }}
@@ -1153,6 +1338,15 @@
                                 {{ formDataCdp.tr5Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.tr5FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.tr5FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.tr5FeedbackYE) }}
@@ -1177,6 +1371,9 @@
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
                     <th width="{{ column4or5 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                    {% if (formProgress == 'my') %}
+                        <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Mid-Year Assessment</th>
+                    {% endif %}
                     {% if (formProgress == 'ye') %}
                         <th width="{{ column4or5 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
                     {% endif %}
@@ -1213,6 +1410,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.sc1Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.sc1FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sc1FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1259,6 +1465,15 @@
                                 {{ formDataCdp.sc2Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.sc2FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sc2FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc2FeedbackYE) }}
@@ -1301,6 +1516,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.sc3Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.sc3FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sc3FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1347,6 +1571,15 @@
                                 {{ formDataCdp.sc4Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.sc4FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sc4FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc4FeedbackYE) }}
@@ -1391,6 +1624,15 @@
                                 {{ formDataCdp.sc5Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.sc5FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.sc5FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.sc5FeedbackYE) }}
@@ -1415,6 +1657,9 @@
                     <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">How<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you do this?</span></th>
                     <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Success<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">How will you know if you succeeded?</span></th>
                     <th width="{{ column5or6 }}" style="border: none; background-color: #EEEEEE;">Needs<br><span style="font-weight: normal; font-style: italic; font-size: smaller;">What do you need (training, knowledge sharing, books, tools, etc.)?</span></th>
+                    {% if (formProgress == 'my') %}
+                        <th width="{{ column5or6 }}" style="border: none; background-color: #80B441;">Mid-Year Assessment</th>
+                    {% endif %}
                     {% if (formProgress == 'ye') %}
                         <th width="{{ column5or6 }}" style="border: none; background-color: #80B441;">Year-End Assessment</th>
                     {% endif %}
@@ -1456,6 +1701,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.oc1Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.oc1FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.oc1FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1508,6 +1762,15 @@
                                 {{ formDataCdp.oc2Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.oc2FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.oc2FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc2FeedbackYE) }}
@@ -1556,6 +1819,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.oc3Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.oc3FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.oc3FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1608,6 +1880,15 @@
                                 {{ formDataCdp.oc4Needs }}<br><br>
                             </td>
                             <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.oc4FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.oc4FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
                                 {% if (formProgress == 'ye') %}
                                     {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
                                         {{ form_widget(formForm.oc4FeedbackYE) }}
@@ -1656,6 +1937,15 @@
                             </td>
                             <td>
                                 {{ formDataCdp.oc5Needs }}<br><br>
+                            </td>
+                            <td>
+                                {% if (formProgress == 'my') %}
+                                    {% if ((userType == 'user') and ((formAction == 'edit') or (formAction == "create"))) %}
+                                        {{ form_widget(formForm.oc5FeedbackMY) }}
+                                    {% else %}
+                                        {{ formDataMy.oc5FeedbackMY }}
+                                    {% endif %}
+                                {% endif %}
                             </td>
                             <td>
                                 {% if (formProgress == 'ye') %}
@@ -1729,10 +2019,36 @@
         </div>
     {% endif %}
 
+    <!-- MID-YEAR RATING -->
+    {% if (formProgress == 'my') %}
+        <div id="myRating" class="row" style="padding-top: 40px;">
+            <div class="col-md-6">
+                <h3>Mid-Year Rating</h3>
+                {% if ((userType == 'user') and (formAction == 'view') and (formDataMy.myStatus.id == '8')) %}
+                    <hr>
+                    {{ formDataMy.myRating }}
+                    {% elseif ((userType == 'supervisor') or (userType == 'board') or (userType == 'hr')) %}
+                    <span style="font-style: italic;">Select the Mid-Year rating for this employee</span>
+                <hr>
+
+                    <p>
+                        {% if ((formAction == 'view') or (userType == 'board')) %}
+                            {{ formDataMy.myRating }}
+                        {% else %}
+                            {{ form_widget(formForm.myRating) }}
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <script type="text/javascript">
+                        document.getElementById('myRating').style.display = 'none';
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 
     <!-- YEAR-END RATING -->
     {% if (formProgress == 'ye') %}
-        <!-- YEAR-END RATING -->
         <div id="yeRating" class="row" style="padding-top: 40px;">
                 <div class="col-md-6">
                     <h3>Year-End Rating</h3>
