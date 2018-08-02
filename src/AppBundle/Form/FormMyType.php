@@ -71,16 +71,16 @@ class FormMyType extends AbstractType
                     $form = $event->getForm();
 
                     // SELF ASSESSMENT
-                    if ($formData->getSa2CoreQuality() != null) {
+                    if ($formData->getSa2CoreQuality() != null or $formData->getSa2Pitfall() != null or $formData->getSa2Challenge() != null) {
                         $form->add('sa2FeedbackMY');
                     }
-                    if ($formData->getSa3CoreQuality() != null) {
+                    if ($formData->getSa3CoreQuality() != null or $formData->getSa3Pitfall() != null or $formData->getSa3Challenge() != null) {
                         $form->add('sa3FeedbackMY');
                     }
-                    if ($formData->getSa4CoreQuality() != null) {
+                    if ($formData->getSa4CoreQuality() != null or $formData->getSa4Pitfall() != null or $formData->getSa4Challenge() != null) {
                         $form->add('sa4FeedbackMY');
                     }
-                    if ($formData->getSa5CoreQuality() != null) {
+                    if ($formData->getSa5CoreQuality() != null or $formData->getSa5Pitfall() != null or $formData->getSa5Challenge() != null) {
                         $form->add('sa5FeedbackMY');
                     }
 
