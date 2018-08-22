@@ -71,16 +71,16 @@ class FormMyType extends AbstractType
                     $form = $event->getForm();
 
                     // SELF ASSESSMENT
-                    if ($formData->getSa2CoreQuality() != null or $formData->getSa2Pitfall() != null or $formData->getSa2Challenge() != null) {
+                    if (($formData->getSa2CoreQuality() != null) or ($formData->getSa2CoreQualityDesc() != null) or ($formData->getSa2Pitfall() != null) or ($formData->getSa2PitfallDesc() != null) or ($formData->getSa2Challenge() != null) or ($formData->getSa2ChallengeDesc() != null) or ($formData->getSa2How() != null) or ($formData->getSa2Success() != null) or ($formData->getSa2Needs() != null)) {
                         $form->add('sa2FeedbackMY');
                     }
-                    if ($formData->getSa3CoreQuality() != null or $formData->getSa3Pitfall() != null or $formData->getSa3Challenge() != null) {
+                    if (($formData->getSa3CoreQuality() != null) or ($formData->getSa3CoreQualityDesc() != null) or ($formData->getSa3Pitfall() != null) or ($formData->getSa3PitfallDesc() != null) or ($formData->getSa3Challenge() != null) or ($formData->getSa3ChallengeDesc() != null) or ($formData->getSa3How() != null) or ($formData->getSa3Success() != null) or ($formData->getSa3Needs() != null)) {
                         $form->add('sa3FeedbackMY');
                     }
-                    if ($formData->getSa4CoreQuality() != null or $formData->getSa4Pitfall() != null or $formData->getSa4Challenge() != null) {
+                    if (($formData->getSa4CoreQuality() != null) or ($formData->getSa4CoreQualityDesc() != null) or ($formData->getSa4Pitfall() != null) or ($formData->getSa4PitfallDesc() != null) or ($formData->getSa4Challenge() != null) or ($formData->getSa4ChallengeDesc() != null) or ($formData->getSa4How() != null) or ($formData->getSa4Success() != null) or ($formData->getSa4Needs() != null)) {
                         $form->add('sa4FeedbackMY');
                     }
-                    if ($formData->getSa5CoreQuality() != null or $formData->getSa5Pitfall() != null or $formData->getSa5Challenge() != null) {
+                    if (($formData->getSa5CoreQuality() != null) or ($formData->getSa5CoreQualityDesc() != null) or ($formData->getSa5Pitfall() != null) or ($formData->getSa5PitfallDesc() != null) or ($formData->getSa5Challenge() != null) or ($formData->getSa5ChallengeDesc() != null) or ($formData->getSa5How() != null) or ($formData->getSa5Success() != null) or ($formData->getSa5Needs() != null)) {
                         $form->add('sa5FeedbackMY');
                     }
 
